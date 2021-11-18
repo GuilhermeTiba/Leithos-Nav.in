@@ -1,14 +1,11 @@
 import "dotenv/config"
-import express, { Request, Response } from "express";
-
+import express from "express";
+import { router } from "./routes/router";
 
 const app = express()
 
 app.use(express.json())
-
-app.get("/", (req :Request, res: Response) => {
-  res.json("Working")
-})
+app.use(router)
 
 app.listen(4321, ()=>{
   console.log("Server listening on port 4321...")

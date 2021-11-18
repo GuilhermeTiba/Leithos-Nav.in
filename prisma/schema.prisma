@@ -8,9 +8,9 @@ generator client {
 }
 
 model User{
-  id_user String @id @default(uuid())
-  email_user String @unique
-  password_user String
+  id String @id @default(uuid())
+  email String @unique
+  password String
   phone String
   type  user_type @default(USER)
 
@@ -18,18 +18,20 @@ model User{
 }
 
 model Patient{
-  id_patient String @id @default(uuid())
-  name_patient String
-  ssn_patient String
-  description_patient String
+  id String @id @default(uuid())
+  name String
+  ssn String
+  description String
+  additional_informations String
   exit_date DateTime @default(now())
   entry_date DateTime @default(now())
+
 
   @@map("patients")
 }
 
 model Beds{
-  id_beds String @id @default(uuid())
+  id String @id @default(uuid())
   sector Int
   status Int
   status_changed_date DateTime @default(now())
