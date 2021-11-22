@@ -9,6 +9,8 @@ generator client {
 
 model User{
   id String @id @default(uuid())
+  first_name String
+  last_name String
   email String @unique
   password String
   phone String
@@ -19,7 +21,9 @@ model User{
 
 model Patient{
   id String @id @default(uuid())
-  name String
+  sex sex
+  first_name String
+  last_name String
   ssn String
   description String
   additional_informations String
@@ -32,8 +36,8 @@ model Patient{
 
 model Beds{
   id String @id @default(uuid())
-  sector Int
-  status Int
+  section Int
+  status beds_status @default(AVAILABLE)
   status_changed_date DateTime @default(now())
   type beds_type
 
@@ -45,12 +49,23 @@ enum user_type{
  USER
 }
 
-enum beds_type{
+enum beds_status{
   CLEANING_NEEDED
-  ISOLATED
   MAINTANENCE_NEEDED
   MAINTANENCE
   CLEANING
   AVAILABLE
   OCUPIED
+}
+
+enum beds_type{
+  ISOLATED
+  ROOM
+  COMMON
+  UTI
+}
+
+enum sex{
+  MALE
+  FEMALE
 }

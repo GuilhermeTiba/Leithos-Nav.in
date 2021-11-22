@@ -1,20 +1,23 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-import { getPrismaClient } from "@prisma/client/runtime";
-import { v4 as uuidv4} from 'uuid';
+import { Prisma, PrismaClient } from "@prisma/client"
+import { genSalt, hash } from "bcrypt"
 
-const prisma = new PrismaClient();
-const v4 = uuidv4();
+const prisma = new PrismaClient()
 
-const createUser = async() => {
-   await prisma.user.create({
-  data: {
-    id : uuidv4(),
-    email: 'guitib2000@gmail.com',
-    password: 'loominav.in2021',
-    phone: '81992674929',
-    type: 'USER'
-  },
-});
-};
+export async function createUser (req, res){
+  const {first_name, last_name, email, phone, type} = req.body
 
-export { createUser }
+  const salt = await genSalt()
+  const password = await hash(req.body.password, salt)
+
+  const createUser = await prisma.user.create({
+    data:{
+      first_name,
+      last_name,
+      email,
+      password,
+      phone,
+      type
+    }
+  })
+  res.json(createUser)
+}
