@@ -1,8 +1,9 @@
 import path from "path";
 import { Router } from "express";
-import { Prisma , PrismaClient } from ".prisma/client";
-import { checkUserPassword } from "../controllers/checkPasswordController";
+import { PrismaClient } from ".prisma/client";
+import { checkUserCredencials } from "../controllers/authPasswordController";
 import { createUser } from "../controllers/createUserController";
+import { authenticateToken } from "../middleware/authenticateToken";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -13,6 +14,6 @@ router.get('/register', (req, res) => {
 
 router.post('/register', createUser)
 
-router.post('/login', checkUserPassword)
+router.post('/login', authenticateToken, checkUserCredencials)
 
 export {router}

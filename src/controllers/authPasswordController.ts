@@ -1,9 +1,10 @@
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { compare } from "bcrypt"
+import { generateAccessToken } from "./generateAccessToken"
 
 const prisma = new PrismaClient()
 
-export async function checkUserPassword (req, res, next){
+export async function checkUserCredencials (req, res, next){
   const { email, password } = req.body
   const findUserPassword = await prisma.user.findUnique({
     where: {
@@ -13,7 +14,8 @@ export async function checkUserPassword (req, res, next){
 
   try{
     if(await compare(password, findUserPassword.password)){
-      res.send('Success')
+      const accessToken = generateAccessToken({ email })
+      res.json({ accessToken })
     } else {
       res.send('Not Allowed')
     }
@@ -22,3 +24,4 @@ export async function checkUserPassword (req, res, next){
     res.status(500).send()
   }
 }
+
