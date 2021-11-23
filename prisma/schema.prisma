@@ -29,19 +29,28 @@ model Patient{
   additional_informations String
   exit_date DateTime @default(now())
   entry_date DateTime @default(now())
-
+  bed Beds @relation(fields: [bedId], references: [id])
+  bedId String
 
   @@map("patients")
 }
 
 model Beds{
   id String @id @default(uuid())
-  section Int
+  name String @unique
   status beds_status @default(AVAILABLE)
   status_changed_date DateTime @default(now())
   type beds_type
+  section Section @relation(fields: [sectionId], references: [id])
+  sectionId String
+  patient Patient?
 
   @@map("beds")
+}
+
+model Section{
+  id String @id @default(uuid())
+  beds Beds[]
 }
 
 enum user_type{
