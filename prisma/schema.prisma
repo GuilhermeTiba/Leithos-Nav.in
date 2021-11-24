@@ -1,0 +1,80 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User{
+  id String @id @default(uuid())
+  first_name String
+  last_name String
+  email String @unique
+  password String
+  phone String
+  type  user_type @default(USER)
+
+  @@map("users")
+}
+
+model Patient{
+  id String @id @default(uuid())
+  sex sex
+  first_name String
+  last_name String
+  ssn String
+  description String
+  additional_informations String
+  exit_date DateTime @default(now())
+  entry_date DateTime @default(now())
+  bed Beds @relation(fields: [bedId], references: [id])
+  bedId String
+
+  @@map("patients")
+}
+
+model Beds{
+  id String @id @default(uuid())
+  name String @unique
+  status beds_status @default(AVAILABLE)
+  status_changed_date DateTime @default(now())
+  type beds_type
+  section Section @relation(fields: [sectionId], references: [id])
+  sectionId String
+  patient Patient?
+
+  @@map("beds")
+}
+
+model Section{
+  id String @id
+  beds Beds[]
+}
+
+enum user_type{
+ ADMIN
+ USER
+}
+
+enum beds_status{
+  CLEANING_NEEDED
+  MAINTANENCE_NEEDED
+  MAINTANENCE
+  CLEANING
+  AVAILABLE
+  OCUPIED
+}
+
+enum beds_type{
+  ISOLATED
+  ROOM
+  COMMON
+  UTI
+}
+
+enum sex{
+  MALE
+  FEMALE
+}
