@@ -4,7 +4,7 @@ import { checkUserCredencials } from "../controllers/authPasswordController";
 import { createUser } from "../controllers/userController";
 import { authenticateToken } from "../middleware/authenticateToken";
 import { createBeds, allBeds, availableBedsQuantity, bedsPerSection, occupiedBedsQuantity} from "../controllers/bedsController";
-import { createSection } from "../controllers/sectionController";
+import { createSection, findAllSections } from "../controllers/sectionController";
 
 
 
@@ -17,6 +17,9 @@ router.get('/register', (req, res) => {
 router.get('/occupiedBeds', authenticateToken, occupiedBedsQuantity)
 router.get('/availableBeds', authenticateToken, availableBedsQuantity)
 router.get('/allBeds', authenticateToken, allBeds)
+
+router.get('/findAllSections', authenticateToken, findAllSections)
+
 router.post('/bedsPerSection', authenticateToken, bedsPerSection)
 
 router.post('/register', createUser)
