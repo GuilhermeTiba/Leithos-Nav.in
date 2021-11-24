@@ -14,7 +14,7 @@ export async function createSection(req, res) {
 
 
 export async function findAllSections(req, res) {
-  const {id} = req.body
+
   const section = await prisma.section.findMany()
 
   res.json(section)

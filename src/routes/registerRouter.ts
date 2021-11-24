@@ -3,7 +3,7 @@ import { Router } from "express";
 import { checkUserCredencials } from "../controllers/authPasswordController";
 import { createUser } from "../controllers/userController";
 import { authenticateToken } from "../middleware/authenticateToken";
-import { createBeds, allBeds, availableBedsQuantity, bedsPerSection, occupiedBedsQuantity} from "../controllers/bedsController";
+import { createBeds, allBeds, availableBedsQuantity, bedsPerSection, occupiedBedsQuantity, updateBed, deleteBed} from "../controllers/bedsController";
 import { createSection, findAllSections } from "../controllers/sectionController";
 
 
@@ -28,5 +28,9 @@ router.post('/login', checkUserCredencials)
 router.post('/createBeds', authenticateToken, createBeds)
 
 router.post('/createSection', authenticateToken, createSection )
+
+router.put('/updateBed', authenticateToken, updateBed)
+
+router.delete('/deleteBed', authenticateToken, deleteBed)
 
 export {router}
