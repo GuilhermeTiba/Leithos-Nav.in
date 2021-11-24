@@ -1,10 +1,11 @@
 import path from "path";
 import { Router } from "express";
 import { checkUserCredencials } from "../controllers/authPasswordController";
-import { createUser } from "../controllers/createUserController";
+import { createUser } from "../controllers/userController";
 import { authenticateToken } from "../middleware/authenticateToken";
-import { createBeds } from "../controllers/createBedsController";
-import { allBeds, availableBedsQuantity, bedsPerSection, occupiedBedsQuantity } from "../controllers/bedsController";
+import { createBeds, allBeds, availableBedsQuantity, bedsPerSection, occupiedBedsQuantity} from "../controllers/bedsController";
+import { createSection } from "../controllers/sectionController";
+
 
 
 const router = Router();
@@ -22,5 +23,7 @@ router.post('/register', createUser)
 router.post('/login', checkUserCredencials)
 
 router.post('/createBeds', authenticateToken, createBeds)
+
+router.post('/createSection', authenticateToken, createSection )
 
 export {router}

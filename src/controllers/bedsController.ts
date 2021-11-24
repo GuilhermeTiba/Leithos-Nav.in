@@ -2,6 +2,19 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+export async function createBeds(req, res) {
+  const {section, status, type, name} = req.body
+  const bed = await prisma.beds.create({
+    data:{
+      name,
+      section,
+      status,
+      type
+    },
+  })
+  res.json(bed)
+}
+
 export async function availableBedsQuantity(req, res){
   const availableBeds = await prisma.beds.findMany({
   where:{
@@ -145,4 +158,17 @@ export async function maintenenceBedsPerSection(req, res){
   }
   })
   res.json(maintanenceBedsPerSection)
+}
+
+export async function getBedStatus(req, res){
+  const { id } = req.body
+  const getBedStatus = await prisma.beds.findUnique({
+  where:{
+    id: id
+  },
+  select:{
+    status: true
+  }
+  })
+  res.json(getBedStatus)
 }

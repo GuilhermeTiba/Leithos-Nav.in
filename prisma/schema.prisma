@@ -49,7 +49,7 @@ model Beds{
 }
 
 model Section{
-  id String @id @default(uuid())
+  id String @id
   beds Beds[]
 }
 
