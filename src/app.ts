@@ -11,6 +11,6 @@ app.use(express.json());
 app.use('', registerRouter);
 app.use('/dashboard', dashboardRouter)
 
-app.listen(4321, ()=>{
+app.listen(process.env.PORT || 4321, ()=>{
   console.log("Server listening on port 4321...")
 })
