@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllSections = exports.createSection = void 0;
+exports.getbedsStatsPerSection = exports.getBedsPerSection = exports.getAllSections = exports.createSection = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 async function createSection(req, res) {
@@ -18,3 +18,111 @@ async function getAllSections(req, res) {
     res.json(section);
 }
 exports.getAllSections = getAllSections;
+async function getBedsPerSection(req, res) {
+    const { section } = req.body;
+    const bedsPerSection = await prisma.beds.findMany({
+        where: {
+            sectionId: section
+        }
+    });
+    res.send({
+        bedsPerSection
+    });
+}
+exports.getBedsPerSection = getBedsPerSection;
+async function getBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const bedsPerSection = await prisma.beds.count({
+        where: {
+            sectionId: section
+        }
+    });
+    res.send({
+        bedsPerSection
+    });
+}
+async function getAvailableBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const availableBedsPerSection = await prisma.beds.count({
+        where: {
+            status: 'AVAILABLE',
+            sectionId: section
+        }
+    });
+    res.send({
+        availableBedsPerSection
+    });
+}
+async function getOccupiedBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const occupiedBedsPerSection = await prisma.beds.count({
+        where: {
+            status: 'OCCUPIED',
+            sectionId: section
+        }
+    });
+    res.send({
+        occupiedBedsPerSection
+    });
+}
+async function getNeedCleaningBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const needCleaningBedsPerSection = await prisma.beds.count({
+        where: {
+            sectionId: section,
+            status: 'CLEANING_NEEDED'
+        }
+    });
+    res.send({
+        needCleaningBedsPerSection
+    });
+}
+async function getNeedMaintanenceBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const needMaintanenceBedsPerSection = await prisma.beds.count({
+        where: {
+            status: 'MAINTANENCE_NEEDED',
+            sectionId: section
+        }
+    });
+    res.send({
+        needMaintanenceBedsPerSection
+    });
+}
+async function getCleaningBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const cleaningBedsPerSection = await prisma.beds.count({
+        where: {
+            status: 'CLEANING',
+            sectionId: section
+        }
+    });
+    res.send({
+        cleaningBedsPerSection
+    });
+}
+async function getMaintenenceBedsPerSectionQuantity(req, res) {
+    const { section } = req.body;
+    const maintanenceBedsPerSection = await prisma.beds.count({
+        where: {
+            status: 'MAINTANENCE',
+            sectionId: section
+        }
+    });
+    res.send({
+        maintanenceBedsPerSection
+    });
+}
+async function getbedsStatsPerSection(req, res) {
+    const { status, section } = req.body;
+    const bedsStatsPerSection = await prisma.beds.count({
+        where: {
+            status: status,
+            sectionId: section
+        }
+    });
+    res.send({
+        bedsStatsPerSection
+    });
+}
+exports.getbedsStatsPerSection = getbedsStatsPerSection;
