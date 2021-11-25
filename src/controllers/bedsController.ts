@@ -27,7 +27,7 @@ async function getAvailableBedsQuantity(){
 async function getOccupiedBedsQuantity(){
   const occupiedBedsQuantity = await prisma.beds.count({
   where:{
-    status: 'OCUPIED'
+    status: 'OCCUPIED'
   }
   })
 
@@ -118,7 +118,7 @@ export async function getOccupiedBedsPerSection(req, res){
   const { section } = req.body
   const occupiedBedsPerSection = await prisma.beds.findMany({
   where:{
-    status: 'OCUPIED',
+    status: 'OCCUPIED',
     sectionId: section
   }
   })

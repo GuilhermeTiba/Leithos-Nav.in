@@ -6,8 +6,6 @@ import { authenticateToken } from "../middleware/authenticateToken";
 import { createBeds, getBedsPerSection, updateBed, deleteBed, getBedsPercentage} from "../controllers/bedsController";
 import { createSection, getAllSections } from "../controllers/sectionController";
 
-
-
 const router = Router();
 
 router.get('/register', (req, res) => {
@@ -31,4 +29,4 @@ router.put('/updateBed', authenticateToken, updateBed)
 
 router.delete('/deleteBed', authenticateToken, deleteBed)
 
-export {router}
+module.exports = router
