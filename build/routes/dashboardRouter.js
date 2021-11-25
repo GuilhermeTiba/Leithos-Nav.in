@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const client_1 = require(".prisma/client");
+const bedsController_1 = require("../controllers/bedsController");
+const authenticateToken_1 = require("../middleware/authenticateToken");
+const prisma = new client_1.PrismaClient();
+const router = (0, express_1.Router)();
+router.get('/bedsPercentagePerStatus', authenticateToken_1.authenticateToken, bedsController_1.getBedsPercentage);
+module.exports = router;
