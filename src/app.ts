@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 const cors = require('cors')
-const registerRouter = require('../src/routes/registerRouter')
-const dashboardRouter = require('../src/routes/dashboardRouter')
+const registerRouter = require('./routes/registerRouter')
+const dashboardRouter = require('./routes/dashboardRouter')
 
 const app = express();
 
