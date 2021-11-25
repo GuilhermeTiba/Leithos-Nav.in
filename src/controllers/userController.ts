@@ -21,3 +21,13 @@ export async function createUser (req, res){
   })
   res.json(createUser)
 }
+
+export async function getUserProfile(req, res) {
+  const {id} = req.body
+  const userProfile = prisma.user.findUnique({
+    where: {
+      id: id
+    }
+  })
+  res.json(userProfile)
+}

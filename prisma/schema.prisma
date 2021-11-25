@@ -64,7 +64,7 @@ enum beds_status{
   MAINTANENCE
   CLEANING
   AVAILABLE
-  OCUPIED
+  OCCUPIED
 }
 
 enum beds_type{

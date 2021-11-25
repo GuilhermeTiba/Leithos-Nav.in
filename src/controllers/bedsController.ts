@@ -15,149 +15,168 @@ export async function createBeds(req, res) {
   res.json(bed)
 }
 
-export async function availableBedsQuantity(req, res){
-  const availableBeds = await prisma.beds.findMany({
+async function getAvailableBedsQuantity(){
+  const availableBedsQuantity = await prisma.beds.count({
   where:{
     status: 'AVAILABLE'
   }
   })
-  res.json(availableBeds.length)
+  return availableBedsQuantity
 }
 
-export async function occupiedBedsQuantity(req, res){
-  const occupiedBeds = await prisma.beds.findMany({
+async function getOccupiedBedsQuantity(){
+  const occupiedBedsQuantity = await prisma.beds.count({
   where:{
-    status: 'OCUPIED'
+    status: 'OCCUPIED'
   }
   })
-  res.json(occupiedBeds.length)
+
+  return occupiedBedsQuantity
+  //res.json(occupiedBedsQuantity)
 }
 
-export async function cleaningBedsQuantity(req, res){
+
+async function getCleaningBedsQuantity(){
   const cleaningBeds = await prisma.beds.findMany({
   where:{
     status: 'CLEANING'
   }
   })
-  res.json(cleaningBeds.length)
+  return cleaningBeds
 }
 
-export async function needCleaningBedsQuantity(req, res){
+async function getNeedCleaningBedsQuantity(){
   const needCleaningBeds = await prisma.beds.findMany({
   where:{
     status: 'CLEANING_NEEDED'
   }
   })
-  res.json(needCleaningBeds.length)
+  return needCleaningBeds
 }
 
-export async function maintanenceBedsQuantity(req, res){
+async function getMaintanenceBedsQuantity(){
   const maintanenceBeds = await prisma.beds.findMany({
   where:{
     status: 'MAINTANENCE'
   }
   })
-  res.json(maintanenceBeds.length)
+  return maintanenceBeds
 }
 
-export async function needMaintanenceBedsQuantity(req, res){
+async function getNeedMaintanenceBedsQuantity(){
   const needMaintanenceBeds = await prisma.beds.findMany({
   where:{
     status: 'MAINTANENCE_NEEDED'
   }
   })
-  res.json(needMaintanenceBeds.length)
+  return needMaintanenceBeds
 }
 
-export async function allBeds(req, res){
+async function getAllBeds(){
   const allBeds = await prisma.beds.findMany()
-  res.json(allBeds)
+  return allBeds
 }
 
-export async function bedsPerSection(req, res){
+export async function getBedsPerSection(req, res){
   const { section } = req.body
   const bedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section
+    sectionId: section
   }
   })
-  res.json(bedsPerSection)
+  res.send({
+    bedsPerSection
+  })
 }
 
-export async function bedsPerSectionQuantity(req, res){
+export async function getBedsPerSectionQuantity(req, res){
   const { section } = req.body
-  const bedsPerSection = await prisma.beds.findMany({
+  const bedsPerSection = await prisma.beds.count({
   where:{
-    section: section
+    sectionId: section
   }
   })
-  res.json(bedsPerSection.length)
+  res.send({
+    bedsPerSection 
+  })
 }
 
-export async function availableBedsPerSectionQuantity(req, res){
+export async function getAvailableBedsPerSectionQuantity(req, res){
   const { section } = req.body
-  const bedsPerSection = await prisma.beds.findMany({
+  const availableBedsPerSection = await prisma.beds.count({
   where:{
     status: 'AVAILABLE',
-    section: section
+    sectionId: section
   }
   })
-  res.json(bedsPerSection.length)
+  res.send({
+    availableBedsPerSection
+  })
 }
 
-export async function occupiedBedsPerSection(req, res){
+export async function getOccupiedBedsPerSection(req, res){
   const { section } = req.body
   const occupiedBedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section,
-    status: 'OCUPIED'
+    status: 'OCCUPIED',
+    sectionId: section
   }
   })
-  res.json(occupiedBedsPerSection)
+  res.send({
+    occupiedBedsPerSection
+  })
 }
 
-export async function needCleaningBedsPerSection(req, res){
+export async function getNeedCleaningBedsPerSection(req, res){
   const { section } = req.body
   const needCleaningBedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section,
+    sectionId: section,
     status: 'CLEANING_NEEDED'
   }
   })
-  res.json(needCleaningBedsPerSection)
+  res.send({
+    needCleaningBedsPerSection
+  })
 }
 
-export async function needMaintanenceBedsPerSection(req, res){
+export async function getNeedMaintanenceBedsPerSection(req, res){
   const { section } = req.body
   const needMaintanenceBedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section,
-    status: 'MAINTANENCE_NEEDED'
+    status: 'MAINTANENCE_NEEDED',
+    sectionId: section
   }
   })
-  res.json(needMaintanenceBedsPerSection)
+  res.send({
+    needMaintanenceBedsPerSection
+  })
 }
 
-export async function cleaningBedsPerSection(req, res){
+export async function getCleaningBedsPerSection(req, res){
   const { section } = req.body
   const CleaningBedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section,
-    status: 'CLEANING'
+    status: 'CLEANING',
+    sectionId: section
   }
   })
-  res.json(CleaningBedsPerSection)
+  res.send({
+    CleaningBedsPerSection
+  })
 }
 
-export async function maintenenceBedsPerSection(req, res){
+export async function getMaintenenceBedsPerSection(req, res){
   const { section } = req.body
   const maintanenceBedsPerSection = await prisma.beds.findMany({
   where:{
-    section: section,
-    status: 'MAINTANENCE'
+    status: 'MAINTANENCE',
+    sectionId: section
   }
   })
-  res.json(maintanenceBedsPerSection)
+  res.send({
+    maintanenceBedsPerSection
+  })
 }
 
 export async function getBedStatus(req, res){
@@ -166,9 +185,58 @@ export async function getBedStatus(req, res){
   where:{
     id: id
   },
-  select:{
-    status: true
-  }
   })
-  res.json(getBedStatus)
+  res.send({
+    getBedStatus
+  })
+}
+
+export async function updateBed(req, res){
+  const { id, status, section, name } = req.body
+  const updateBedStatus = await prisma.beds.update({
+    where:{
+      id: id
+    },
+    data:{ 
+      status: status,
+      sectionId: section,
+      name: name
+    }
+  })
+  res.send({
+    updateBedStatus
+  })
+}
+
+
+
+export async function deleteBed(req, res){
+  const { id } = req.body
+  const deleteBed = await prisma.beds.delete({
+    where:{
+      id: id
+    }
+  })
+  res.send({
+    deleteBed
+  })
+}
+
+export async function getBedsPercentage(req, res){
+  const availableBedsQuantity = await getAvailableBedsQuantity()
+  const occupiedBedsQuantity = await getOccupiedBedsQuantity()
+  const getAllBedsQuantity = await (await getAllBeds()).length
+  res.send({
+    availableBedsQuantity,
+    occupiedBedsQuantity,
+    getAllBedsQuantity 
+  })
+}
+
+export async function occupiedBedsQuantity(req, res){
+  const occupiedBedsQtd = getOccupiedBedsQuantity()
+
+  res.send({
+    occupiedBedsQtd
+  })
 }

@@ -13,8 +13,8 @@ export async function createSection(req, res) {
 }
 
 
-export async function findAllSections(req, res) {
-  const {id} = req.body
+export async function getAllSections(req, res) {
+
   const section = await prisma.section.findMany()
 
   res.json(section)
