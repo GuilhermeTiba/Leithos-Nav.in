@@ -104,16 +104,11 @@ export const FormFields = styled.div`
 `;
 
 export const FieldsWrapp = styled.div`
-    display: ${({open}) => (open ? 'none' : 'flex' )};
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
 `;
 
-export const FieldsNewPassword = styled.div`
-    display: ${({open})=> (open ? 'flex' : 'none' )};
-    flex-direction: column;
-    justify-content: flex-start;
-`;
 
 export const ButtonWrapp = styled.div`
     display: flex;

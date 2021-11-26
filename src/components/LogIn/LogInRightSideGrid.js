@@ -12,8 +12,6 @@ import {
     InputPassword,
     IconButton1,
     IconButton2,
-    FieldsNewPassword,
-    ButtonForgotPassword,
     ButtonWrapp,
     ButtonSignIn
 } from './LogIn.styles';
@@ -25,7 +23,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 const RigthSide = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('')
-    const [active, toggle] = useState(false);
+    //const [active, toggle] = useState(false);
     const [activeIcon, setActiveIcon] = useState(false);
     const [list, setList] = useState([]);
 
@@ -43,10 +41,6 @@ const RigthSide = () => {
         console.log(list)
     }
 
-    const HandleForgotPassword = () => {
-        toggle(!active);
-    }
-
     const HandleIconPassword = (e) => {
         e.preventDefault();
         setActiveIcon(!activeIcon);
@@ -61,7 +55,7 @@ const RigthSide = () => {
                             </FormLogoWrap>
                             <FormFields >
                                 
-                                <FieldsWrapp open = {active}>
+                                <FieldsWrapp>
                                     <InputLogin type="text" placeholder="Login" name="uname" required value={name} onChange={(e) => setName(e.target.value)}/>
                                     <IconView>
                                         <InputPassword type={activeIcon ? 'text': 'password'} placeholder={"Senha"} name="psw" required value={password} onChange={(e)=> setPassword(e.target.value)}/>
@@ -69,17 +63,6 @@ const RigthSide = () => {
                                         <IconButton2 display={activeIcon} onClick={HandleIconPassword}><AiOutlineEyeInvisible/></IconButton2>
                                     </IconView>
                                 </FieldsWrapp>
-
-                                <FieldsNewPassword open = {active}>
-                                    <InputLogin type="text" placeholder="Nova senha" name="uname" required value={password} onChange={(e) => setName(e.target.value)}/>
-                                    <IconView>
-                                        <InputPassword type="text" placeholder="Confirmar senha" name="psw" required value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                                        <IconButton1 display={activeIcon} onClick={HandleIconPassword}><AiOutlineEye/></IconButton1>
-                                        <IconButton2 display={activeIcon} onClick={HandleIconPassword}><AiOutlineEyeInvisible/></IconButton2>
-                                    </IconView>
-                                </FieldsNewPassword>
-
-                                <ButtonForgotPassword type="button" onClick={HandleForgotPassword}>Esqueci a senha</ButtonForgotPassword>
 
                                 <ButtonWrapp>
                                     <ButtonSignIn type="submit" onClick={HandleSignIn}>Entrar</ButtonSignIn>

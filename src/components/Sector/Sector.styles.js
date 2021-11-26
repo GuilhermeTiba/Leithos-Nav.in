@@ -158,7 +158,7 @@ export const Data = styled.div`
     export const Leitos = styled.div`
         display: flex;
         margin: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         align-self: flex-start;
     `;
 
@@ -169,13 +169,17 @@ export const Data = styled.div`
         border-radius: 18px;
         opacity: 0.6;
         margin-right: 4px;
-        max-width: 40px;
+        min-width: 45px;
+        max-width: 46px;
+        min-height: 45px;
+        max-height: 46px;
         padding: 5px 28px;
         text-align: center;
         line-height: 1.5;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: bold;
         cursor: default;
+        text-align: center;
     `;
 
     export const StatusIcon = styled.button`
@@ -263,9 +267,9 @@ export const Data = styled.div`
 //POPUPS
 
 export const PopUp = styled.div`
-    display: ${({active}) => (active ? 'block' : 'none')};
+    display: ${({active, active2}) => (active || active2 ? 'block' : 'none')};
     z-index: 1;
-    position: fixed;
+    position: absolute;
     background-color: white;
     box-shadow: 0px 3px 50px #0000001A;
     border: none;
@@ -275,8 +279,8 @@ export const PopUp = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    height: 280px;
-    width: 550px;
+    height: ${({active2}) => (active2 ? '525px' : '280px')};
+    width: ${({active2}) => (active2 ? '500px' : '550px')};;
     text-align: center;
     padding: 1.2rem 0;
 `;
@@ -388,3 +392,41 @@ export const PopUpCreate = styled.button`
     }
 `;
 
+// Status PopUp
+
+export const PopUpStatus = styled.div`
+    background-color: ${({color}) => (color)};
+    border: none;
+    padding: 4px 60px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+`;
+
+export const PopUpButton = styled.button`
+    text-align: center;
+    letter-spacing: 0px;
+    color: #6045E2;
+    opacity: 1;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #6045E2;
+    border-radius: 8px;
+    opacity: 1;
+    margin-bottom: 0.2rem;
+    font-size: 14px;
+    transition: 5ms all ease-in-out;
+    padding: 4px;
+    font-weight: 500;
+
+    &:hover{
+        background-color: #6045E2;
+        color: white;
+        transition: 5ms all ease-in-out;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #6045E2;
+        color: white;
+    }
+`;

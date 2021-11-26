@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { DashboardWrapp, DashboardLeitos, Legendas, LegColor, AddLeito, LegendaIcon, LegendaTxt, AddLeitoButtonWrapp} from './Sector.styles';
 import { StatusAguardandoLimpeza, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado, StatusAguardandoManutencao } from './SectorStatus';
 import {MdEventAvailable} from 'react-icons/md';
 import {FaBroom} from 'react-icons/fa';
 import {BsFillGearFill} from 'react-icons/bs';
 import {ImBlocked} from 'react-icons/im'
+import Leito from './SectorLeito';
 
-const SectorDashboard = ({setShowPopUpAdd, listLeitos, setListLeitos}) => {
+const SectorDashboard = ({setShowPopUpAdd, listLeitos, setListLeitos, showPopUpStatus, setShowPopUpStatus, dataLeito, setDataLeito}) => {
 
     useEffect( () => {
-        ReactDOM.render(listLeitos, document.getElementById('dashboardleitos'));
+        //ReactDOM.render(listLeitos, document.getElementById('dashboardleitos'));
+        console.log(listLeitos)
     }, [listLeitos]);
 
     const handlePopUp = (e) => {
@@ -21,7 +22,17 @@ const SectorDashboard = ({setShowPopUpAdd, listLeitos, setListLeitos}) => {
     return (
         <>
             <DashboardWrapp>
-                <DashboardLeitos id='dashboardleitos'/>
+                <DashboardLeitos id='dashboardleitos'>
+                    {listLeitos.map(leito => {
+                        return (
+                            <Leito key ={leito.id} {...leito}
+                            setShowPopUpAdd={setShowPopUpAdd} 
+                            setShowPopUpStatus={setShowPopUpStatus} 
+                            showPopUpStatus={showPopUpStatus} 
+                            dataLeito={dataLeito} setDataLeito={setDataLeito} />
+                        )
+                    })}
+                </DashboardLeitos>
                 <AddLeitoButtonWrapp>
                     <AddLeito onClick={handlePopUp}>+</AddLeito>
                 </AddLeitoButtonWrapp>

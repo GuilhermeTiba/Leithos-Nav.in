@@ -1,18 +1,27 @@
-import React from 'react'
 import { Leitos, Nome, StatusIcon } from './Sector.styles'
 
-const Leito = ({colorLeft, colorRight, icon, id, nomeLeito, setShowPopUpAdd, setShowPopUpStatus, showPopUpStatus}) => {
-
+const Leito = ({style, name, setShowPopUpStatus, showPopUpStatus, setDataLeito, dataLeito, status, id}) => {
     const handlePopUpStatus = (e) => {
         e.preventDefault();
-        setShowPopUpStatus(true)
+        setDataLeito(LeitoOject)
+        setShowPopUpStatus(true);
     }
 
+    const LeitoOject = {
+        name: name,
+        id: id,
+        bgText: style.colorLeft,
+        bgIcon: style.colorRight,
+        icon: style.icon,
+        status: status
+    }
+    
+    
     return (
-        <Leitos key={id}>
-            <Nome bgText = {colorLeft}>{nomeLeito}</Nome>
-            <StatusIcon bgIcon = {colorRight} onClick={handlePopUpStatus}> {icon} </StatusIcon>
-        </Leitos>
+            <Leitos key={id}>
+                <Nome bgText = {style.colorLeft}>{name}</Nome>
+                <StatusIcon bgIcon = {style.colorRight} onClick={handlePopUpStatus}> {style.icon} </StatusIcon>
+            </Leitos>
     )
 }
 
