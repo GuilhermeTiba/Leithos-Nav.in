@@ -13,6 +13,6 @@ app.use(cors());
 app.use(express_1.default.json());
 app.use('', registerRouter);
 app.use('/dashboard', dashboardRouter);
-app.listen(process.env.PORT || 80, () => {
+app.listen(process.env.PORT || 4321, () => {
     console.log("Server listening on port 4321...");
 });

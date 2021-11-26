@@ -3,8 +3,8 @@ import { Router } from "express";
 import { checkUserCredencials } from "../controllers/authPasswordController";
 import { createUser } from "../controllers/userController";
 import { authenticateToken } from "../middleware/authenticateToken";
-import { createBeds, getBedsPerSection, updateBed, deleteBed, getBedsPercentage} from "../controllers/bedsController";
-import { createSection, getAllSections } from "../controllers/sectionController";
+import { createBeds, updateBed, deleteBed, allBeds } from "../controllers/bedsController";
+import { createSection, getAllSections, getBedsPerSection} from "../controllers/sectionController";
 
 const router = Router();
 
@@ -12,11 +12,11 @@ router.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, "../../public/index.html"));
 });
 
-router.get('/bedsPercentage', authenticateToken, getBedsPercentage)
-
 router.get('/getAllSections', authenticateToken, getAllSections)
+router.get('/allBeds', authenticateToken, allBeds)
 
 router.post('/bedsPerSection', authenticateToken, getBedsPerSection)
+
 
 router.post('/register', createUser)
 router.post('/login', checkUserCredencials)

@@ -14,9 +14,9 @@ const router = (0, express_1.Router)();
 router.get('/register', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
 });
-router.get('/bedsPercentage', authenticateToken_1.authenticateToken, bedsController_1.getBedsPercentage);
 router.get('/getAllSections', authenticateToken_1.authenticateToken, sectionController_1.getAllSections);
-router.post('/bedsPerSection', authenticateToken_1.authenticateToken, bedsController_1.getBedsPerSection);
+router.get('/allBeds', authenticateToken_1.authenticateToken, bedsController_1.allBeds);
+router.post('/bedsPerSection', authenticateToken_1.authenticateToken, sectionController_1.getBedsPerSection);
 router.post('/register', userController_1.createUser);
 router.post('/login', authPasswordController_1.checkUserCredencials);
 router.post('/createBeds', authenticateToken_1.authenticateToken, bedsController_1.createBeds);

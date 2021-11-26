@@ -37,7 +37,7 @@ async function getOccupiedBedsQuantity(){
 
 
 async function getCleaningBedsQuantity(){
-  const cleaningBeds = await prisma.beds.findMany({
+  const cleaningBeds = await prisma.beds.count({
   where:{
     status: 'CLEANING'
   }
@@ -46,7 +46,7 @@ async function getCleaningBedsQuantity(){
 }
 
 async function getNeedCleaningBedsQuantity(){
-  const needCleaningBeds = await prisma.beds.findMany({
+  const needCleaningBeds = await prisma.beds.count({
   where:{
     status: 'CLEANING_NEEDED'
   }
@@ -55,7 +55,7 @@ async function getNeedCleaningBedsQuantity(){
 }
 
 async function getMaintanenceBedsQuantity(){
-  const maintanenceBeds = await prisma.beds.findMany({
+  const maintanenceBeds = await prisma.beds.count({
   where:{
     status: 'MAINTANENCE'
   }
@@ -64,7 +64,7 @@ async function getMaintanenceBedsQuantity(){
 }
 
 async function getNeedMaintanenceBedsQuantity(){
-  const needMaintanenceBeds = await prisma.beds.findMany({
+  const needMaintanenceBeds = await prisma.beds.count({
   where:{
     status: 'MAINTANENCE_NEEDED'
   }
@@ -75,108 +75,6 @@ async function getNeedMaintanenceBedsQuantity(){
 async function getAllBeds(){
   const allBeds = await prisma.beds.findMany()
   return allBeds
-}
-
-export async function getBedsPerSection(req, res){
-  const { section } = req.body
-  const bedsPerSection = await prisma.beds.findMany({
-  where:{
-    sectionId: section
-  }
-  })
-  res.send({
-    bedsPerSection
-  })
-}
-
-export async function getBedsPerSectionQuantity(req, res){
-  const { section } = req.body
-  const bedsPerSection = await prisma.beds.count({
-  where:{
-    sectionId: section
-  }
-  })
-  res.send({
-    bedsPerSection 
-  })
-}
-
-export async function getAvailableBedsPerSectionQuantity(req, res){
-  const { section } = req.body
-  const availableBedsPerSection = await prisma.beds.count({
-  where:{
-    status: 'AVAILABLE',
-    sectionId: section
-  }
-  })
-  res.send({
-    availableBedsPerSection
-  })
-}
-
-export async function getOccupiedBedsPerSection(req, res){
-  const { section } = req.body
-  const occupiedBedsPerSection = await prisma.beds.findMany({
-  where:{
-    status: 'OCCUPIED',
-    sectionId: section
-  }
-  })
-  res.send({
-    occupiedBedsPerSection
-  })
-}
-
-export async function getNeedCleaningBedsPerSection(req, res){
-  const { section } = req.body
-  const needCleaningBedsPerSection = await prisma.beds.findMany({
-  where:{
-    sectionId: section,
-    status: 'CLEANING_NEEDED'
-  }
-  })
-  res.send({
-    needCleaningBedsPerSection
-  })
-}
-
-export async function getNeedMaintanenceBedsPerSection(req, res){
-  const { section } = req.body
-  const needMaintanenceBedsPerSection = await prisma.beds.findMany({
-  where:{
-    status: 'MAINTANENCE_NEEDED',
-    sectionId: section
-  }
-  })
-  res.send({
-    needMaintanenceBedsPerSection
-  })
-}
-
-export async function getCleaningBedsPerSection(req, res){
-  const { section } = req.body
-  const CleaningBedsPerSection = await prisma.beds.findMany({
-  where:{
-    status: 'CLEANING',
-    sectionId: section
-  }
-  })
-  res.send({
-    CleaningBedsPerSection
-  })
-}
-
-export async function getMaintenenceBedsPerSection(req, res){
-  const { section } = req.body
-  const maintanenceBedsPerSection = await prisma.beds.findMany({
-  where:{
-    status: 'MAINTANENCE',
-    sectionId: section
-  }
-  })
-  res.send({
-    maintanenceBedsPerSection
-  })
 }
 
 export async function getBedStatus(req, res){
@@ -238,5 +136,30 @@ export async function occupiedBedsQuantity(req, res){
 
   res.send({
     occupiedBedsQtd
+  })
+}
+
+export async function getBedsQuantityPerStatus(req, res){
+  const availableBedsQtd = await getAvailableBedsQuantity()
+  const occupiedBedsQtd = await getOccupiedBedsQuantity()
+  const cleaningBedsQtd = await getCleaningBedsQuantity()
+  const needCleaningBedsQtd = await getNeedCleaningBedsQuantity()
+  const maintanenceBedsQtd = await getMaintanenceBedsQuantity()
+  const needMaintanenceBedsQtd = await getNeedMaintanenceBedsQuantity()
+
+  res.send({
+    availableBedsQtd,
+    occupiedBedsQtd,
+    cleaningBedsQtd,
+    needCleaningBedsQtd,
+    maintanenceBedsQtd,
+    needMaintanenceBedsQtd
+  })
+}
+
+export async function allBeds(req, res){
+  const showAllBeds = await getAllBeds()
+  res.send({
+    showAllBeds
   })
 }
