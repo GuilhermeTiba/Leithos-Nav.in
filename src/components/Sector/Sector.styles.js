@@ -110,7 +110,7 @@ export const Data = styled.div`
         z-index: 0;
         padding: 30px 50px;
         border: none;
-        height: 600px;
+        height: 580px;
         max-width: 100%;
         align-content: center;
         display: flex;
@@ -128,7 +128,7 @@ export const Data = styled.div`
     justify-content: stretch;
     grid-area: dashboardLeitos;
     align-content: flex-start;
-    height: 70%;
+    height: 75%;
     overflow-x: auto;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -205,12 +205,13 @@ export const Data = styled.div`
         color: #707070;
         border-radius: 18px;
         opacity: 0.6;
-        width: 150px;
+        width: 180px;
         padding: 5px 28px;
         text-align: center;
         font-size: 30px;
         cursor: pointer;
         height: 52px;
+        margin-top: 1rem;
 
         margin-left: 1rem;
 

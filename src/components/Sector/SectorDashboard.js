@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DashboardWrapp, DashboardLeitos, Legendas, LegColor, AddLeito, LegendaIcon, LegendaTxt, AddLeitoButtonWrapp} from './Sector.styles';
+import { DashboardWrapp, DashboardLeitos, Legendas, LegColor, AddLeito, LegendaIcon, LegendaTxt} from './Sector.styles';
 import { StatusAguardandoLimpeza, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado, StatusAguardandoManutencao } from './SectorStatus';
 import {MdEventAvailable} from 'react-icons/md';
 import {FaBroom} from 'react-icons/fa';
@@ -32,10 +32,10 @@ const SectorDashboard = ({setShowPopUpAdd, listLeitos, setListLeitos, showPopUpS
                             dataLeito={dataLeito} setDataLeito={setDataLeito} />
                         )
                     })}
-                </DashboardLeitos>
-                <AddLeitoButtonWrapp>
+                    
                     <AddLeito onClick={handlePopUp}>+</AddLeito>
-                </AddLeitoButtonWrapp>
+                    
+                </DashboardLeitos>
                 <Legendas>
                     <LegColor>
                         <LegendaIcon bg = {StatusDisponivel.colorRight}><MdEventAvailable /></LegendaIcon>

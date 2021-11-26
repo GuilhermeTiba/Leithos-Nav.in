@@ -108,15 +108,16 @@ const SectorPopUpStatus = ({showPopUpStatus, listLeitos, setListLeitos, setShowP
         setDataLeito(changedLeito)
     }
 
-    // const handleDeletar = (e) => {
-    //     e.preventDefault();
-    //     for (const [index] of listLeitos.entries()) {
-    //         if (dataLeito.id === listLeitos[index].id) {
-    //             const newList = listLeitos.filter((leito) => leito[index].id ===! dataLeito.id);
-    //             setListLeitos(newList)
-    //         }
-    //     }
-    // }
+    const handleDeletar = (e) => {
+        e.preventDefault();
+        for (const [index] of listLeitos.entries()) {
+            if (dataLeito.id === listLeitos[index].id) {
+                const newList = listLeitos.filter((leito) => leito.id !== dataLeito.id);
+                setListLeitos(newList);
+                setShowPopUpStatus(false);
+            }
+        }
+    }
 
     return (
         <PopUp active2 ={showPopUpStatus}>
@@ -140,7 +141,7 @@ const SectorPopUpStatus = ({showPopUpStatus, listLeitos, setListLeitos, setShowP
                         <PopUpLabel>Sobre o leito:</PopUpLabel>
                         <PopUpField>
                             <PopUpButton>Alterar informações</PopUpButton>
-                            <PopUpButton>Deletar leito</PopUpButton>
+                            <PopUpButton onClick={handleDeletar}>Deletar leito</PopUpButton>
                         </PopUpField>
                     </PopUpField>
 
