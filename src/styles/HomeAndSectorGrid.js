@@ -5,7 +5,7 @@ export const HomeContainer = styled.div`
     height: 100vh;
     background-color: #ECEAF0;
     overflow: hidden;
-    filter: ${({active, active2}) => (active || active2 ? 'blur(8px)' : 'none')};
+    filter: ${({active, active2, active3}) => (active || active2 || active3 ? 'blur(8px)' : 'none')};
 `;
 
 export const HomeGrid = styled.div`

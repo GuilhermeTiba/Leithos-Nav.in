@@ -57,6 +57,7 @@ export const Data = styled.div`
     grid-template-areas: 
         ". . . . . ."; 
     grid-area: data; 
+    margin-bottom: 1rem;
     `;
 
     export const DataNumber = styled.div`
@@ -68,7 +69,8 @@ export const Data = styled.div`
         padding: 0.8rem 1rem;
         margin: 0.5rem;
         margin-top: 1.5rem;
-        height: 75px;
+        height: 70px;
+        width: 160px;
     `;
 
     export const DataAndIconWrapp = styled.div`
@@ -81,8 +83,9 @@ export const Data = styled.div`
 
     export const NumberStats = styled.h1`
         color: #707070;
-        font-size: 40px;
+        font-size: 35px;
         font-weight: 200;
+        padding-left: 5px;
     `;
 
     export const IconData = styled.div`
@@ -108,7 +111,7 @@ export const Data = styled.div`
         box-shadow: 0px 3px 6px #0000004D;
         border-radius: 30px;
         z-index: 0;
-        padding: 30px 50px;
+        padding: 10px 160px;
         border: none;
         height: 580px;
         max-width: 100%;
@@ -128,7 +131,7 @@ export const Data = styled.div`
     justify-content: stretch;
     grid-area: dashboardLeitos;
     align-content: flex-start;
-    height: 75%;
+    height: 70%;
     overflow-x: auto;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -158,39 +161,39 @@ export const Data = styled.div`
     export const Leitos = styled.div`
         display: flex;
         margin: 1rem;
-        margin-bottom: 0.4rem;
         align-self: flex-start;
+        margin-bottom: 1px;
     `;
 
     export const Nome = styled.div`
         border: none;
         background: ${({bgText}) => bgText};
         color: #707070;
-        border-radius: 18px;
+        border-radius: 13px;
         opacity: 0.6;
         margin-right: 4px;
-        min-width: 45px;
-        max-width: 46px;
-        min-height: 45px;
-        max-height: 46px;
-        padding: 5px 28px;
+        min-width: 50px;
+        max-width: 51px;
+        min-height: 18px;
+        max-height: 18px;
+        padding: 12px 18px;
         text-align: center;
         line-height: 1.5;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: bold;
         cursor: default;
-        text-align: center;
     `;
 
     export const StatusIcon = styled.button`
         border: none;
         background: ${({bgIcon}) => bgIcon};
         color: #707070;
-        border-radius: 18px;
+        border-radius: 13px;
         opacity: 1;
         cursor: pointer;
-        width: 70px;
-        font-size: 16px;
+        width: 50px;
+        font-size: 14px;
+        text-align: center;
         align-items: center;
 
         &:hover {
@@ -203,15 +206,15 @@ export const Data = styled.div`
         border: none;
         background: #E3E3EE;
         color: #707070;
-        border-radius: 18px;
+        border-radius: 15px;
         opacity: 0.6;
-        width: 180px;
-        padding: 5px 28px;
+        width: 142px;
+        padding: 5px 10px;
         text-align: center;
         font-size: 30px;
         cursor: pointer;
-        height: 52px;
-        margin-top: 1rem;
+        margin-top: 0.8rem;
+        font-size: 30px;
 
         margin-left: 1rem;
 
@@ -219,13 +222,6 @@ export const Data = styled.div`
             transform: scale(103%);
             cursor: pointer;
         }
-    `;
-
-    export const AddLeitoButtonWrapp = styled.div`
-        display: flex;
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-        justify-content: center;
     `;
 
 //LEGENDAS
@@ -268,7 +264,7 @@ export const Data = styled.div`
 //POPUPS
 
 export const PopUp = styled.div`
-    display: ${({active, active2}) => (active || active2 ? 'block' : 'none')};
+    display: ${({active, active2, active3}) => (active || active2 || active3 ? 'block' : 'none')};
     z-index: 1;
     position: absolute;
     background-color: white;
@@ -280,8 +276,8 @@ export const PopUp = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    height: ${({active2}) => (active2 ? '525px' : '280px')};
-    width: ${({active2}) => (active2 ? '500px' : '550px')};;
+    height: ${({active2, active3}) => (active2 || active3 ? '525px' : '280px')};
+    width: ${({active2, active3}) => (active2 || active3 ? '450px' : '550px')};;
     text-align: center;
     padding: 1.2rem 0;
 `;
@@ -327,7 +323,8 @@ export const PopUpLabel = styled.label`
     color: #707070;
     opacity: 1;
     text-align: left;
-    margin-bottom: 2px;
+    margin-bottom: 8px;
+    font-size: 14px;
 `;
 
 export const PopUpInput = styled.input`
@@ -398,10 +395,11 @@ export const PopUpCreate = styled.button`
 export const PopUpStatus = styled.div`
     background-color: ${({color}) => (color)};
     border: none;
-    padding: 4px 60px;
+    padding: 4px 20px;
     border-radius: 8px;
     color: white;
     font-size: 14px;
+    min-width: 150px;
 `;
 
 export const PopUpButton = styled.button`
@@ -410,24 +408,46 @@ export const PopUpButton = styled.button`
     color: #6045E2;
     opacity: 1;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #6045E2;
+    border: 2px solid #6045E2;
     border-radius: 8px;
     opacity: 1;
-    margin-bottom: 0.2rem;
-    font-size: 14px;
+    margin-bottom: 0.3rem;
+    font-size: 15px;
     transition: 5ms all ease-in-out;
     padding: 4px;
     font-weight: 500;
 
     &:hover{
-        background-color: #6045E2;
-        color: white;
         transition: 5ms all ease-in-out;
         cursor: pointer;
+        transform: scale(102%);
     }
 
     &:active {
         background-color: #6045E2;
         color: white;
     }
+
+    &:focus{
+        background-color: #6045E2;
+        color: white;
+        transition: 5ms all ease-in-out;
+        cursor: pointer;
+    }
+`;
+
+//PATIENT INFO POPUP
+
+export const SexAgeWrapp = styled.div`
+    display: flex;
+`;
+
+export const SexWrapp = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const AgeWrapp = styled.div`
+    display: flex;
+    flex-direction: column;
 `;

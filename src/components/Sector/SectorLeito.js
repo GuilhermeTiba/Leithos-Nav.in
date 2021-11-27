@@ -1,4 +1,4 @@
-import { Leitos, Nome, StatusIcon } from './Sector.styles'
+import { Leitos, Nome, StatusIcon} from './Sector.styles'
 
 const Leito = ({style, name, setShowPopUpStatus, showPopUpStatus, setDataLeito, dataLeito, status, id}) => {
     const handlePopUpStatus = (e) => {
