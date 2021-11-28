@@ -14,7 +14,6 @@ const SectorPage = ({active, toggle}) => {
     const [showPopUpInfoPatient, setShowPopUpInfoPatient] = useState(false)
     const [dataLeito, setDataLeito] = useState('');
     const [patientList, setPatientList] = useState([])
-    
     const [listLeitos, setListLeitos] = useState([
         {
             id: Math.floor(Math.random()*10000),
@@ -30,7 +29,15 @@ const SectorPage = ({active, toggle}) => {
 
     return (
         <>
-            <SectorPopUpAdd showPopUpAdd={showPopUpAdd} setShowPopUpAdd={setShowPopUpAdd} listLeitos={listLeitos} setListLeitos={setListLeitos} setShowPopUpStatus={setShowPopUpStatus} dataLeito={dataLeito} setDataLeito={setDataLeito}/>
+            <SectorPopUpAdd 
+            showPopUpAdd={showPopUpAdd}
+            setShowPopUpAdd={setShowPopUpAdd} 
+            listLeitos={listLeitos} 
+            setListLeitos={setListLeitos} 
+            setShowPopUpStatus={setShowPopUpStatus} 
+            dataLeito={dataLeito} 
+            setDataLeito={setDataLeito}
+            />
             <SectorPopUpStatus showPopUpStatus={showPopUpStatus} setShowPopUpStatus={setShowPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setDataLeito={setDataLeito} showPopUpInfoPatient={showPopUpInfoPatient} setShowPopUpInfoPatient={setShowPopUpInfoPatient} />
             <SectorPopUpPatientInfo showPopUpInfoPatient={showPopUpInfoPatient} setShowPopUpInfoPatient={setShowPopUpInfoPatient} dataLeito={dataLeito} setDataLeito={setDataLeito} patientList={patientList} setPatientList={setPatientList} setShowPopUpStatus={setShowPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos}/>
             <GlobalStyles/>
@@ -39,7 +46,16 @@ const SectorPage = ({active, toggle}) => {
                     <NavBarSide>
                         <NavBar/>
                     </NavBarSide>
-                    <Sector showPopUpAdd={showPopUpAdd} setShowPopUpAdd={setShowPopUpAdd} listLeitos ={listLeitos} setListLeitos={setListLeitos} setShowPopUpStatus={setShowPopUpStatus} showPopUpStatus={showPopUpStatus} dataLeito={dataLeito} setDataLeito={setDataLeito} patientLis={patientList}/>
+                    <Sector 
+                    showPopUpAdd={showPopUpAdd} 
+                    setShowPopUpAdd={setShowPopUpAdd} 
+                    listLeitos ={listLeitos} 
+                    setListLeitos={setListLeitos} 
+                    setShowPopUpStatus={setShowPopUpStatus} 
+                    showPopUpStatus={showPopUpStatus} 
+                    dataLeito={dataLeito} setDataLeito={setDataLeito} 
+                    patientLis={patientList}
+                    />
                 </HomeGrid>
             </HomeContainer>
         </>

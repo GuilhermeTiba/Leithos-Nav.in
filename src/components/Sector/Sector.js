@@ -3,7 +3,17 @@ import {SectorWrapp, TitleWrapp, Title, SectorGrid } from './Sector.styles';
 import SectorData from './SectorData';
 import SectorDashboard from './SectorDashboard';
 
-const Sector = ({showPopUpAdd, setShowPopUpAdd, listLeitos, setListLeitos, showPopUpStatus, setShowPopUpStatus, dataLeito, setDataLeito, patientList}) => {
+const Sector = ({
+    showPopUpAdd, 
+    setShowPopUpAdd, 
+    listLeitos, 
+    setListLeitos, 
+    showPopUpStatus, 
+    setShowPopUpStatus, 
+    dataLeito, 
+    setDataLeito, 
+    patientList, 
+}) => {
     return (
         <>
         <SectorWrapp>
@@ -11,7 +21,9 @@ const Sector = ({showPopUpAdd, setShowPopUpAdd, listLeitos, setListLeitos, showP
                 <Title>Setor 1</Title>
             </TitleWrapp>
             <SectorGrid >
-                <SectorData/>
+                <SectorData 
+                listLeitos={listLeitos}
+                />
                 <SectorDashboard showPopUpAdd={showPopUpAdd} setShowPopUpAdd={setShowPopUpAdd} setShowPopUpStatus={setShowPopUpStatus} showPopUpStatus={showPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setDataLeito={setDataLeito} patientList={patientList}/>
             </SectorGrid>
         </SectorWrapp> 

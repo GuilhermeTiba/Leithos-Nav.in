@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpInput, PopUpInputSelect, SelectOption} from './Sector.styles'
 import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
 
-const SectorPopUpAdd = ({showPopUpAdd, setShowPopUpAdd, listLeitos, setListLeitos, setShowPopUpStatus, dataLeito, setDataLeito}) => {
+const SectorPopUpAdd = ({
+    showPopUpAdd, 
+    setShowPopUpAdd, 
+    listLeitos, 
+    setListLeitos
+}) => {
     const [nameLeito, setNameLeito] = useState('');
     const [statusLeito, setStatusLeito] = useState('')
 

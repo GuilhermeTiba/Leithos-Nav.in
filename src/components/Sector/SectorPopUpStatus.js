@@ -10,9 +10,7 @@ const SectorPopUpStatus = ({
     dataLeito, 
     setDataLeito, 
     setShowPopUpInfoPatient, 
-    showPopUpInfoPatient, 
-    patientInfo, 
-    setPatientInfo
+    patientInfo
     }) => {
 
     const handleCancel = () => {
@@ -139,76 +137,6 @@ const SectorPopUpStatus = ({
         e.preventDefault(e);
     }
 
-    // const showOptions = (e) => {
-    //     e.preventDefault()
-    //     if (dataLeito.status === 'Ocupado') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    //     if (dataLeito.status === 'Disponível') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    //     if (dataLeito.status === 'Aguardando limpeza') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    //     if (dataLeito.status === 'Aguardando manutenção') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    //     if (dataLeito.status === 'Em limpeza') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    //     if (dataLeito.status === 'Em manutenção') {
-    //         return (
-    //             <>
-    //             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
-    //             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
-    //             </>
-    //         )
-    //     }
-    // }
-
     return (
         <PopUp active2 ={showPopUpStatus}>
             <PopUpWrapp>
@@ -222,21 +150,68 @@ const SectorPopUpStatus = ({
                         {dataLeito.status === 'Ocupado' ?
                             <>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
-                            <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
                             </>
-                        
-                        :
+                            :
+                            <></>
+                        }
+                        {dataLeito.status === 'Disponível' ? 
                             <>
                             <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
-                            <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
+                            </>
+                            :
+                            <></>
+                        }
+                        {dataLeito.status === 'Aguardando manutenção' ? 
+                            <>
+                            <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
+                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
+                            </>
+                            :
+                            <></>
+                        }
+                        {dataLeito.status === 'Em manutenção' ? 
+                            <>
+                            <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
+                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
+                            </>
+                            :
+                            <></>
+                        }
+                        {dataLeito.status === 'Em limpeza' ? 
+                            <>
+                            <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
+                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
+                            </>
+                            :
+                            <></>
+                        }
+                        {dataLeito.status === 'Aguardando limpeza' ? 
+                            <>
+                            <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
+                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
+                            <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
+                            <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
                             </>
+                            :
+                            <></>
                         }
                     </PopUpField>
 
