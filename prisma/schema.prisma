@@ -64,10 +64,7 @@ model Historic{
   newBedStatus beds_status
   lastModifiedDate DateTime
   newDate DateTime @default(now())
-
-   
 }
-
 
 
 enum user_type{
