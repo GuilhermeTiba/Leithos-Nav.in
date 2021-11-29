@@ -40,11 +40,13 @@ model Beds{
   id String @id @default(uuid())
   name String @unique
   status beds_status @default(AVAILABLE)
-  status_changed_date DateTime @default(now())
+  status_changed_date DateTime @updatedAt
   type beds_type
   section Section @relation(fields: [sectionId], references: [id])
   sectionId String
   patient Patient?
+  historic Historic[]
+
 
   @@map("beds")
 }
@@ -53,6 +55,20 @@ model Section{
   id String @id
   beds Beds[]
 }
+
+model Historic{
+  id String @id @default(uuid())
+  bed Beds @relation(fields: [bedsId], references: [id])
+  bedsId String
+  lastBedStatus beds_status
+  newBedStatus beds_status
+  lastModifiedDate DateTime
+  newDate DateTime @default(now())
+
+   
+}
+
+
 
 enum user_type{
  ADMIN
@@ -78,5 +94,4 @@ enum beds_type{
 enum sex{
   MALE
   FEMALE
-  OTHER
 }
