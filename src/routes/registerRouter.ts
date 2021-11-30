@@ -5,6 +5,7 @@ import { createUser } from "../controllers/userController";
 import { authenticateToken } from "../middleware/authenticateToken";
 import { createBeds, updateBed, deleteBed, allBeds } from "../controllers/bedsController";
 import { createSection, getAllSections, getBedsPerSection} from "../controllers/sectionController";
+import { getAllHistoric } from "../controllers/historicController";
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.get('/register', (req, res) => {
 
 router.get('/getAllSections', authenticateToken, getAllSections)
 router.get('/allBeds', authenticateToken, allBeds)
+router.get('/allHistoric', authenticateToken, getAllHistoric)
 
 router.post('/bedsPerSection', authenticateToken, getBedsPerSection)
 

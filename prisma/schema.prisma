@@ -1,78 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-model User{
-  id String @id @default(uuid())
+model User {
+  id         String    @id @default(uuid())
   first_name String
-  last_name String
-  email String @unique
-  password String
-  phone String
-  type  user_type @default(USER)
+  last_name  String
+  email      String    @unique
+  password   String
+  phone      String
+  type       user_type @default(USER)
 
   @@map("users")
 }
 
-model Patient{
-  id String @id @default(uuid())
-  age Int
-  sex sex
-  first_name String
-  last_name String
-  ssn String
-  diagnosis Diagnosis[]
+model Patient {
+  id                      String      @id @default(uuid())
+  sex                     sex
+  first_name              String
+  last_name               String
+  ssn                     String
   additional_informations String
-  exit_date DateTime @default(now())
-  entry_date DateTime @default(now())
-  bed Beds @relation(fields: [bedId], references: [id])
-  bedId String
+  exit_date               DateTime    @default(now())
+  entry_date              DateTime    @default(now())
+  bedId                   String      @unique
+  age                     Int
+  bed                     Beds        @relation(fields: [bedId], references: [id])
+  diagnosis               Diagnosis[]
 
   @@map("patients")
 }
 
-model Beds{
-  id String @id @default(uuid())
-  name String @unique
-  status beds_status @default(AVAILABLE)
-  status_changed_date DateTime @updatedAt
-  type beds_type
-  section Section @relation(fields: [sectionId], references: [id])
-  sectionId String
-  patient Patient?
-  historic Historic[]
+model Beds {
+  id                  String      @id @default(uuid())
+  name                String      @unique
+  status              beds_status @default(AVAILABLE)
+  status_changed_date DateTime    @updatedAt
+  type                beds_type
+  sectionId           String
+  section             Section     @relation(fields: [sectionId], references: [id])
+  historic            Historic[]
+  patient             Patient?
 
   @@map("beds")
 }
 
-model Section{
-  id String @id
+model Section {
+  id   String @id
   beds Beds[]
 }
 
-model Historic{
-  id String @id @default(uuid())
-  bed Beds @relation(fields: [bedsId], references: [id])
-  bedsId String
-  lastBedStatus beds_status
-  newBedStatus beds_status
+model Historic {
+  id               String      @id @default(uuid())
+  bedsId           String
+  lastBedStatus    beds_status
+  newBedStatus     beds_status
   lastModifiedDate DateTime
-  newDate DateTime @default(now())
+  newDate          DateTime    @default(now())
+  bed              Beds        @relation(fields: [bedsId], references: [id])
 }
 
-model Diagnosis{
-  id String @id @default(uuid())
-  disease diagnosis_disease
-  patient Patient @relation(fields: [patientId], references: [id])
+model Diagnosis {
+  id        String            @id @default(uuid())
+  disease   diagnosis_disease
   patientId String
+  patient   Patient           @relation(fields: [patientId], references: [id])
 }
 
-enum diagnosis_disease{
+enum diagnosis_disease {
   NEUROLOGY
   CARDIOLOGY
   PNEUMOLOGY
@@ -87,13 +87,12 @@ enum diagnosis_disease{
   OTHER
 }
 
-
-enum user_type{
- ADMIN
- USER
+enum user_type {
+  ADMIN
+  USER
 }
 
-enum beds_status{
+enum beds_status {
   CLEANING_NEEDED
   MAINTANENCE_NEEDED
   MAINTANENCE
@@ -102,14 +101,14 @@ enum beds_status{
   OCCUPIED
 }
 
-enum beds_type{
+enum beds_type {
   ISOLATED
   ROOM
   COMMON
   UTI
 }
 
-enum sex{
+enum sex {
   MALE
   FEMALE
 }
