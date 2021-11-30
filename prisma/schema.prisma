@@ -21,12 +21,12 @@ model User{
 
 model Patient{
   id String @id @default(uuid())
-  idade Int
+  age Int
   sex sex
   first_name String
   last_name String
   ssn String
-  description String
+  diagnosis Diagnosis[]
   additional_informations String
   exit_date DateTime @default(now())
   entry_date DateTime @default(now())
@@ -47,7 +47,6 @@ model Beds{
   patient Patient?
   historic Historic[]
 
-
   @@map("beds")
 }
 
@@ -64,6 +63,28 @@ model Historic{
   newBedStatus beds_status
   lastModifiedDate DateTime
   newDate DateTime @default(now())
+}
+
+model Diagnosis{
+  id String @id @default(uuid())
+  disease diagnosis_disease
+  patient Patient @relation(fields: [patientId], references: [id])
+  patientId String
+}
+
+enum diagnosis_disease{
+  NEUROLOGY
+  CARDIOLOGY
+  PNEUMOLOGY
+  ONCOLOGY
+  ORTHOPEDICS
+  NEPHROLOGY
+  ENDOCRINOLOGY
+  PALLIATIVE_CARE
+  INFECTOLOGY
+  GENICOLOGY
+  COVID
+  OTHER
 }
 
 
