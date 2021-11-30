@@ -3,39 +3,18 @@ import { Data, DataNumber, DataAndIconWrapp, NumberStats, IconData, DataTxt } fr
 import {MdEventAvailable} from 'react-icons/md';
 import {FaBroom} from 'react-icons/fa';
 import {BsFillGearFill} from 'react-icons/bs';
-import {ImBlocked} from 'react-icons/im'
-import { useEffect, useState } from 'react/cjs/react.development';
+import {ImBlocked} from 'react-icons/im';
+import { useCount } from '../../contexts/countContext';
 
-const SectorData = ({listLeitos}) => {
-    const [countDispo, setCountDispo] = useState(0)
-    const [countOcup, setCountOcup] = useState(0)
-    const [countEmLimp, setCountEmLimp] = useState(0)
-    const [countEmManu, setCountEmManu] = useState(0)
-    const [countAguardLimp, setCountAguardLimp] = useState(0)
-    const [countAguardManu, setCountAguardManu] = useState(0)
-
-    useEffect(() => {
-        for (const [index] of listLeitos.entries()) {
-            if (listLeitos[index].status === 'Disponível') {
-                setCountDispo(countDispo + 1)
-            }
-            if (listLeitos[index].status === 'Ocupado') {
-                setCountOcup(countOcup + 1)
-            }
-            if (listLeitos[index].status === 'Em limpeza') {
-                setCountEmLimp(countEmLimp + 1)
-            }
-            if (listLeitos[index].status === 'Em manutenção') {
-                setCountEmManu(countEmManu + 1)
-            }
-            if (listLeitos[index].status === 'Aguardando limpeza') {
-                setCountAguardLimp(countAguardLimp + 1)
-            }
-            if (listLeitos[index].status === 'Aguardando manutenção') {
-                setCountAguardManu(countAguardManu + 1)
-            }
-        }
-    }, [listLeitos])
+const SectorData = () => {
+    const {
+        countDispo, 
+        countOcup,  
+        countEmLimp, 
+        countEmManu, 
+        countAguardLimp, 
+        countAguardManu, 
+        } = useCount()
 
     return (
         <Data>

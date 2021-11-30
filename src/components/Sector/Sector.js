@@ -23,6 +23,7 @@ const Sector = ({
             <SectorGrid >
                 <SectorData 
                 listLeitos={listLeitos}
+                dataLeito={dataLeito}
                 />
                 <SectorDashboard showPopUpAdd={showPopUpAdd} setShowPopUpAdd={setShowPopUpAdd} setShowPopUpStatus={setShowPopUpStatus} showPopUpStatus={showPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setDataLeito={setDataLeito} patientList={patientList}/>
             </SectorGrid>

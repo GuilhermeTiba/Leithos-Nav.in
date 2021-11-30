@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpInput, PopUpInputSelect, SelectOption} from './Sector.styles'
 import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
 
@@ -10,6 +11,19 @@ const SectorPopUpAdd = ({
 }) => {
     const [nameLeito, setNameLeito] = useState('');
     const [statusLeito, setStatusLeito] = useState('')
+    const {
+        countDispo, 
+        setCountDispo, 
+        countOcup, 
+        setCountOcup, 
+        countEmLimp, 
+        setCountEmLimp, 
+        countEmManu, 
+        setCountEmManu, 
+        countAguardLimp, 
+        setCountAguardLimp, 
+        countAguardManu, 
+        setCountAguardManu} = useCount()
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -22,9 +36,10 @@ const SectorPopUpAdd = ({
                 colorRight: StatusDisponivel.colorRight,
                 colorLeft: StatusDisponivel.colorLeft,
                 icon: StatusDisponivel.icon
-            },
-            status: 'Disponível'
+                },
+                status: 'Disponível'
             }];
+            setCountDispo(countDispo + 1)
             setListLeitos(newLeitosList)
             setNameLeito('')
             setShowPopUpAdd(false)
@@ -37,12 +52,13 @@ const SectorPopUpAdd = ({
                 colorRight: StatusAguardandoManutencao.colorRight,
                 colorLeft: StatusAguardandoManutencao.colorLeft,
                 icon: StatusAguardandoManutencao.icon
-            },
-            status: 'Aguardando manutenção'
+                },
+                status: 'Aguardando manutenção'
             }];
-            setListLeitos(newLeitosList)
-            setNameLeito('')
-            setShowPopUpAdd(false)
+            setCountAguardManu(countAguardManu + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
+            setShowPopUpAdd(false);
         }
         if (statusLeito === 'StatusAguardandoLimpeza') {
             const newLeitosList = [...listLeitos, {
@@ -52,12 +68,13 @@ const SectorPopUpAdd = ({
                 colorRight: StatusAguardandoLimpeza.colorRight,
                 colorLeft: StatusAguardandoLimpeza.colorLeft,
                 icon: StatusAguardandoLimpeza.icon
-            },
-            status: 'Aguardando limpeza'
+                },
+                status: 'Aguardando limpeza'
             }];
-            setListLeitos(newLeitosList)
-            setNameLeito('')
-            setShowPopUpAdd(false)
+            setCountAguardLimp(countAguardLimp + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
+            setShowPopUpAdd(false);
         }
         if (statusLeito === 'StatusOcupado') {
             const newLeitosList = [...listLeitos, {
@@ -67,11 +84,12 @@ const SectorPopUpAdd = ({
                 colorRight: StatusOcupado.colorRight,
                 colorLeft: StatusOcupado.colorLeft,
                 icon: StatusOcupado.icon
-            },
-            status: 'Ocupado'
+                },
+                status: 'Ocupado'
             }];
-            setListLeitos(newLeitosList)
-            setNameLeito('')
+            setCountOcup(countOcup + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
             setShowPopUpAdd(false)
         }
         if (statusLeito === 'StatusEmLimpeza') {
@@ -82,11 +100,12 @@ const SectorPopUpAdd = ({
                 colorRight: StatusEmLimpeza.colorRight,
                 colorLeft: StatusEmLimpeza.colorLeft,
                 icon: StatusEmLimpeza.icon
-            },
-            status: 'Em limpeza'
+                },
+                status: 'Em limpeza'
             }];
-            setListLeitos(newLeitosList)
-            setNameLeito('')
+            setCountEmLimp(countEmLimp + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
             setShowPopUpAdd(false)
         }
         if (statusLeito === 'StatusEmManutencao') {
@@ -97,11 +116,12 @@ const SectorPopUpAdd = ({
                 colorRight: StatusEmManutencao.colorRight,
                 colorLeft: StatusEmManutencao.colorLeft,
                 icon: StatusEmManutencao.icon
-            },
-            status: 'Em manutenção'
+                },
+                status: 'Em manutenção'
             }];
-            setListLeitos(newLeitosList)
-            setNameLeito('')
+            setCountEmManu(countEmManu + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
             setShowPopUpAdd(false)
         }
     }

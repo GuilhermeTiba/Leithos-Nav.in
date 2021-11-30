@@ -1,13 +1,13 @@
 import React from 'react'
-import { useState } from 'react/cjs/react.development'
+import { useState } from 'react/cjs/react.development';
 import { PopUp, PopUpInput, PopUpLabel, PopUpWrapp, PopUpTitle, PopUpStatus, PopUpForm, PopUpField, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtons, PopUpCancel, PopUpCreate, SexAgeWrapp  } from './Sector.styles'
 
-const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos}) => {
+const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, setDataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos}) => {
     const [namePatient, setNamePatient] = useState("");
     const [sexPatient, setSexPatient] = useState("");
     const [agePatient, setAgePatient] = useState('');
     const [diagnosisPatient, setDiagnosisPatient] = useState("")
-    const [addtionalInfoPatient, setAdditionalInfoPatient] = useState("")
+    const [addtionalInfoPatient, setAdditionalInfoPatient] = useState("");
 
 
     const handleCancel = (e) => {

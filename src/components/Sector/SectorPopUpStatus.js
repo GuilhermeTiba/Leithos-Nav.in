@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpStatus, PopUpButton} from './Sector.styles'
 import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
 
@@ -10,8 +11,24 @@ const SectorPopUpStatus = ({
     dataLeito, 
     setDataLeito, 
     setShowPopUpInfoPatient, 
-    patientInfo
+    patientInfo,
+    showPopUpInfoPatient
     }) => {
+
+    const {
+        countDispo, 
+        setCountDispo, 
+        countOcup, 
+        setCountOcup, 
+        countEmLimp, 
+        setCountEmLimp, 
+        countEmManu, 
+        setCountEmManu, 
+        countAguardLimp, 
+        setCountAguardLimp, 
+        countAguardManu, 
+        setCountAguardManu
+    } = useCount();
 
     const handleCancel = () => {
         setShowPopUpStatus(false);
@@ -22,6 +39,24 @@ const SectorPopUpStatus = ({
         for (const [index] of listLeitos.entries()) {
             if (dataLeito.id === listLeitos[index].id) {
             console.log('save')
+            if(listLeitos[index].status === 'Disponível'){
+                setCountDispo(countDispo - 1);
+            }
+            if(listLeitos[index].status === 'Ocupado'){
+                setCountOcup(countOcup - 1);
+            }
+            if(listLeitos[index].status === 'Em limpeza'){
+                setCountEmLimp(countEmLimp - 1);
+            }
+            if(listLeitos[index].status === 'Em manutenção'){
+                setCountEmManu(countEmManu - 1);
+            }
+            if(listLeitos[index].status === 'Aguardando manutenção'){
+                setCountAguardManu(countAguardManu - 1);
+            }
+            if(listLeitos[index].status === 'Aguardando limpeza'){
+                setCountAguardLimp(countAguardLimp - 1);
+            }
             listLeitos[index] = 
             {
                 id: listLeitos[index].id,
@@ -43,8 +78,7 @@ const SectorPopUpStatus = ({
     const handleUpdateOcupado = (e) => {
         e.preventDefault();
 
-        setShowPopUpInfoPatient(true)
-
+        setShowPopUpInfoPatient(true);
         const changedLeito = {
             name: dataLeito.name,
             id: dataLeito.id,
@@ -53,6 +87,7 @@ const SectorPopUpStatus = ({
             icon: StatusOcupado.icon,
             status: 'Ocupado'
         }
+        setCountOcup(countOcup + 1)
         setDataLeito(changedLeito)
     }
 
@@ -67,6 +102,7 @@ const SectorPopUpStatus = ({
             icon: StatusDisponivel.icon,
             status: 'Disponível'
         }
+        setCountDispo(countDispo + 1);
         setDataLeito(changedLeito)
     }
 
@@ -80,6 +116,7 @@ const SectorPopUpStatus = ({
             icon: StatusEmLimpeza.icon,
             status: 'Em limpeza'
         }
+        setCountEmLimp(countEmLimp + 1)
         setDataLeito(changedLeito)
     }
 
@@ -93,6 +130,7 @@ const SectorPopUpStatus = ({
             icon: StatusEmManutencao.icon,
             status: 'Em manutenção'
         }
+        setCountEmManu(countEmManu + 1)
         setDataLeito(changedLeito)
     }
 
@@ -106,6 +144,7 @@ const SectorPopUpStatus = ({
             icon: StatusAguardandoLimpeza.icon,
             status: 'Aguardando limpeza'
         }
+        setCountAguardLimp(countAguardLimp + 1)
         setDataLeito(changedLeito)
     }
 
@@ -119,6 +158,7 @@ const SectorPopUpStatus = ({
             icon: StatusAguardandoManutencao.icon,
             status: 'Aguardando manutenção'
         }
+        setCountAguardManu(countAguardManu + 1)
         setDataLeito(changedLeito)
     }
 
@@ -128,6 +168,24 @@ const SectorPopUpStatus = ({
             if (dataLeito.id === listLeitos[index].id) {
                 const newList = listLeitos.filter((leito) => leito.id !== dataLeito.id);
                 setListLeitos(newList);
+                if(dataLeito.status === 'Disponível'){
+                    setCountDispo(countDispo - 1);
+                }
+                if(dataLeito.status === 'Ocupado'){
+                    setCountOcup(countOcup - 1);
+                }
+                if(dataLeito.status === 'Em limpeza'){
+                    setCountEmLimp(countEmLimp - 1);
+                }
+                if(dataLeito.status === 'Em manutenção'){
+                    setCountEmManu(countEmManu - 1);
+                }
+                if(dataLeito.status === 'Aguardando manutenção'){
+                    setCountAguardManu(countAguardManu - 1);
+                }
+                if(dataLeito.status === 'Aguardando limpeza'){
+                    setCountAguardLimp(countAguardLimp - 1);
+                }
                 setShowPopUpStatus(false);
             }
         }
