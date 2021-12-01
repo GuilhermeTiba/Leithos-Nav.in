@@ -24,14 +24,14 @@ model Patient {
   sex                     sex
   first_name              String
   last_name               String
-  ssn                     String
+  ssn                     String @unique
   additional_informations String
   exit_date               DateTime    @default(now())
   entry_date              DateTime    @default(now())
-  bedId                   String      @unique
   age                     Int
   bed                     Beds        @relation(fields: [bedId], references: [id])
-  diagnosis               Diagnosis?
+  bedId                   String
+  diagnosis               String[]
 
   @@map("patients")
 }
@@ -65,13 +65,6 @@ model Historic {
   bed              Beds        @relation(fields: [bedsId], references: [id])
 }
 
-model Diagnosis {
-  id        String            @id @default(uuid())
-  diseases   String[]
-  patientId String
-  patient   Patient           @relation(fields: [patientId], references: [id])
-}
-
 enum user_type {
   ADMIN
   USER
@@ -96,4 +89,5 @@ enum beds_type {
 enum sex {
   MALE
   FEMALE
+  OTHER
 }

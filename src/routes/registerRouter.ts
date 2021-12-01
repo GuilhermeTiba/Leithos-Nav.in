@@ -6,7 +6,7 @@ import { authenticateToken } from "../middleware/authenticateToken";
 import { createBeds, updateBed, deleteBed, allBeds } from "../controllers/bedsController";
 import { createSection, getAllSections, getBedsPerSection} from "../controllers/sectionController";
 import { getAllHistoric } from "../controllers/historicController";
-import { createPatient } from "../controllers/patientController";
+import { createPatient, getDiagnosisFromPatient, updateDiagnosticFromPatient } from "../controllers/patientController";
 
 const router = Router();
 
@@ -27,10 +27,12 @@ router.post('/login', checkUserCredencials)
 router.post('/createBeds', authenticateToken, createBeds)
 
 router.post('/createPatient', authenticateToken, createPatient)
+router.post('/patientDiagnosis', authenticateToken, getDiagnosisFromPatient)
 
 router.post('/createSection', authenticateToken, createSection )
 
 router.put('/updateBed', authenticateToken, updateBed)
+router.put('/updateDiagnosis', authenticateToken, updateDiagnosticFromPatient)
 
 router.delete('/deleteBed', authenticateToken, deleteBed)
 
