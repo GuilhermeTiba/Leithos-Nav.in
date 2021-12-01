@@ -6,6 +6,7 @@ import { authenticateToken } from "../middleware/authenticateToken";
 import { createBeds, updateBed, deleteBed, allBeds } from "../controllers/bedsController";
 import { createSection, getAllSections, getBedsPerSection} from "../controllers/sectionController";
 import { getAllHistoric } from "../controllers/historicController";
+import { createPatient } from "../controllers/patientController";
 
 const router = Router();
 
@@ -24,6 +25,8 @@ router.post('/register', createUser)
 router.post('/login', checkUserCredencials)
 
 router.post('/createBeds', authenticateToken, createBeds)
+
+router.post('/createPatient', authenticateToken, createPatient)
 
 router.post('/createSection', authenticateToken, createSection )
 

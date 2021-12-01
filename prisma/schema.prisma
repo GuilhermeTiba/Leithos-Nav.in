@@ -31,7 +31,7 @@ model Patient {
   bedId                   String      @unique
   age                     Int
   bed                     Beds        @relation(fields: [bedId], references: [id])
-  diagnosis               Diagnosis[]
+  diagnosis               Diagnosis?
 
   @@map("patients")
 }
@@ -67,24 +67,9 @@ model Historic {
 
 model Diagnosis {
   id        String            @id @default(uuid())
-  disease   diagnosis_disease
+  diseases   String[]
   patientId String
   patient   Patient           @relation(fields: [patientId], references: [id])
-}
-
-enum diagnosis_disease {
-  NEUROLOGY
-  CARDIOLOGY
-  PNEUMOLOGY
-  ONCOLOGY
-  ORTHOPEDICS
-  NEPHROLOGY
-  ENDOCRINOLOGY
-  PALLIATIVE_CARE
-  INFECTOLOGY
-  GENICOLOGY
-  COVID
-  OTHER
 }
 
 enum user_type {
