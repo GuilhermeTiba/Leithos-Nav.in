@@ -26,7 +26,6 @@ model Patient {
   last_name               String
   ssn                     String @unique
   additional_informations String
-  exit_date               DateTime    @default(now())
   entry_date              DateTime    @default(now())
   age                     Int
   bed                     Beds        @relation(fields: [bedId], references: [id])
