@@ -168,7 +168,7 @@ export async function getBedsPercentage(req, res){
 }
 
 export async function occupiedBedsQuantity(req, res){
-  const occupiedBedsQtd = getOccupiedBedsQuantity()
+  const occupiedBedsQtd = await getOccupiedBedsQuantity()
 
   res.send({
     occupiedBedsQtd

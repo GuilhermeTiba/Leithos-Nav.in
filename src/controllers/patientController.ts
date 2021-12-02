@@ -25,7 +25,7 @@ export async function createPatient(req, res) {
 
 export async function getDiagnosisFromPatient(req, res){
   
-  const {patientId} = req.body
+  const {patientId} = req.params
 
   const patientDiagnosis = await prisma.patient.findUnique({
     where:{
