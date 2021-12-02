@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { compare } from "bcrypt"
-import { generateAccessToken } from "./generateAccessToken"
-import { generateRefreshToken } from "./generateRefreshToken"
+import { generateAccessToken } from "../config/generateAccessToken"
+import { generateRefreshToken } from "../config/generateRefreshToken"
 
 const prisma = new PrismaClient()
 
