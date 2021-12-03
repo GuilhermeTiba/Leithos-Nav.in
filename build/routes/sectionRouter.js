@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const bedsController_1 = require("../controllers/bedsController");
+const patientController_1 = require("../controllers/patientController");
+const sectionController_1 = require("../controllers/sectionController");
+const authenticateToken_1 = require("../middleware/authenticateToken");
+const router = (0, express_1.Router)();
+router.get('/bedsPerSection/:sectionId', authenticateToken_1.authenticateToken, sectionController_1.getBedsPerSection);
+router.get('/patientDiagnosis/:patientId', authenticateToken_1.authenticateToken, patientController_1.getDiagnosisFromPatient);
+router.post('/createBeds', authenticateToken_1.authenticateToken, bedsController_1.createBeds);
+router.post('/createPatient', authenticateToken_1.authenticateToken, patientController_1.createPatient);
+router.put('/updateBed', authenticateToken_1.authenticateToken, bedsController_1.updateBed);
+router.put('/updateDiagnosis', authenticateToken_1.authenticateToken, patientController_1.updateDiagnosticFromPatient);
+module.exports = router;

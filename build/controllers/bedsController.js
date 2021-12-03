@@ -2,17 +2,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.allBeds = exports.getBedsQuantityPerStatus = exports.occupiedBedsQuantity = exports.getBedsPercentage = exports.deleteBed = exports.updateBed = exports.getBedStatus = exports.createBeds = void 0;
 const client_1 = require("@prisma/client");
+const uuid_1 = require("uuid");
 const prisma = new client_1.PrismaClient();
 async function createBeds(req, res) {
     const { name, type, section } = req.body;
+    const uuid = await (0, uuid_1.v4)();
     const bed = await prisma.beds.create({
         data: {
+            id: uuid,
             name: name,
             type: type,
             sectionId: section
-        },
+        }
     });
-    res.json(bed);
+    const findBed = await prisma.beds.findUnique({
+        where: {
+            id: uuid
+        }
+    });
+    const createHistoric = await prisma.historic.create({
+        data: {
+            bedsId: uuid,
+            lastBedStatus: findBed.status,
+            newBedStatus: 'AVAILABLE',
+            lastModifiedDate: findBed.status_changed_date
+        }
+    });
+    res.send({
+        bed,
+        createHistoric
+    });
 }
 exports.createBeds = createBeds;
 async function getAvailableBedsQuantity() {
@@ -82,6 +101,19 @@ async function getBedStatus(req, res) {
 exports.getBedStatus = getBedStatus;
 async function updateBed(req, res) {
     const { id, status, section, name } = req.body;
+    const findBed = await prisma.beds.findUnique({
+        where: {
+            id: id
+        }
+    });
+    const createHistoric = await prisma.historic.create({
+        data: {
+            bedsId: id,
+            lastBedStatus: findBed.status,
+            newBedStatus: status,
+            lastModifiedDate: findBed.status_changed_date
+        }
+    });
     const updateBedStatus = await prisma.beds.update({
         where: {
             id: id
@@ -93,7 +125,8 @@ async function updateBed(req, res) {
         }
     });
     res.send({
-        updateBedStatus
+        updateBedStatus,
+        createHistoric
     });
 }
 exports.updateBed = updateBed;
@@ -121,7 +154,7 @@ async function getBedsPercentage(req, res) {
 }
 exports.getBedsPercentage = getBedsPercentage;
 async function occupiedBedsQuantity(req, res) {
-    const occupiedBedsQtd = getOccupiedBedsQuantity();
+    const occupiedBedsQtd = await getOccupiedBedsQuantity();
     res.send({
         occupiedBedsQtd
     });
