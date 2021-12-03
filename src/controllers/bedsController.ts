@@ -1,18 +1,38 @@
 import { PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
 export async function createBeds(req, res) {
-  const {name, type, section} = req.body
+  const { name, type, section } = req.body
+  const uuid = await uuidv4()
   const bed = await prisma.beds.create({
     data:{
+      id: uuid,
       name: name,
       type: type,
       sectionId : section
-    },
-    
+    }
   })
-  res.json(bed)
+
+  const findBed = await prisma.beds.findUnique({
+    where: {
+      id : uuid
+    }
+  })
+
+  const createHistoric = await prisma.historic.create({
+    data:{
+      bedsId: uuid,
+      lastBedStatus: findBed.status,
+      newBedStatus: 'AVAILABLE',
+      lastModifiedDate: findBed.status_changed_date
+    }
+  })
+  res.send({
+    bed,
+    createHistoric
+  })
 }
 
 async function getAvailableBedsQuantity(){
@@ -91,6 +111,22 @@ export async function getBedStatus(req, res){
 
 export async function updateBed(req, res){
   const { id, status, section, name } = req.body
+
+  const findBed = await prisma.beds.findUnique({
+    where: {
+      id : id
+    }
+  })
+
+  const createHistoric = await prisma.historic.create({
+    data:{
+      bedsId: id,
+      lastBedStatus: findBed.status,
+      newBedStatus: status,
+      lastModifiedDate: findBed.status_changed_date
+    }
+  })
+
   const updateBedStatus = await prisma.beds.update({
     where:{
       id: id
@@ -101,12 +137,12 @@ export async function updateBed(req, res){
       name: name
     }
   })
+
   res.send({
-    updateBedStatus
+    updateBedStatus,
+    createHistoric
   })
 }
-
-
 
 export async function deleteBed(req, res){
   const { id } = req.body
@@ -132,7 +168,7 @@ export async function getBedsPercentage(req, res){
 }
 
 export async function occupiedBedsQuantity(req, res){
-  const occupiedBedsQtd = getOccupiedBedsQuantity()
+  const occupiedBedsQtd = await getOccupiedBedsQuantity()
 
   res.send({
     occupiedBedsQtd

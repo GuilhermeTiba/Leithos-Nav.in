@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const bedsController_1 = require("../controllers/bedsController");
+const historicController_1 = require("../controllers/historicController");
+const authenticateToken_1 = require("../middleware/authenticateToken");
+const router = (0, express_1.Router)();
+router.get('/allBeds', authenticateToken_1.authenticateToken, bedsController_1.allBeds);
+router.get('/allHistoric', authenticateToken_1.authenticateToken, historicController_1.getAllHistoric);
+router.delete('/deleteBed', authenticateToken_1.authenticateToken, bedsController_1.deleteBed);
+module.exports = router;

@@ -21,10 +21,10 @@ export async function getAllSections(req, res) {
 }
 
 export async function getBedsPerSection(req, res){
-  const { section } = req.body
+  const { sectionId } = req.params
   const bedsPerSection = await prisma.beds.findMany({
   where:{
-    sectionId: section
+    sectionId: sectionId
   }
   })
   res.send({
@@ -33,7 +33,7 @@ export async function getBedsPerSection(req, res){
 }
 
 async function getBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const bedsPerSection = await prisma.beds.count({
   where:{
     sectionId: section
@@ -45,7 +45,7 @@ async function getBedsPerSectionQuantity(req, res){
 }
 
 async function getAvailableBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const availableBedsPerSection = await prisma.beds.count({
   where:{
     status: 'AVAILABLE',
@@ -58,7 +58,7 @@ async function getAvailableBedsPerSectionQuantity(req, res){
 }
 
 async function getOccupiedBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const occupiedBedsPerSection = await prisma.beds.count({
   where:{
     status: 'OCCUPIED',
@@ -71,7 +71,7 @@ async function getOccupiedBedsPerSectionQuantity(req, res){
 }
 
 async function getNeedCleaningBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const needCleaningBedsPerSection = await prisma.beds.count({
   where:{
     sectionId: section,
@@ -84,7 +84,7 @@ async function getNeedCleaningBedsPerSectionQuantity(req, res){
 }
 
 async function getNeedMaintanenceBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const needMaintanenceBedsPerSection = await prisma.beds.count({
   where:{
     status: 'MAINTANENCE_NEEDED',
@@ -97,7 +97,7 @@ async function getNeedMaintanenceBedsPerSectionQuantity(req, res){
 }
 
 async function getCleaningBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const cleaningBedsPerSection = await prisma.beds.count({
   where:{
     status: 'CLEANING',
@@ -110,7 +110,7 @@ async function getCleaningBedsPerSectionQuantity(req, res){
 }
 
 async function getMaintenenceBedsPerSectionQuantity(req, res){
-  const { section } = req.body
+  const { section } = req.params
   const maintanenceBedsPerSection = await prisma.beds.count({
   where:{
     status: 'MAINTANENCE',
@@ -123,7 +123,8 @@ async function getMaintenenceBedsPerSectionQuantity(req, res){
 }
 
 export async function getbedsStatsPerSection(req, res){
-  const { status, section } = req.body
+  const { section } = req.params
+  const { status } = req.body
   const bedsStatsPerSection = await prisma.beds.count({
     where:{
       status:status,
