@@ -61,6 +61,7 @@ model Historic {
   newBedStatus     beds_status
   lastModifiedDate DateTime
   newDate          DateTime    @default(now())
+  timeDifference   Int
   bed              Beds        @relation(fields: [bedsId], references: [id])
 }
 

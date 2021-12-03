@@ -41,6 +41,63 @@ async function getPatientOut(timeRange){
   return dailyOut
 }
 
+const minuteAverageCleaningTimefunc = async () =>{
+  const averageCleaningTime = await prisma.historic.aggregate({
+    _avg:{
+      timeDifference:true
+    },
+    where:{
+      lastBedStatus:'CLEANING'
+    }
+  })
+  return Math.round(averageCleaningTime._avg.timeDifference / 60000)
+}
+
+const minuteAverageMaintanenceTimefunc = async () =>{
+  const averageMaintanenceTime = await prisma.historic.aggregate({
+    _avg:{
+      timeDifference:true
+    },
+    where:{
+      lastBedStatus:'MAINTANENCE'
+    }
+  })
+  return Math.round(averageMaintanenceTime._avg.timeDifference / 60000)
+}
+
+const minuteAverageResponseTimefunc = async () =>{
+  const averageResponseTime = await prisma.historic.aggregate({
+    _avg:{
+      timeDifference:true
+    },
+    where:{
+      OR:[
+        {
+          lastBedStatus: 'CLEANING_NEEDED',
+          newBedStatus: 'CLEANING'
+        },
+        {
+          lastBedStatus: 'MAINTANENCE_NEEDED',
+          newBedStatus: 'MAINTANENCE'
+        }
+      ]
+    }
+  })
+  return Math.round(averageResponseTime._avg.timeDifference / 60000)
+}
+
+const minuteAverageOccupiedTimefunc = async () =>{
+  const averageOccupiedTime = await prisma.historic.aggregate({
+    _avg:{
+      timeDifference:true
+    },
+    where:{
+      lastBedStatus:'OCCUPIED'
+    }
+  })
+  return Math.round(averageOccupiedTime._avg.timeDifference / 60000)
+}
+
 export async function getAllHistoric(req, res){
   const allHistoric = await prisma.historic.findMany()
   res.send({
@@ -49,18 +106,16 @@ export async function getAllHistoric(req, res){
 }
 
 export async function getDailyInAndOuts(req, res){
-
-  const dailyIn = await getPatientIn(0)
-  const dailyOut = await getPatientOut(0)
+  const dailyIn = await getPatientIn(0);
+  const dailyOut = await getPatientOut(0);
 
   res.send({
     dailyIn,
-    dailyOut
-  })
+    dailyOut,
+  });
 }
 
 export async function getWeeklyInAndOuts(req, res){
-
   const weeklyIn = await getPatientIn(7)
   const weeklyOut = await getPatientOut(7)
 
@@ -71,7 +126,6 @@ export async function getWeeklyInAndOuts(req, res){
 }
 
 export async function getMonthlyInAndOuts(req, res){
-
   const monthlyIn = await getPatientIn(30)
   const monthlyOut = await getPatientOut(30)
 
@@ -82,7 +136,6 @@ export async function getMonthlyInAndOuts(req, res){
 }
 
 export async function getYearlyInAndOuts(req, res){
-
   const yearlyIn = await getPatientIn(365)
   const yearlyOut = await getPatientOut(365)
 
@@ -91,3 +144,19 @@ export async function getYearlyInAndOuts(req, res){
     yearlyOut
   })
 }
+
+export const getAverageTimes = async (req, res) => {
+  const averageCleaningTime = await minuteAverageCleaningTimefunc();
+  const averageResponseTime = await minuteAverageResponseTimefunc();
+  const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
+  const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc()
+
+  res.send({
+    averageCleaningTime,
+    averageResponseTime,
+    averageOccupiedTime,
+    averageMaintanenceTime
+  })
+}
+
+

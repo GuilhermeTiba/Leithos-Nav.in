@@ -135,5 +135,19 @@ export async function getbedsStatsPerSection(req, res){
   res.send({
     bedsStatsPerSection
   })
+}
 
+export const searchSection = async (req, res) => {
+  const { id } = req.body
+
+  const searchSection = await prisma.section.findMany({
+    where:{
+      id:{
+        startsWith: id
+      }
+    }
+  })
+  res.send({
+    searchSection
+  })
 }
