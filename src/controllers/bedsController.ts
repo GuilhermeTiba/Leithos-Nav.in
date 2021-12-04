@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export async function createBeds(req, res) {
   const { name, type, section } = req.body
   const uuid = await uuidv4()
+
   const bed = await prisma.beds.create({
     data:{
       id: uuid,
@@ -21,12 +22,17 @@ export async function createBeds(req, res) {
     }
   })
 
+  const now = new Date().getTime()
+  const lastTime = findBed.status_changed_date.getTime()
+  const timeDifference = now - lastTime
+
   const createHistoric = await prisma.historic.create({
     data:{
       bedsId: uuid,
       lastBedStatus: findBed.status,
       newBedStatus: 'AVAILABLE',
-      lastModifiedDate: findBed.status_changed_date
+      lastModifiedDate: findBed.status_changed_date,
+      timeDifference: timeDifference
     }
   })
   res.send({
@@ -52,7 +58,6 @@ async function getOccupiedBedsQuantity(){
   })
 
   return occupiedBedsQuantity
-  //res.json(occupiedBedsQuantity)
 }
 
 
@@ -118,30 +123,39 @@ export async function updateBed(req, res){
     }
   })
 
-  const createHistoric = await prisma.historic.create({
-    data:{
-      bedsId: id,
-      lastBedStatus: findBed.status,
-      newBedStatus: status,
-      lastModifiedDate: findBed.status_changed_date
-    }
+  if (findBed.status != "AVAILABLE" && status == "OCCUPIED") {
+    res.send({Error:"Bed needs to be available to make this change."})
+  } else {
+    const now = new Date().getTime()
+    const lastTime = findBed.status_changed_date.getTime()
+    const timeDifference = now - lastTime
+  
+    const createHistoric = await prisma.historic.create({
+      data:{
+        bedsId: id,
+        lastBedStatus: findBed.status,
+        newBedStatus: status,
+        lastModifiedDate: findBed.status_changed_date,
+        timeDifference: timeDifference
+      }
   })
 
-  const updateBedStatus = await prisma.beds.update({
-    where:{
-      id: id
-    },
-    data:{ 
-      status: status,
-      sectionId: section,
-      name: name
-    }
-  })
+    const updateBedStatus = await prisma.beds.update({
+      where:{
+        id: id
+      },
+      data:{ 
+        status: status,
+        sectionId: section,
+        name: name
+      }
+    })
 
-  res.send({
-    updateBedStatus,
-    createHistoric
-  })
+    res.send({
+      updateBedStatus,
+      createHistoric
+    })
+  }
 }
 
 export async function deleteBed(req, res){
