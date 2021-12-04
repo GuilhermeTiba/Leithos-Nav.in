@@ -58,7 +58,6 @@ async function getOccupiedBedsQuantity(){
   })
 
   return occupiedBedsQuantity
-  //res.json(occupiedBedsQuantity)
 }
 
 
@@ -124,35 +123,39 @@ export async function updateBed(req, res){
     }
   })
 
-  const now = new Date().getTime()
-  const lastTime = findBed.status_changed_date.getTime()
-  const timeDifference = now - lastTime
+  if (findBed.status != "AVAILABLE" && status == "OCCUPIED") {
+    res.send({Error:"Bed needs to be available to make this change."})
+  } else {
+    const now = new Date().getTime()
+    const lastTime = findBed.status_changed_date.getTime()
+    const timeDifference = now - lastTime
   
-  const createHistoric = await prisma.historic.create({
-    data:{
-      bedsId: id,
-      lastBedStatus: findBed.status,
-      newBedStatus: status,
-      lastModifiedDate: findBed.status_changed_date,
-      timeDifference: timeDifference
-    }
+    const createHistoric = await prisma.historic.create({
+      data:{
+        bedsId: id,
+        lastBedStatus: findBed.status,
+        newBedStatus: status,
+        lastModifiedDate: findBed.status_changed_date,
+        timeDifference: timeDifference
+      }
   })
 
-  const updateBedStatus = await prisma.beds.update({
-    where:{
-      id: id
-    },
-    data:{ 
-      status: status,
-      sectionId: section,
-      name: name
-    }
-  })
+    const updateBedStatus = await prisma.beds.update({
+      where:{
+        id: id
+      },
+      data:{ 
+        status: status,
+        sectionId: section,
+        name: name
+      }
+    })
 
-  res.send({
-    updateBedStatus,
-    createHistoric
-  })
+    res.send({
+      updateBedStatus,
+      createHistoric
+    })
+  }
 }
 
 export async function deleteBed(req, res){
