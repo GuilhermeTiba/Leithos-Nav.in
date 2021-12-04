@@ -59,7 +59,7 @@ async function availableBedsFromAllSectionsFunc() {
     const responseArray = [];
     for (let index = 0; index < allSectionArray.length; index += 1) {
         const getAvailableBedsPerSection = await getAvailableBedsPerSectionQuantity(allSectionArray[index].id);
-        responseArray.push(`${allSectionArray[index].id}:${getAvailableBedsPerSection}`);
+        responseArray.push({ "section": allSectionArray[index].id, "quantity": getAvailableBedsPerSection });
     }
     return responseArray;
 }
@@ -69,7 +69,7 @@ async function allBedsFromAllSectionsFunc() {
     const responseArray = [];
     for (let index = 0; index < allSectionArray.length; index += 1) {
         const getBedsPersectionQtd = await getBedsPerSectionQuantity(allSectionArray[index].id);
-        responseArray.push(`${allSectionArray[index].id}:${getBedsPersectionQtd}`);
+        responseArray.push({ "section": allSectionArray[index].id, "quantity": getBedsPersectionQtd });
     }
     return responseArray;
 }
