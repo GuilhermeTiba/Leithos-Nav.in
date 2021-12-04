@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getYearlyInAndOuts = exports.getMonthlyInAndOuts = exports.getWeeklyInAndOuts = exports.getDailyInAndOuts = exports.getAllHistoric = void 0;
+exports.getAverageTimes = exports.getYearlyInAndOuts = exports.getMonthlyInAndOuts = exports.getWeeklyInAndOuts = exports.getDailyInAndOuts = exports.getAllHistoric = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 async function getPatientIn(timeRange) {
@@ -36,6 +36,59 @@ async function getPatientOut(timeRange) {
     });
     return dailyOut;
 }
+const minuteAverageCleaningTimefunc = async () => {
+    const averageCleaningTime = await prisma.historic.aggregate({
+        _avg: {
+            timeDifference: true
+        },
+        where: {
+            lastBedStatus: 'CLEANING'
+        }
+    });
+    return Math.round(averageCleaningTime._avg.timeDifference / 60000);
+};
+const minuteAverageMaintanenceTimefunc = async () => {
+    const averageMaintanenceTime = await prisma.historic.aggregate({
+        _avg: {
+            timeDifference: true
+        },
+        where: {
+            lastBedStatus: 'MAINTANENCE'
+        }
+    });
+    return Math.round(averageMaintanenceTime._avg.timeDifference / 60000);
+};
+const minuteAverageResponseTimefunc = async () => {
+    const averageResponseTime = await prisma.historic.aggregate({
+        _avg: {
+            timeDifference: true
+        },
+        where: {
+            OR: [
+                {
+                    lastBedStatus: 'CLEANING_NEEDED',
+                    newBedStatus: 'CLEANING'
+                },
+                {
+                    lastBedStatus: 'MAINTANENCE_NEEDED',
+                    newBedStatus: 'MAINTANENCE'
+                }
+            ]
+        }
+    });
+    return Math.round(averageResponseTime._avg.timeDifference / 60000);
+};
+const minuteAverageOccupiedTimefunc = async () => {
+    const averageOccupiedTime = await prisma.historic.aggregate({
+        _avg: {
+            timeDifference: true
+        },
+        where: {
+            lastBedStatus: 'OCCUPIED'
+        }
+    });
+    return Math.round(averageOccupiedTime._avg.timeDifference / 60000);
+};
 async function getAllHistoric(req, res) {
     const allHistoric = await prisma.historic.findMany();
     res.send({
@@ -48,7 +101,7 @@ async function getDailyInAndOuts(req, res) {
     const dailyOut = await getPatientOut(0);
     res.send({
         dailyIn,
-        dailyOut
+        dailyOut,
     });
 }
 exports.getDailyInAndOuts = getDailyInAndOuts;
@@ -79,3 +132,16 @@ async function getYearlyInAndOuts(req, res) {
     });
 }
 exports.getYearlyInAndOuts = getYearlyInAndOuts;
+const getAverageTimes = async (req, res) => {
+    const averageCleaningTime = await minuteAverageCleaningTimefunc();
+    const averageResponseTime = await minuteAverageResponseTimefunc();
+    const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
+    const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc();
+    res.send({
+        averageCleaningTime,
+        averageResponseTime,
+        averageOccupiedTime,
+        averageMaintanenceTime
+    });
+};
+exports.getAverageTimes = getAverageTimes;

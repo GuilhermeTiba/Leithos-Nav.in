@@ -12,4 +12,5 @@ router.post('/createBeds', authenticateToken_1.authenticateToken, bedsController
 router.post('/createPatient', authenticateToken_1.authenticateToken, patientController_1.createPatient);
 router.put('/updateBed', authenticateToken_1.authenticateToken, bedsController_1.updateBed);
 router.put('/updateDiagnosis', authenticateToken_1.authenticateToken, patientController_1.updateDiagnosticFromPatient);
+router.delete('/deleteBed', authenticateToken_1.authenticateToken, bedsController_1.deleteBed);
 module.exports = router;

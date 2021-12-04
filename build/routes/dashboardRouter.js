@@ -6,8 +6,9 @@ const authenticateToken_1 = require("../middleware/authenticateToken");
 const sectionController_1 = require("../controllers/sectionController");
 const patientController_1 = require("../controllers/patientController");
 const historicController_1 = require("../controllers/historicController");
+const searchController_1 = require("../controllers/searchController");
 const router = (0, express_1.Router)();
-router.get('/bedsPercentagePerStatus', authenticateToken_1.authenticateToken, bedsController_1.getBedsPercentage);
+router.get('/bedsPercentagePerStatus', authenticateToken_1.authenticateToken, bedsController_1.getBedsPercentage); //
 router.get('/bedsQuantityPerStatus', authenticateToken_1.authenticateToken, bedsController_1.getBedsQuantityPerStatus);
 router.get('/patientQuantityPerDiagnosis', authenticateToken_1.authenticateToken, patientController_1.getQuantityPerDiagnosis);
 router.get('/patientQuantityPerSex', authenticateToken_1.authenticateToken, patientController_1.getQuantityPerSex);
@@ -16,5 +17,7 @@ router.get('/dailyInAndOuts', authenticateToken_1.authenticateToken, historicCon
 router.get('/weeklyInAndOuts', authenticateToken_1.authenticateToken, historicController_1.getWeeklyInAndOuts);
 router.get('/monthlyInAndOuts', authenticateToken_1.authenticateToken, historicController_1.getMonthlyInAndOuts);
 router.get('/yearlyInAndOuts', authenticateToken_1.authenticateToken, historicController_1.getYearlyInAndOuts);
-router.post('/bedsQuantityPerStatusAndSection', authenticateToken_1.authenticateToken, sectionController_1.getbedsStatsPerSection);
+router.get('/averageTimePerFuncionality', authenticateToken_1.authenticateToken, historicController_1.getAverageTimes);
+router.get('/bedsQuantityPerStatusAndSection', authenticateToken_1.authenticateToken, sectionController_1.getAvailableBedsfromAllSections);
+router.post('/searchSection', authenticateToken_1.authenticateToken, searchController_1.searchSection);
 module.exports = router;
