@@ -20,12 +20,16 @@ async function createBeds(req, res) {
             id: uuid
         }
     });
+    const now = new Date().getTime();
+    const lastTime = findBed.status_changed_date.getTime();
+    const timeDifference = now - lastTime;
     const createHistoric = await prisma.historic.create({
         data: {
             bedsId: uuid,
             lastBedStatus: findBed.status,
             newBedStatus: 'AVAILABLE',
-            lastModifiedDate: findBed.status_changed_date
+            lastModifiedDate: findBed.status_changed_date,
+            timeDifference: timeDifference
         }
     });
     res.send({
@@ -49,7 +53,6 @@ async function getOccupiedBedsQuantity() {
         }
     });
     return occupiedBedsQuantity;
-    //res.json(occupiedBedsQuantity)
 }
 async function getCleaningBedsQuantity() {
     const cleaningBeds = await prisma.beds.count({
@@ -106,28 +109,37 @@ async function updateBed(req, res) {
             id: id
         }
     });
-    const createHistoric = await prisma.historic.create({
-        data: {
-            bedsId: id,
-            lastBedStatus: findBed.status,
-            newBedStatus: status,
-            lastModifiedDate: findBed.status_changed_date
-        }
-    });
-    const updateBedStatus = await prisma.beds.update({
-        where: {
-            id: id
-        },
-        data: {
-            status: status,
-            sectionId: section,
-            name: name
-        }
-    });
-    res.send({
-        updateBedStatus,
-        createHistoric
-    });
+    if (findBed.status != "AVAILABLE" && status == "OCCUPIED") {
+        res.send({ Error: "Bed needs to be available to make this change." });
+    }
+    else {
+        const now = new Date().getTime();
+        const lastTime = findBed.status_changed_date.getTime();
+        const timeDifference = now - lastTime;
+        const createHistoric = await prisma.historic.create({
+            data: {
+                bedsId: id,
+                lastBedStatus: findBed.status,
+                newBedStatus: status,
+                lastModifiedDate: findBed.status_changed_date,
+                timeDifference: timeDifference
+            }
+        });
+        const updateBedStatus = await prisma.beds.update({
+            where: {
+                id: id
+            },
+            data: {
+                status: status,
+                sectionId: section,
+                name: name
+            }
+        });
+        res.send({
+            updateBedStatus,
+            createHistoric
+        });
+    }
 }
 exports.updateBed = updateBed;
 async function deleteBed(req, res) {

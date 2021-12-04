@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getbedsStatsPerSection = exports.getBedsPerSection = exports.getAllSections = exports.createSection = void 0;
+exports.getAvailableBedsfromAllSections = exports.getBedsPerSection = exports.getAllSections = exports.createSection = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 async function createSection(req, res) {
@@ -14,8 +14,10 @@ async function createSection(req, res) {
 }
 exports.createSection = createSection;
 async function getAllSections(req, res) {
-    const section = await prisma.section.findMany();
-    res.json(section);
+    const allSections = await allSectionsFunc();
+    res.send({
+        allSections
+    });
 }
 exports.getAllSections = getAllSections;
 async function getBedsPerSection(req, res) {
@@ -30,6 +32,13 @@ async function getBedsPerSection(req, res) {
     });
 }
 exports.getBedsPerSection = getBedsPerSection;
+async function getAvailableBedsfromAllSections(req, res) {
+    const allBedsFromAllSections = await allBedsFromAllSectionsFunc();
+    res.send({
+        allBedsFromAllSections
+    });
+}
+exports.getAvailableBedsfromAllSections = getAvailableBedsfromAllSections;
 async function getBedsPerSectionQuantity(req, res) {
     const { section } = req.params;
     const bedsPerSection = await prisma.beds.count({
@@ -41,17 +50,28 @@ async function getBedsPerSectionQuantity(req, res) {
         bedsPerSection
     });
 }
-async function getAvailableBedsPerSectionQuantity(req, res) {
-    const { section } = req.params;
+async function allSectionsFunc() {
+    const allSections = await prisma.section.findMany();
+    return allSections;
+}
+async function allBedsFromAllSectionsFunc() {
+    const allSections = await prisma.section.findMany();
+    const allSectionArray = Object.values(allSections);
+    const responseArray = [];
+    for (let index = 0; index < allSectionArray.length; index += 1) {
+        const getAvailableBedsPerSection = await getAvailableBedsPerSectionQuantity(allSectionArray[index].id);
+        responseArray.push(`${allSectionArray[index].id}:${getAvailableBedsPerSection}`);
+    }
+    return responseArray;
+}
+async function getAvailableBedsPerSectionQuantity(sectionId) {
     const availableBedsPerSection = await prisma.beds.count({
         where: {
             status: 'AVAILABLE',
-            sectionId: section
+            sectionId: sectionId
         }
     });
-    res.send({
-        availableBedsPerSection
-    });
+    return availableBedsPerSection;
 }
 async function getOccupiedBedsPerSectionQuantity(req, res) {
     const { section } = req.params;
@@ -113,17 +133,3 @@ async function getMaintenenceBedsPerSectionQuantity(req, res) {
         maintanenceBedsPerSection
     });
 }
-async function getbedsStatsPerSection(req, res) {
-    const { section } = req.params;
-    const { status } = req.body;
-    const bedsStatsPerSection = await prisma.beds.count({
-        where: {
-            status: status,
-            sectionId: section
-        }
-    });
-    res.send({
-        bedsStatsPerSection
-    });
-}
-exports.getbedsStatsPerSection = getbedsStatsPerSection;
