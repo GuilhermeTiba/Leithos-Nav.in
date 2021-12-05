@@ -7,7 +7,7 @@ const prisma = new client_1.PrismaClient();
 async function createBeds(req, res) {
     const { name, type, section } = req.body;
     const uuid = await (0, uuid_1.v4)();
-    const bed = await prisma.beds.create({
+    const createBed = await prisma.beds.create({
         data: {
             id: uuid,
             name: name,
@@ -23,7 +23,7 @@ async function createBeds(req, res) {
     const now = new Date().getTime();
     const lastTime = findBed.status_changed_date.getTime();
     const timeDifference = now - lastTime;
-    const createHistoric = await prisma.historic.create({
+    const createHistoric = await prisma.bedHistoric.create({
         data: {
             bedsId: uuid,
             lastBedStatus: findBed.status,
@@ -33,7 +33,7 @@ async function createBeds(req, res) {
         }
     });
     res.send({
-        bed,
+        createBed,
         createHistoric
     });
 }
@@ -103,7 +103,7 @@ async function getBedStatus(req, res) {
 }
 exports.getBedStatus = getBedStatus;
 async function updateBed(req, res) {
-    const { id, status, section, name } = req.body;
+    const { id, status, section, name, type } = req.body;
     const findBed = await prisma.beds.findUnique({
         where: {
             id: id
@@ -116,7 +116,7 @@ async function updateBed(req, res) {
         const now = new Date().getTime();
         const lastTime = findBed.status_changed_date.getTime();
         const timeDifference = now - lastTime;
-        const createHistoric = await prisma.historic.create({
+        const createHistoric = await prisma.bedHistoric.create({
             data: {
                 bedsId: id,
                 lastBedStatus: findBed.status,
@@ -132,7 +132,8 @@ async function updateBed(req, res) {
             data: {
                 status: status,
                 sectionId: section,
-                name: name
+                name: name,
+                type: type
             }
         });
         res.send({
@@ -143,13 +144,19 @@ async function updateBed(req, res) {
 }
 exports.updateBed = updateBed;
 async function deleteBed(req, res) {
-    const { id } = req.body;
+    const { bedId } = req.body;
+    const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
+        where: {
+            bedsId: bedId
+        }
+    });
     const deleteBed = await prisma.beds.delete({
         where: {
-            id: id
+            id: bedId
         }
     });
     res.send({
+        deleteBedHistoric,
         deleteBed
     });
 }

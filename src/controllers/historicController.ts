@@ -9,7 +9,7 @@ async function getPatientIn(timeRange){
   const initialTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate() - timeRange, gmt, 0, 0)
   const endTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23 + gmt, 59, 59)
 
-  const dailyIn = await prisma.historic.count({
+  const dailyIn = await prisma.bedHistoric.count({
     where:{
       lastBedStatus: 'AVAILABLE',
       newBedStatus: 'OCCUPIED',
@@ -29,7 +29,7 @@ async function getPatientOut(timeRange){
   const initialTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate() - timeRange, gmt, 0, 0)
   const endTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23 + gmt, 59, 59)
 
-  const dailyOut = await prisma.historic.count({
+  const dailyOut = await prisma.bedHistoric.count({
     where:{
       lastBedStatus:'OCCUPIED',
       newDate:{
@@ -42,7 +42,7 @@ async function getPatientOut(timeRange){
 }
 
 const minuteAverageCleaningTimefunc = async () =>{
-  const averageCleaningTime = await prisma.historic.aggregate({
+  const averageCleaningTime = await prisma.bedHistoric.aggregate({
     _avg:{
       timeDifference:true
     },
@@ -54,7 +54,7 @@ const minuteAverageCleaningTimefunc = async () =>{
 }
 
 const minuteAverageMaintanenceTimefunc = async () =>{
-  const averageMaintanenceTime = await prisma.historic.aggregate({
+  const averageMaintanenceTime = await prisma.bedHistoric.aggregate({
     _avg:{
       timeDifference:true
     },
@@ -66,7 +66,7 @@ const minuteAverageMaintanenceTimefunc = async () =>{
 }
 
 const minuteAverageResponseTimefunc = async () =>{
-  const averageResponseTime = await prisma.historic.aggregate({
+  const averageResponseTime = await prisma.bedHistoric.aggregate({
     _avg:{
       timeDifference:true
     },
@@ -87,7 +87,7 @@ const minuteAverageResponseTimefunc = async () =>{
 }
 
 const minuteAverageOccupiedTimefunc = async () =>{
-  const averageOccupiedTime = await prisma.historic.aggregate({
+  const averageOccupiedTime = await prisma.bedHistoric.aggregate({
     _avg:{
       timeDifference:true
     },
@@ -99,7 +99,7 @@ const minuteAverageOccupiedTimefunc = async () =>{
 }
 
 export async function getAllHistoric(req, res){
-  const allHistoric = await prisma.historic.findMany()
+  const allHistoric = await prisma.bedHistoric.findMany()
   res.send({
     allHistoric
   })

@@ -7,7 +7,7 @@ export async function createBeds(req, res) {
   const { name, type, section } = req.body
   const uuid = await uuidv4()
 
-  const bed = await prisma.beds.create({
+  const createBed = await prisma.beds.create({
     data:{
       id: uuid,
       name: name,
@@ -26,7 +26,7 @@ export async function createBeds(req, res) {
   const lastTime = findBed.status_changed_date.getTime()
   const timeDifference = now - lastTime
 
-  const createHistoric = await prisma.historic.create({
+  const createHistoric = await prisma.bedHistoric.create({
     data:{
       bedsId: uuid,
       lastBedStatus: findBed.status,
@@ -36,7 +36,7 @@ export async function createBeds(req, res) {
     }
   })
   res.send({
-    bed,
+    createBed,
     createHistoric
   })
 }
@@ -115,7 +115,7 @@ export async function getBedStatus(req, res){
 }
 
 export async function updateBed(req, res){
-  const { id, status, section, name } = req.body
+  const { id, status, section, name, type} = req.body
 
   const findBed = await prisma.beds.findUnique({
     where: {
@@ -130,7 +130,7 @@ export async function updateBed(req, res){
     const lastTime = findBed.status_changed_date.getTime()
     const timeDifference = now - lastTime
   
-    const createHistoric = await prisma.historic.create({
+    const createHistoric = await prisma.bedHistoric.create({
       data:{
         bedsId: id,
         lastBedStatus: findBed.status,
@@ -147,7 +147,8 @@ export async function updateBed(req, res){
       data:{ 
         status: status,
         sectionId: section,
-        name: name
+        name: name,
+        type: type
       }
     })
 
@@ -159,13 +160,22 @@ export async function updateBed(req, res){
 }
 
 export async function deleteBed(req, res){
-  const { id } = req.body
-  const deleteBed = await prisma.beds.delete({
+  const { bedId } = req.body
+
+  const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
     where:{
-      id: id
+      bedsId: bedId
     }
   })
+
+  const deleteBed = await prisma.beds.delete({
+    where:{
+      id: bedId
+    }
+  })
+  
   res.send({
+    deleteBedHistoric,
     deleteBed
   })
 }

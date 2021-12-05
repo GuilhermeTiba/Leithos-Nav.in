@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQuantityPerAge = exports.updateDiagnosticFromPatient = exports.getQuantityPerSex = exports.getQuantityPerDiagnosis = exports.getDiagnosisFromPatient = exports.createPatient = void 0;
+exports.getQuantityPerAge = exports.getQuantityPerSex = exports.getQuantityPerDiagnosis = exports.updatePatientData = exports.getPatientData = exports.deletePatient = exports.createPatient = void 0;
 const client_1 = require("@prisma/client");
 const uuid_1 = require("uuid");
 const prisma = new client_1.PrismaClient();
@@ -243,21 +243,68 @@ async function createPatient(req, res) {
     res.send({ createPatient });
 }
 exports.createPatient = createPatient;
-async function getDiagnosisFromPatient(req, res) {
-    const { patientId } = req.params;
-    const patientDiagnosis = await prisma.patient.findUnique({
+async function deletePatient(req, res) {
+    const { patientId, liberationClause } = req.body;
+    const findPatient = await prisma.patient.findUnique({
         where: {
             id: patientId
-        },
-        select: {
-            diagnosis: true
+        }
+    });
+    const createPatientHistoric = await prisma.patientHistoric.create({
+        data: {
+            first_name: findPatient.first_name,
+            last_name: findPatient.last_name,
+            entry_date: findPatient.entry_date,
+            ssn: findPatient.ssn,
+            diagnosis: findPatient.diagnosis,
+            additional_informations: findPatient.additional_informations,
+            liberationClause: liberationClause
+        }
+    });
+    const deletePatient = await prisma.patient.delete({
+        where: {
+            id: patientId
         }
     });
     res.send({
-        patientDiagnosis
+        createPatientHistoric,
+        deletePatient
     });
 }
-exports.getDiagnosisFromPatient = getDiagnosisFromPatient;
+exports.deletePatient = deletePatient;
+async function getPatientData(req, res) {
+    const { patientId } = req.params;
+    const patientData = await prisma.patient.findUnique({
+        where: {
+            id: patientId
+        },
+    });
+    res.send({
+        patientData
+    });
+}
+exports.getPatientData = getPatientData;
+async function updatePatientData(req, res) {
+    const { patientId } = req.params;
+    const { first_name, last_name, sex, age, diagnosis, additional_informations } = req.body;
+    const updatePatientData = await prisma.patient.update({
+        where: {
+            id: patientId
+        },
+        data: {
+            first_name,
+            last_name,
+            sex,
+            age,
+            diagnosis,
+            additional_informations
+        }
+    });
+    res.send({
+        updatePatientData
+    });
+}
+exports.updatePatientData = updatePatientData;
 async function getQuantityPerDiagnosis(req, res) {
     const neurologyQtd = await getNeurologyDiagnosisQuantity();
     const cardiologyQtd = await getCardiologyDiagnosisQuantity();
@@ -298,21 +345,6 @@ async function getQuantityPerSex(req, res) {
     });
 }
 exports.getQuantityPerSex = getQuantityPerSex;
-async function updateDiagnosticFromPatient(req, res) {
-    const { patientId, newDiagnosis } = req.body;
-    const updatePatientDiagnosis = await prisma.patient.update({
-        where: {
-            id: patientId
-        },
-        data: {
-            diagnosis: newDiagnosis
-        }
-    });
-    res.send({
-        updatePatientDiagnosis
-    });
-}
-exports.updateDiagnosticFromPatient = updateDiagnosticFromPatient;
 async function getQuantityPerAge(req, res) {
     const ageRange0_2 = await getQuantityPerAge0_2();
     const ageRange3_11 = await getQuantityPerAge3_11();
