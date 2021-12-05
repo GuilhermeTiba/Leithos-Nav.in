@@ -261,24 +261,78 @@ export async function createPatient(req, res) {
       bedId : bedId
     },
   })
+
   res.send({createPatient})
 }
 
-export async function getDiagnosisFromPatient(req, res){
+export async function deletePatient(req, res) {
+  const {patientId, liberationClause} = req.body
   
-  const {patientId} = req.params
-
-  const patientDiagnosis = await prisma.patient.findUnique({
+  const findPatient = await prisma.patient.findUnique({
     where:{
       id: patientId
-    },
-    select:{
-      diagnosis: true
+    }
+  })
+  
+  const createPatientHistoric = await prisma.patientHistoric.create({
+    data:{
+      first_name: findPatient.first_name,
+      last_name: findPatient.last_name,
+      entry_date: findPatient.entry_date,
+      ssn : findPatient.ssn,
+      diagnosis : findPatient.diagnosis,
+      additional_informations: findPatient.additional_informations,
+      liberationClause: liberationClause
+    }
+  })
+
+  const deletePatient = await prisma.patient.delete({
+    where:{
+      id: patientId
     }
   })
 
   res.send({
-    patientDiagnosis
+    createPatientHistoric,
+    deletePatient
+  })
+}
+
+export async function getPatientData(req, res) {
+  
+  const {patientId} = req.params
+
+  const patientData = await prisma.patient.findUnique({
+    where:{
+      id: patientId
+    },
+  })
+
+  res.send({
+    patientData
+  })
+}
+
+export async function updatePatientData(req, res) {
+  const {patientId} = req.params
+  const {first_name, last_name, sex, age, diagnosis, additional_informations} = req.body
+
+  const updatePatientData = await prisma.patient.update({
+    where:{
+      id : patientId
+    },
+    data:{
+      first_name,
+      last_name,
+      sex,
+      age,
+      diagnosis,
+      additional_informations
+    }
+  })
+
+  res.send({
+    updatePatientData
   })
 }
 
@@ -324,24 +378,6 @@ export async function getQuantityPerSex(req, res){
     otherQtd
   })
 }
-
-export async function updateDiagnosticFromPatient(req, res){
-  
-  const {patientId , newDiagnosis} = req.body
-
-  const updatePatientDiagnosis = await prisma.patient.update({
-    where:{
-      id : patientId
-    },
-    data:{
-      diagnosis: newDiagnosis
-    }
-  })
-  res.send({
-    updatePatientDiagnosis
-  })
-}
-
 
 export async function getQuantityPerAge(req, res){
   const ageRange0_2 = await getQuantityPerAge0_2()

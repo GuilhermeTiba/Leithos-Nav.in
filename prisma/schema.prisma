@@ -43,7 +43,7 @@ model Beds {
   type                beds_type
   sectionId           String
   section             Section     @relation(fields: [sectionId], references: [id])
-  historic            Historic[]
+  bedHistoric         BedHistoric[]
   patient             Patient?
 
   @@map("beds")
@@ -54,15 +54,27 @@ model Section {
   beds Beds[]
 }
 
-model Historic {
+model BedHistoric {
   id               String      @id @default(uuid())
-  bedsId           String
   lastBedStatus    beds_status
   newBedStatus     beds_status
   lastModifiedDate DateTime
   newDate          DateTime    @default(now())
   timeDifference   Int
   bed              Beds        @relation(fields: [bedsId], references: [id])
+  bedsId           String
+}
+
+model PatientHistoric {
+  id String @id @default(uuid())
+  first_name String
+  last_name String
+  entry_date DateTime 
+  exit_date DateTime @default(now())
+  ssn String
+  diagnosis String[]
+  additional_informations String
+  liberationClause String?
 }
 
 enum user_type {
