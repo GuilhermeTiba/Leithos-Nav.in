@@ -285,8 +285,7 @@ async function getPatientData(req, res) {
 }
 exports.getPatientData = getPatientData;
 async function updatePatientData(req, res) {
-    const { patientId } = req.params;
-    const { first_name, last_name, sex, age, diagnosis, additional_informations } = req.body;
+    const { first_name, last_name, sex, age, diagnosis, additional_informations, patientId } = req.body;
     const updatePatientData = await prisma.patient.update({
         where: {
             id: patientId
