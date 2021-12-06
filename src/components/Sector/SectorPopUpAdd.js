@@ -7,7 +7,8 @@ const SectorPopUpAdd = ({
     showPopUpAdd, 
     setShowPopUpAdd, 
     listLeitos, 
-    setListLeitos
+    setListLeitos,
+    setShowPopUpSucessfullyCreated
 }) => {
     const [nameLeito, setNameLeito] = useState('');
     const [statusLeito, setStatusLeito] = useState('')
@@ -33,16 +34,17 @@ const SectorPopUpAdd = ({
                 id: Math.floor(Math.random()* 10000),
                 name: nameLeito,
                 style : {
-                colorRight: StatusDisponivel.colorRight,
-                colorLeft: StatusDisponivel.colorLeft,
-                icon: StatusDisponivel.icon
+                    colorRight: StatusDisponivel.colorRight,
+                    colorLeft: StatusDisponivel.colorLeft,
+                    icon: StatusDisponivel.icon
                 },
-                status: 'Disponível'
+                status: 'Disponível',
             }];
-            setCountDispo(countDispo + 1)
-            setListLeitos(newLeitosList)
-            setNameLeito('')
-            setShowPopUpAdd(false)
+            setCountDispo(countDispo + 1);
+            setListLeitos(newLeitosList);
+            setNameLeito('');
+            setShowPopUpAdd(false);
+            setShowPopUpSucessfullyCreated(true);
         }
         if (statusLeito === 'StatusAguardandoManutencao') {
             const newLeitosList = [...listLeitos, {
@@ -59,15 +61,16 @@ const SectorPopUpAdd = ({
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false);
+            setShowPopUpSucessfullyCreated(true);
         }
         if (statusLeito === 'StatusAguardandoLimpeza') {
             const newLeitosList = [...listLeitos, {
                 id: Math.floor(Math.random()* 100),
                 name: nameLeito,
                 style : {
-                colorRight: StatusAguardandoLimpeza.colorRight,
-                colorLeft: StatusAguardandoLimpeza.colorLeft,
-                icon: StatusAguardandoLimpeza.icon
+                    colorRight: StatusAguardandoLimpeza.colorRight,
+                    colorLeft: StatusAguardandoLimpeza.colorLeft,
+                    icon: StatusAguardandoLimpeza.icon
                 },
                 status: 'Aguardando limpeza'
             }];
@@ -75,15 +78,16 @@ const SectorPopUpAdd = ({
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false);
+            setShowPopUpSucessfullyCreated(true);
         }
         if (statusLeito === 'StatusOcupado') {
             const newLeitosList = [...listLeitos, {
                 id: Math.floor(Math.random()* 100),
                 name: nameLeito,
                 style : {
-                colorRight: StatusOcupado.colorRight,
-                colorLeft: StatusOcupado.colorLeft,
-                icon: StatusOcupado.icon
+                    colorRight: StatusOcupado.colorRight,
+                    colorLeft: StatusOcupado.colorLeft,
+                    icon: StatusOcupado.icon
                 },
                 status: 'Ocupado'
             }];
@@ -91,6 +95,7 @@ const SectorPopUpAdd = ({
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false)
+            setShowPopUpSucessfullyCreated(true);
         }
         if (statusLeito === 'StatusEmLimpeza') {
             const newLeitosList = [...listLeitos, {
@@ -107,6 +112,7 @@ const SectorPopUpAdd = ({
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false)
+            setShowPopUpSucessfullyCreated(true);
         }
         if (statusLeito === 'StatusEmManutencao') {
             const newLeitosList = [...listLeitos, {
@@ -123,6 +129,7 @@ const SectorPopUpAdd = ({
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false)
+            setShowPopUpSucessfullyCreated(true);
         }
     }
 
@@ -153,6 +160,15 @@ const SectorPopUpAdd = ({
                             <SelectOption value ='StatusOcupado'>Ocupado</SelectOption>
                             <SelectOption value ='StatusEmLimpeza'>Em limpeza</SelectOption>
                             <SelectOption value ='StatusEmManutencao'>Em manutenção</SelectOption>
+                        </PopUpInputSelect>
+                    </PopUpField>
+
+                    <PopUpField>
+                        <PopUpLabel>Status inicial</PopUpLabel>
+                        <PopUpInputSelect>
+                            <SelectOption>Setor 1</SelectOption>
+                            <SelectOption>Setor 2</SelectOption>
+                            <SelectOption>Setor 3</SelectOption>
                         </PopUpInputSelect>
                     </PopUpField>
 

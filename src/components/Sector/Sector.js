@@ -13,6 +13,8 @@ const Sector = ({
     dataLeito, 
     setDataLeito, 
     patientList, 
+    showPopUpOccupied,
+    setShowPopUpOccupied
 }) => {
     return (
         <>
@@ -25,7 +27,17 @@ const Sector = ({
                 listLeitos={listLeitos}
                 dataLeito={dataLeito}
                 />
-                <SectorDashboard showPopUpAdd={showPopUpAdd} setShowPopUpAdd={setShowPopUpAdd} setShowPopUpStatus={setShowPopUpStatus} showPopUpStatus={showPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setDataLeito={setDataLeito} patientList={patientList}/>
+                <SectorDashboard 
+                showPopUpAdd={showPopUpAdd} 
+                setShowPopUpAdd={setShowPopUpAdd}
+                setShowPopUpStatus={setShowPopUpStatus} 
+                showPopUpStatus={showPopUpStatus} 
+                listLeitos={listLeitos} 
+                setListLeitos={setListLeitos} 
+                dataLeito={dataLeito} 
+                setDataLeito={setDataLeito} 
+                patientList={patientList}
+                showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied}/>
             </SectorGrid>
         </SectorWrapp> 
         </>

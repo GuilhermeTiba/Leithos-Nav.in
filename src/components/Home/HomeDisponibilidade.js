@@ -16,7 +16,7 @@ const DisponibilidadeComponent = () => {
                         <DataLeitos>
                             <NumberLeitos>4</NumberLeitos>leitos
                         </DataLeitos>
-                        <SectorName>Setor 2</SectorName>
+                        <SectorName>Setor 1</SectorName>
                     </SectorData>
                     <SectorData>
                         <DataLeitos>

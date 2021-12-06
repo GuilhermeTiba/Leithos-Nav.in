@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpStatus, PopUpButton} from './Sector.styles'
-import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
+import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado} from './SectorStatus';
 
 const SectorPopUpStatus = ({
     showPopUpStatus, 
@@ -12,7 +12,9 @@ const SectorPopUpStatus = ({
     setDataLeito, 
     setShowPopUpInfoPatient, 
     patientInfo,
-    showPopUpInfoPatient
+    showPopUpInfoPatient,
+    showPopUpDeletar,
+    setShowPopUpDeletar
     }) => {
 
     const {
@@ -38,7 +40,6 @@ const SectorPopUpStatus = ({
         e.preventDefault();
         for (const [index] of listLeitos.entries()) {
             if (dataLeito.id === listLeitos[index].id) {
-            console.log('save')
             if(listLeitos[index].status === 'Disponível'){
                 setCountDispo(countDispo - 1);
             }
@@ -69,26 +70,15 @@ const SectorPopUpStatus = ({
                 status: dataLeito.status
             }
             setShowPopUpStatus(false);
-        }
-        }
+        }}
         console.log(patientInfo);
         setShowPopUpStatus(false);
     }
 
     const handleUpdateOcupado = (e) => {
         e.preventDefault();
-
         setShowPopUpInfoPatient(true);
-        const changedLeito = {
-            name: dataLeito.name,
-            id: dataLeito.id,
-            bgText: StatusOcupado.colorLeft,
-            bgIcon: StatusOcupado.colorRight,
-            icon: StatusOcupado.icon,
-            status: 'Ocupado'
-        }
         setCountOcup(countOcup + 1)
-        setDataLeito(changedLeito)
     }
 
     const handleUpdateDisponivel = (e) => {
@@ -164,31 +154,8 @@ const SectorPopUpStatus = ({
 
     const handleDeletar = (e) => {
         e.preventDefault();
-        for (const [index] of listLeitos.entries()) {
-            if (dataLeito.id === listLeitos[index].id) {
-                const newList = listLeitos.filter((leito) => leito.id !== dataLeito.id);
-                setListLeitos(newList);
-                if(dataLeito.status === 'Disponível'){
-                    setCountDispo(countDispo - 1);
-                }
-                if(dataLeito.status === 'Ocupado'){
-                    setCountOcup(countOcup - 1);
-                }
-                if(dataLeito.status === 'Em limpeza'){
-                    setCountEmLimp(countEmLimp - 1);
-                }
-                if(dataLeito.status === 'Em manutenção'){
-                    setCountEmManu(countEmManu - 1);
-                }
-                if(dataLeito.status === 'Aguardando manutenção'){
-                    setCountAguardManu(countAguardManu - 1);
-                }
-                if(dataLeito.status === 'Aguardando limpeza'){
-                    setCountAguardLimp(countAguardLimp - 1);
-                }
-                setShowPopUpStatus(false);
-            }
-        }
+        setShowPopUpStatus(false);
+        setShowPopUpDeletar(true);
     }
 
     const handleChangeInfo = (e) => {
@@ -203,10 +170,11 @@ const SectorPopUpStatus = ({
                 <PopUpStatus color = {dataLeito.bgIcon}>{dataLeito.status}</PopUpStatus> 
 
                 <PopUpForm>
-                    <PopUpLabel>Atualizar status:</PopUpLabel>
+                    
                     <PopUpField>
                         {dataLeito.status === 'Ocupado' ?
                             <>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
@@ -218,7 +186,8 @@ const SectorPopUpStatus = ({
                         }
                         {dataLeito.status === 'Disponível' ? 
                             <>
-                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
+                            <PopUpButton onClick={handleUpdateOcupado}>Reservar leito</PopUpButton>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
@@ -229,8 +198,8 @@ const SectorPopUpStatus = ({
                         }
                         {dataLeito.status === 'Aguardando manutenção' ? 
                             <>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
@@ -240,8 +209,8 @@ const SectorPopUpStatus = ({
                         }
                         {dataLeito.status === 'Em manutenção' ? 
                             <>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
@@ -251,8 +220,8 @@ const SectorPopUpStatus = ({
                         }
                         {dataLeito.status === 'Em limpeza' ? 
                             <>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardLimp}>Aguardando limpeza</PopUpButton>
@@ -262,8 +231,8 @@ const SectorPopUpStatus = ({
                         }
                         {dataLeito.status === 'Aguardando limpeza' ? 
                             <>
+                            <PopUpLabel>Atualizar status:</PopUpLabel>
                             <PopUpButton onClick={handleUpdateDisponivel}>Disponível</PopUpButton>
-                            <PopUpButton onClick={handleUpdateOcupado}>Ocupado</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmManu}>Leito em manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateAguardManu}>Aguardando manutenção</PopUpButton>
                             <PopUpButton onClick={handleUpdateEmLimp}>Leito em limpeza</PopUpButton>

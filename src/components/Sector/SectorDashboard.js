@@ -7,7 +7,7 @@ import {BsFillGearFill} from 'react-icons/bs';
 import {ImBlocked} from 'react-icons/im'
 import Leito from './SectorLeito';
 
-const SectorDashboard = ({setShowPopUpAdd, listLeitos, showPopUpStatus, setShowPopUpStatus, dataLeito, setDataLeito}) => {
+const SectorDashboard = ({setShowPopUpAdd, listLeitos, showPopUpStatus, setShowPopUpStatus, dataLeito, setDataLeito, showPopUpOccupied, setShowPopUpOccupied }) => {
 
     useEffect( () => {
         //ReactDOM.render(listLeitos, document.getElementById('dashboardleitos'));
@@ -29,12 +29,11 @@ const SectorDashboard = ({setShowPopUpAdd, listLeitos, showPopUpStatus, setShowP
                             setShowPopUpAdd={setShowPopUpAdd} 
                             setShowPopUpStatus={setShowPopUpStatus} 
                             showPopUpStatus={showPopUpStatus} 
-                            dataLeito={dataLeito} setDataLeito={setDataLeito} />
+                            dataLeito={dataLeito} setDataLeito={setDataLeito} listLeitos={listLeitos}
+                            showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied}/>
                         )
                     })}
-                    
                     <AddLeito onClick={handlePopUp}>+</AddLeito>
-                    
                 </DashboardLeitos>
                 <Legendas>
                     <LegColor>

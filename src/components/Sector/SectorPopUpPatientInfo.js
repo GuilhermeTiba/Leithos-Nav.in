@@ -1,14 +1,16 @@
 import React from 'react'
 import { useState } from 'react/cjs/react.development';
-import { PopUp, PopUpInput, PopUpLabel, PopUpWrapp, PopUpTitle, PopUpStatus, PopUpForm, PopUpField, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtons, PopUpCancel, PopUpCreate, SexAgeWrapp  } from './Sector.styles'
+//import { useCount } from '../../contexts/countContext';
+import { PopUpInput, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtonsPatientInfo, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfo  } from './Sector.styles'
+import { StatusOcupado } from './SectorStatus';
+//import { StatusOcupado } from './SectorStatus';
 
-const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, setDataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos}) => {
+const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, setDataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos, setShowPopUpSuccessfully}) => {
     const [namePatient, setNamePatient] = useState("");
     const [sexPatient, setSexPatient] = useState("");
     const [agePatient, setAgePatient] = useState('');
     const [diagnosisPatient, setDiagnosisPatient] = useState("")
     const [addtionalInfoPatient, setAdditionalInfoPatient] = useState("");
-
 
     const handleCancel = (e) => {
         e.preventDefault();
@@ -17,7 +19,6 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
 
     const handleSave = (e) => {
         e.preventDefault();
-
         const patientObj = ({
             patientName: namePatient,
             patientSexo: sexPatient,
@@ -30,20 +31,17 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
 
         for (const [index] of listLeitos.entries()) {
             if (dataLeito.id === listLeitos[index].id) {
-            console.log('save')
             listLeitos[index] = 
             {
                 id: listLeitos[index].id,
                 name: listLeitos[index].name,
                 style : {
-                    colorRight: dataLeito.bgIcon,
-                    colorLeft: dataLeito.bgText,
-                    icon: dataLeito.icon
+                    colorRight: StatusOcupado.colorRight,
+                    colorLeft: StatusOcupado.colorLeft,
+                    icon: StatusOcupado.icon
                 },
-                status: dataLeito.status
-            }
-        }
-        }
+                status: 'Ocupado'
+            }}}
 
         setNamePatient('');
         setAgePatient('');
@@ -52,28 +50,30 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
         setAdditionalInfoPatient('');
         setShowPopUpInfoPatient(false);
         setShowPopUpStatus(false);
+        setShowPopUpSuccessfully(true);
         console.log(patientList)
     }
 
     return (
-        <PopUp active3 = {showPopUpInfoPatient}>
-            <PopUpWrapp>
-                <PopUpTitle>{dataLeito.name}</PopUpTitle>
-                <PopUpStatus color = {dataLeito.bgIcon}>{dataLeito.status}</PopUpStatus> 
-
-                <PopUpForm>
-                    <PopUpField>
+        <PopUpPatientInfo active = {showPopUpInfoPatient}>
+            <PopUpWrappPatientInfo>
+                <PopUpFieldPatientInfo>
+                    <PopUpTitlePatientInfo>{dataLeito.name}</PopUpTitlePatientInfo>
+                    <PopUpStatusPatientInfo color = {dataLeito.bgIcon}>{dataLeito.status}</PopUpStatusPatientInfo> 
+                </PopUpFieldPatientInfo>
+                <PopUpFormPatientInfo>
+                    <PopUpFieldPatientInfo>
                         <PopUpLabel>Nome do paciente</PopUpLabel>
                         <PopUpInput type="text" value={namePatient} onChange={(e) => setNamePatient(e.target.value)}/>
-                    </PopUpField>
+                    </PopUpFieldPatientInfo>
 
-                    <PopUpField>
+                    <PopUpFieldPatientInfo>
                         <SexAgeWrapp>
                             <SexWrapp>
                                 <PopUpLabel>Sexo</PopUpLabel>
-                                <PopUpInputSelect value={sexPatient} onChange={(e) => setSexPatient(e.target.value)}>
-                                    <SelectOption>Masculino</SelectOption>
-                                    <SelectOption>Feminino</SelectOption>
+                                <PopUpInputSelect onChange={(e) => setSexPatient(e.target.value)}>
+                                    <SelectOption value={'Masculino'}>Masculino</SelectOption>
+                                    <SelectOption value={'Feminino'}>Feminino</SelectOption>
                                 </PopUpInputSelect>
                             </SexWrapp>
 
@@ -82,25 +82,38 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
                                 <PopUpInput type='text' value={agePatient} onChange={(e) => setAgePatient(e.target.value)}/>
                             </AgeWrapp>
                         </SexAgeWrapp>
-                    </PopUpField>
+                    </PopUpFieldPatientInfo>
                         
-                    <PopUpField>
+                    <PopUpFieldPatientInfo>
                         <PopUpLabel>Diagnóstico</PopUpLabel>
-                        <PopUpInput type="text" value={diagnosisPatient} onChange={(e) => setDiagnosisPatient(e.target.value)}/>
-                    </PopUpField>
+                        <PopUpInputSelect onChange={(e) => setDiagnosisPatient(e.target.value)}>
+                            <SelectOption value={'NEUROLOGY'}>Neurologia</SelectOption>
+                            <SelectOption value={'CARDIOLOGY'}>Cardiologia</SelectOption>
+                            <SelectOption value={'PNEUMOLOGY'}>Pneumologia</SelectOption>
+                            <SelectOption value={'ONCOLOGY'}>Oncologia</SelectOption>
+                            <SelectOption value={'ORTHOPEDICS'}>Ortopedia</SelectOption>
+                            <SelectOption value={'NEPHROLOGY'}>Nefrologia</SelectOption>
+                            <SelectOption value={'ENDOCRINOLOGY'}>Endocrinologia</SelectOption>
+                            <SelectOption value={'PALLIATIVE_CARE'}>Cuidados Paliativos</SelectOption>
+                            <SelectOption value={'INFECTOLOGY'}>Infectologia</SelectOption>
+                            <SelectOption value={'GENICOLOGY'}>Genicologia</SelectOption>
+                            <SelectOption value={'COVID'}>Covid</SelectOption>
+                            <SelectOption value={'OTHER'}>Outros</SelectOption>
+                        </PopUpInputSelect>
+                    </PopUpFieldPatientInfo>
 
-                    <PopUpField>
+                    <PopUpFieldPatientInfo>
                         <PopUpLabel>Informações adicionais</PopUpLabel>
-                        <PopUpInput type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
-                    </PopUpField>
+                        <PopUpAddIndoPatientInfo type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
+                    </PopUpFieldPatientInfo>
 
-                </PopUpForm>
-                <PopUpButtons>
-                        <PopUpCancel onClick={handleCancel}>Cancelar</PopUpCancel>
-                        <PopUpCreate onClick={handleSave}>Salvar</PopUpCreate>
-                    </PopUpButtons>
-            </PopUpWrapp>
-        </PopUp>
+                </PopUpFormPatientInfo>
+                <PopUpButtonsPatientInfo>
+                    <PopUpCancel onClick={handleCancel}>Cancelar</PopUpCancel>
+                    <PopUpCreate onClick={handleSave}>Salvar</PopUpCreate>
+                </PopUpButtonsPatientInfo>
+            </PopUpWrappPatientInfo>
+        </PopUpPatientInfo>
     )
 }
 

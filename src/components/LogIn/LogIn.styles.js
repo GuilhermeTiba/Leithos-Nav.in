@@ -6,15 +6,8 @@ export const LogInContainer = styled.div`
     box-sizing: border-box;
     width: 100%;
     height: 100vh;
-    background-color: #EAE8EE;
+    background-color: white;
     font-family: 'Poppins', sans-serif;
-`;
-
-export const TopRightArt = styled.img`
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
 `;
 
 export const DownLeftArt = styled.img`
@@ -32,22 +25,21 @@ export const Logo = styled.img`
 export const LogInWrapp = styled.div`
     display: grid;  
     grid-template-areas: 
-        "imagens"
-        "login";
+        "login"
+        "images";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    background-color: rgba(234, 232, 238, 1);
+    background-color: white;
 `;
 
 
 export const LoginLeft = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    align-items: center;
-    grid-area: 'imagens';
-    margin-left: 100px;
+    background-image: url(${({backgroundDesign}) => (backgroundDesign)});
+    background-position: center;
+    //background-size: cover;
+    background-size: fill;
+    background-color: black;
+    grid-area: 'images';
 `;
 
 export const LoginRight  = styled.div`
@@ -56,20 +48,8 @@ export const LoginRight  = styled.div`
     height: 100vh;
     align-items: center;
     grid-area: 'login';
-    margin-right: 100px;
 `;
 
-export const ImagesWrap = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-export const DashboardImage = styled.img`
-    height: 600px;
-    width: 600px;
-`;
 
 export const LogInForm = styled.form`
     background: rgba(255, 255, 255, 1) 0% 0% no-repeat padding-box;

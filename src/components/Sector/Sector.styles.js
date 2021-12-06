@@ -264,7 +264,7 @@ export const Data = styled.div`
 //POPUPS
 
 export const PopUp = styled.div`
-    display: ${({active, active2, active3}) => (active || active2 || active3 ? 'block' : 'none')};
+    display: ${({active, active2}) => (active || active2 ? 'block' : 'none')};
     z-index: 1;
     position: absolute;
     background-color: white;
@@ -276,8 +276,8 @@ export const PopUp = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    height: ${({active2, active3}) => (active2 || active3 ? '525px' : '280px')};
-    width: ${({active2, active3}) => (active2 || active3 ? '450px' : '550px')};;
+    height: ${({active2}) => (active2 ? '525px' : '400px')};
+    width: ${({active2}) => (active2 ? '450px' : '550px')};;
     text-align: center;
     padding: 1.2rem 0;
 `;
@@ -440,14 +440,477 @@ export const PopUpButton = styled.button`
 
 export const SexAgeWrapp = styled.div`
     display: flex;
+    justify-content: space-between;
 `;
 
 export const SexWrapp = styled.div`
     display: flex;
     flex-direction: column;
+    width: 160px;
+    height: 60px;
 `;
 
 export const AgeWrapp = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100px;
+`;
+
+//POPUP DELETEAR
+
+export const PopUpWrappDelete = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    margin-top: 0.3rem;
+`;
+
+export const PopUpConfirm = styled.div`
+    display: ${({active, active2}) => (active || active2 ? 'block': 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpIcon = styled.div`
+    font-size: 35px;
+    padding-top: 1rem;
+`;
+
+export const PopUpButtonsDelete = styled.div`
+    display: flex;
+    padding: 1rem 0rem;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 0.5rem;
+`;
+
+export const PopUpLabelDelete = styled.h1`
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+    margin-bottom: 1rem;
+`;
+
+
+//POPUP SUCCESSFULLY BOOKED
+
+export const PopUpSuccessfully = styled.div`
+    display: ${({active}) => (active ? 'block': 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpWrappSuccessfully = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpIconSuccessfully = styled.div`
+    color: #72AE25;
+    font-size: 50px;
+    background-color:#D8EAC0;
+    border-radius: 50px;
+    padding: 1rem;
+    width: 65px;
+`;
+
+export const PopUpLabelSuccessfully = styled.h1`
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+`
+//POPUP VACATE
+
+export const PopUpVacate = styled.div`
+    display: ${({active}) => (active ? 'block': 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpButtonsVacate = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+export const PopUpButtonsVacateApply = styled.div`
+    display: flex;
+    padding: 1rem 0rem;
+    justify-content: space-between;
+    width: 70%;
+`;
+
+export const PopUpWrappVacate = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpFieldVacate = styled.div`
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+`;
+
+export const PopUpLabelVacate = styled.h1`
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+    margin-bottom: 1rem;
+`
+
+export const PopUpCancelVacate = styled.button`
+    width: 130px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #6045E2;
+    border-radius: 8px;
+    opacity: 1;
+    color: #6045E2;
+    cursor: pointer;
+    transition: 0.2ms all ease-in-out;
+
+    &:hover{
+        transform: scale(102%);
+        transition: 0.2ms all ease-in-out;
+    }
+`;
+
+export const PopUpCreateVacate = styled.button`
+    width: 130px;
+    background: #6045E2 0% 0% no-repeat padding-box;
+    border: none;
+    border-radius: 8px;
+    opacity: 1;
+    color: white;
+    padding: 0.5rem 0.2rem;
+    cursor: pointer;
+    transition: 0.5ms all ease-in-out;
+
+    &:hover{
+        transform: scale(102%);
+        transition: 0.2ms all ease-in-out;
+    }
+`;
+
+//POPUP SUCCESFULLY CREATED
+
+export const PopUpSuccessfullyCreated = styled.div`
+    display: ${({active}) => (active ? 'block': 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpWrappSCreated = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpLabelSCreated = styled.div`
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+`;
+
+export const PopUpIconSCreated = styled.div`
+    color: #72AE25;
+    font-size: 50px;
+    background-color:#D8EAC0;
+    border-radius: 50px;
+    padding: 1rem;
+    width: 65px;
+`;
+
+//POPUP PATIENT INFO
+
+export const PopUpPatientInfo = styled.div`
+    display: ${({active}) => (active ? 'block' : 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 575px;
+    width: 500px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpWrappPatientInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    vertical-align: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpStatusPatientInfo = styled.div`
+    background-color: ${({color}) => (color)};
+    border: none;
+    padding: 4px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    min-width: 150px;
+    text-align: center;
+`;
+
+export const PopUpTitlePatientInfo = styled.h1`
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+`;
+
+export const PopUpFormPatientInfo = styled.form`
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    width: 75%;
+`;
+
+export const PopUpFieldPatientInfo = styled.div`
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    
+`;
+
+export const PopUpButtonsPatientInfo = styled.div`
+    display: flex;
+    padding: 1rem 0rem;
+    justify-content: space-between;
+    width: 70%;
+`;
+
+export const PopUpAddIndoPatientInfo = styled.input`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 120px;
+    outline: none;
+    padding-left: 15px;
+`;
+
+//POPUP SUCCESFULLY DELETED
+
+export const PopUpWrappDeleted = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpLabelDeleted = styled.div`
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+`;
+
+export const PopUpIconTrash = styled.div`
+    margin-top: 2.2rem;
+    color: #F8838A;
+    font-size: 30px;
+    background-color:#ECC6C9;
+    border-radius: 50px;
+    padding: 1.2rem 1.5rem;
+`;
+
+//POPUP OCCUPIED
+
+export const PopUpOccupied = styled.div`
+    display: ${({active}) => (active ? 'block' : 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 300px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
+`;
+
+export const PopUpWrappOccupied = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+`;
+
+export const PopUpStatusOccupied = styled.div`
+    background-color: ${({color}) => (color)};
+    border: none;
+    padding: 4px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    width: 40%;
+`;
+
+export const PopUpFieldOccupied = styled.div`
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+`;
+
+export const PopUpFieldOccupiedStatus = styled.div`
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+`;
+
+export const PopUpButtonsOccupied = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+`;
+
+export const PopUpTitleOccupied = styled.h1`
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0px;
+    color: #7B7272;
+    opacity: 1;
+    margin-bottom: 8px;
+`;
+
+//POPUP SUCCESSFULLY AVAIBLE
+
+export const PopUpSuccessfullyAvaible = styled.div`
+    display: ${({active}) => (active ? 'block': 'none')};
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 3px 50px #0000001A;
+    border: none;
+    border-radius: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding: 1.2rem 0;
 `;
