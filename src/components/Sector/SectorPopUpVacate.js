@@ -2,7 +2,7 @@ import e from 'cors';
 import React from 'react'
 import { useCount } from '../../contexts/countContext'
 import { PopUpVacate, PopUpButton, PopUpButtonsVacate, PopUpFieldVacate, PopUpLabelVacate, PopUpWrappVacate, PopUpCancelVacate, PopUpCreateVacate, PopUpButtonsVacateApply  } from './Sector.styles'
-import { StatusDisponivel } from './SectorStatus';
+import { StatusAguardandoLimpeza } from './SectorStatus';
 
 const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setDataLeito, listLeitos, setShowPopUpSuccessfullyAvaible}) => {
     const {setCountDispo, countDispo} = useCount();
@@ -12,10 +12,10 @@ const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setD
         const changedLeito = {
             name: dataLeito.name,
             id: dataLeito.id,
-            bgText: StatusDisponivel.colorLeft,
-            bgIcon: StatusDisponivel.colorRight,
-            icon: StatusDisponivel.icon,
-            status: 'Disponível'
+            bgText: StatusAguardandoLimpeza.colorLeft,
+            bgIcon: StatusAguardandoLimpeza.colorRight,
+            icon: StatusAguardandoLimpeza.icon,
+            status: 'Aguardando limpeza'
         }
         setDataLeito(changedLeito)
     }
