@@ -8,23 +8,23 @@ import { searchSection } from "../controllers/searchController";
 
 const router = Router();
 
-router.get('/bedsPercentagePerStatus',authenticateToken, getBedsPercentage); //
+router.get('/bedspercentageperstatus',authenticateToken, getBedsPercentage);
 
-router.get('/bedsQuantityPerStatus', authenticateToken, getBedsQuantityPerStatus);
+router.get('/bedsquantityperstatus', authenticateToken, getBedsQuantityPerStatus);
 
-router.get('/patientQuantityPerDiagnosis', authenticateToken, getQuantityPerDiagnosis)
-router.get('/patientQuantityPerSex', authenticateToken, getQuantityPerSex)
-router.get('/patientQuantityPerAge', authenticateToken, getQuantityPerAge)
+router.get('/patientquantityperdiagnosis', authenticateToken, getQuantityPerDiagnosis)
+router.get('/patientquantitypersex', authenticateToken, getQuantityPerSex)
+router.get('/patientquantityperage', authenticateToken, getQuantityPerAge)
 
-router.get('/dailyInAndOuts', authenticateToken, getDailyInAndOuts)
-router.get('/weeklyInAndOuts', authenticateToken, getWeeklyInAndOuts)
-router.get('/monthlyInAndOuts', authenticateToken, getMonthlyInAndOuts)
-router.get('/yearlyInAndOuts', authenticateToken, getYearlyInAndOuts)
+router.get('/dailyinandouts', authenticateToken, getDailyInAndOuts)
+router.get('/weeklyinandouts', authenticateToken, getWeeklyInAndOuts)
+router.get('/monthlyinandouts', authenticateToken, getMonthlyInAndOuts)
+router.get('/yearlyinandouts', authenticateToken, getYearlyInAndOuts)
 
-router.get('/averageTimePerFuncionality', authenticateToken, getAverageTimes)
+router.get('/averagetimeperfuncionality', authenticateToken, getAverageTimes)
 
-router.get('/bedsQuantityPerStatusAndSection', authenticateToken, getAvailableBedsfromAllSections)
+router.get('/bedsquantityperstatusandsection', authenticateToken, getAvailableBedsfromAllSections)
 
-router.post('/searchSection', authenticateToken, searchSection)
+router.post('/searchsection', authenticateToken, searchSection)
 
 module.exports = router

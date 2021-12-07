@@ -5,7 +5,7 @@ import { authenticateToken } from "../middleware/authenticateToken";
 
 const router = Router();
 
-router.get('/allBeds', authenticateToken, allBeds)
-router.get('/allHistoric', authenticateToken, getAllHistoric)
+router.get('/allbeds', authenticateToken, allBeds)
+router.get('/allhistoric', authenticateToken, getAllHistoric)
 
 module.exports = router

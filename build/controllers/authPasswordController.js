@@ -23,8 +23,10 @@ async function checkUserCredencials(req, res, next) {
             res.send('Not Allowed');
         }
     }
-    catch (_a) {
-        res.status(500).send();
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
     }
 }
 exports.checkUserCredencials = checkUserCredencials;

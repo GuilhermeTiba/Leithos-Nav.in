@@ -1,45 +1,58 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
+import { bedNameValidator, bedSectionValidator } from "../error/bedsErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createBeds(req, res) {
   const { name, type, section } = req.body
-  const uuid = await uuidv4()
-
-  const createBed = await prisma.beds.create({
-    data:{
-      id: uuid,
-      name: name,
-      type: type,
-      sectionId : section
+  
+  try {
+    const uuid = await uuidv4()
+    if(await bedSectionValidator(section) && !bedNameValidator(name)){
+      const createBed = await prisma.beds.create({
+        data:{
+          id: uuid,
+          name: name,
+          type: type,
+          sectionId : section
+        }
+      })
+      const findBed = await prisma.beds.findUnique({
+        where: {
+          id : uuid
+        }
+      })
+    
+      const now = new Date().getTime()
+      const lastTime = findBed.status_changed_date.getTime()
+      const timeDifference = now - lastTime
+    
+      const createHistoric = await prisma.bedHistoric.create({
+        data:{
+          bedsId: uuid,
+          lastBedStatus: findBed.status,
+          newBedStatus: 'AVAILABLE',
+          lastModifiedDate: findBed.status_changed_date,
+          timeDifference: timeDifference
+        }
+      })
+      res.status(200).send({
+        createBed,
+        createHistoric
+      })
+    } else {
+      res.status(400).send({
+        error : 'Section or name invalid'
+      })
     }
-  })
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
+} 
 
-  const findBed = await prisma.beds.findUnique({
-    where: {
-      id : uuid
-    }
-  })
-
-  const now = new Date().getTime()
-  const lastTime = findBed.status_changed_date.getTime()
-  const timeDifference = now - lastTime
-
-  const createHistoric = await prisma.bedHistoric.create({
-    data:{
-      bedsId: uuid,
-      lastBedStatus: findBed.status,
-      newBedStatus: 'AVAILABLE',
-      lastModifiedDate: findBed.status_changed_date,
-      timeDifference: timeDifference
-    }
-  })
-  res.send({
-    createBed,
-    createHistoric
-  })
-}
 
 async function getAvailableBedsQuantity(){
   const availableBedsQuantity = await prisma.beds.count({
@@ -181,14 +194,21 @@ export async function deleteBed(req, res){
 }
 
 export async function getBedsPercentage(req, res){
-  const availableBedsQuantity = await getAvailableBedsQuantity()
-  const occupiedBedsQuantity = await getOccupiedBedsQuantity()
-  const getAllBedsQuantity = await (await getAllBeds()).length
-  res.send({
-    availableBedsQuantity,
-    occupiedBedsQuantity,
-    getAllBedsQuantity 
-  })
+  try{
+    const availableBedsQuantity = await getAvailableBedsQuantity()
+    const occupiedBedsQuantity = await getOccupiedBedsQuantity()
+    const getAllBedsQuantity = await (await getAllBeds()).length
+    res.status(200).send({
+      availableBedsQuantity,
+      occupiedBedsQuantity,
+      getAllBedsQuantity 
+    })
+    }
+  catch(error){
+    res.status(500).send({
+      error : 'Database connection error'
+    })
+  }
 }
 
 export async function occupiedBedsQuantity(req, res){
@@ -200,23 +220,30 @@ export async function occupiedBedsQuantity(req, res){
 }
 
 export async function getBedsQuantityPerStatus(req, res){
-  const availableBedsQtd = await getAvailableBedsQuantity()
-  const occupiedBedsQtd = await getOccupiedBedsQuantity()
-  const cleaningBedsQtd = await getCleaningBedsQuantity()
-  const needCleaningBedsQtd = await getNeedCleaningBedsQuantity()
-  const maintanenceBedsQtd = await getMaintanenceBedsQuantity()
-  const needMaintanenceBedsQtd = await getNeedMaintanenceBedsQuantity()
-
-  res.send({
-    availableBedsQtd,
-    occupiedBedsQtd,
-    cleaningBedsQtd,
-    needCleaningBedsQtd,
-    maintanenceBedsQtd,
-    needMaintanenceBedsQtd
-  })
-}
-
+  try {
+    const availableBedsQtd = await getAvailableBedsQuantity()
+    const occupiedBedsQtd = await getOccupiedBedsQuantity()
+    const cleaningBedsQtd = await getCleaningBedsQuantity()
+    const needCleaningBedsQtd = await getNeedCleaningBedsQuantity()
+    const maintanenceBedsQtd = await getMaintanenceBedsQuantity()
+    const needMaintanenceBedsQtd = await getNeedMaintanenceBedsQuantity()
+    
+    res.status(200).send({
+      availableBedsQtd,
+      occupiedBedsQtd,
+      cleaningBedsQtd,
+      needCleaningBedsQtd,
+      maintanenceBedsQtd,
+      needMaintanenceBedsQtd
+    })
+    
+  } catch (error) {
+    res.status(500).send({
+      error: 'Database connection error'
+    })
+  }
+  }
+  
 export async function allBeds(req, res){
   const showAllBeds = await getAllBeds()
   res.send({
