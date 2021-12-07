@@ -305,7 +305,7 @@ export const PopUpForm = styled.form`
     display: flex;
     justify-content: left;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
 `;
 
 export const PopUpField = styled.div`
@@ -354,7 +354,7 @@ export const SelectOption = styled.option`
 export const PopUpButtons = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 70%;
 `;
 
 export const PopUpCancel = styled.button`
@@ -719,7 +719,7 @@ export const PopUpPatientInfo = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    height: 575px;
+    height: 590px;
     width: 500px;
     text-align: center;
     padding: 1.2rem 0;

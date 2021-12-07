@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpStatus, PopUpButton} from './Sector.styles'
-import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado} from './SectorStatus';
+import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao} from './SectorStatus';
 
 const SectorPopUpStatus = ({
     showPopUpStatus, 
     listLeitos, 
-    setListLeitos, 
     setShowPopUpStatus, 
     dataLeito, 
     setDataLeito, 
     setShowPopUpInfoPatient, 
     patientInfo,
-    showPopUpInfoPatient,
-    showPopUpDeletar,
     setShowPopUpDeletar
     }) => {
 
@@ -39,7 +36,7 @@ const SectorPopUpStatus = ({
     const handleSave = (e) => {
         e.preventDefault();
         for (const [index] of listLeitos.entries()) {
-            if (dataLeito.id === listLeitos[index].id) {
+        if (dataLeito.id === listLeitos[index].id) {
             if(listLeitos[index].status === 'Disponível'){
                 setCountDispo(countDispo - 1);
             }
@@ -83,8 +80,7 @@ const SectorPopUpStatus = ({
 
     const handleUpdateDisponivel = (e) => {
         e.preventDefault();
-        
-        const changedLeito = {
+        const changedLeitoObj = {
             name: dataLeito.name,
             id: dataLeito.id,
             bgText: StatusDisponivel.colorLeft,
@@ -92,8 +88,8 @@ const SectorPopUpStatus = ({
             icon: StatusDisponivel.icon,
             status: 'Disponível'
         }
-        setCountDispo(countDispo + 1);
-        setDataLeito(changedLeito)
+        setDataLeito(changedLeitoObj)
+        //setCountDispo(countDispo + 1);
     }
 
     const handleUpdateEmLimp = (e) => {
@@ -251,7 +247,7 @@ const SectorPopUpStatus = ({
                     </PopUpField>
 
                 </PopUpForm>
-                <PopUpButtons>
+                    <PopUpButtons>
                         <PopUpCancel onClick={handleCancel}>Cancelar</PopUpCancel>
                         <PopUpCreate onClick={handleSave}>Salvar</PopUpCreate>
                     </PopUpButtons>
