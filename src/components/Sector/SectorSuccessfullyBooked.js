@@ -8,7 +8,7 @@ const SectorSuccessfullyBooked = ({showPopUpSuccessfully, setShowPopUpSuccessful
             setShowPopUpSuccessfully(false);
         }, 1200)
         return() => clearTimeout(timer)
-    },[showPopUpSuccessfully])
+    },[showPopUpSuccessfully, setShowPopUpSuccessfully])
 
     return (
         <PopUpSuccessfully active={showPopUpSuccessfully}>

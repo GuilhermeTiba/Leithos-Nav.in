@@ -14,6 +14,7 @@ import SectorPopUpSucessfullyCreated from '../components/Sector/SectorPopUpSuces
 import SectorPopUpSuccessfullyDeleted from '../components/Sector/SectorPopUpSuccessfullyDeleted.js';
 import SectorPopUpOccupied from '../components/Sector/SectorPopUpOccupied.js';
 import SectorPopUpSuccessfullyAvaible from '../components/Sector/SectorPopUpSuccessfullyAvaible.js';
+import SectorPopUpViewInfoPatient from '../components/Sector/SectorPopUpViewInfoPatient.js';
 
 const SectorPage = ({active, toggle}) => {
     const [showPopUpAdd, setShowPopUpAdd] = useState(false);
@@ -25,7 +26,8 @@ const SectorPage = ({active, toggle}) => {
     const [showPopUpSucessfullyCreated, setShowPopUpSucessfullyCreated] = useState(false);
     const [showPopUpSuccesfullyDeleted, setShowPopUpSuccesfullyDeleted] = useState(false);
     const [showPopUpOccupied, setShowPopUpOccupied] = useState(false);
-    const [showPopUpSuccessfullyAvaible, setShowPopUpSuccessfullyAvaible] = useState(false)
+    const [showPopUpSuccessfullyAvaible, setShowPopUpSuccessfullyAvaible] = useState(false);
+    const [showPopUpViewInfoPatient, setShowPopUpViewInfoPatient] = useState(false);
 
     const [dataLeito, setDataLeito] = useState('');
     const [patientList, setPatientList] = useState([])
@@ -56,16 +58,17 @@ const SectorPage = ({active, toggle}) => {
             />
             <SectorPopUpStatus showPopUpStatus={showPopUpStatus} setShowPopUpStatus={setShowPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setDataLeito={setDataLeito} showPopUpInfoPatient={showPopUpInfoPatient} setShowPopUpInfoPatient={setShowPopUpInfoPatient} showPopUpDeletar={showPopUpDeletar} setShowPopUpDeletar={setShowPopUpDeletar}/>
             <SectorPopUpPatientInfo showPopUpInfoPatient={showPopUpInfoPatient} setShowPopUpInfoPatient={setShowPopUpInfoPatient} dataLeito={dataLeito} setDataLeito={setDataLeito} patientList={patientList} setPatientList={setPatientList} setShowPopUpStatus={setShowPopUpStatus} listLeitos={listLeitos} setListLeitos={setListLeitos} setShowPopUpSuccessfully={setShowPopUpSuccessfully}/>
-            <SectorPopUpDeletar listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setShowPopUpStatus={setShowPopUpStatus} showPopUpDeletar={showPopUpDeletar} setShowPopUpDeletar={setShowPopUpDeletar} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} />
+            <SectorPopUpDeletar listLeitos={listLeitos} setListLeitos={setListLeitos} dataLeito={dataLeito} setShowPopUpStatus={setShowPopUpStatus} showPopUpDeletar={showPopUpDeletar} setShowPopUpDeletar={setShowPopUpDeletar} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted}/>
             <SectorSuccessfullyBooked showPopUpSuccessfully={showPopUpSuccessfully} setShowPopUpSuccessfully={setShowPopUpSuccessfully}/>
-            <SectorPopUpVacate showPopUpVacate={showPopUpVacate} setShowPopUpVacate={setShowPopUpVacate} dataLeito={dataLeito} setDataLeito={setDataLeito} listLeitos={listLeitos} setShowPopUpSuccessfullyAvaible={setShowPopUpSuccessfullyAvaible}/>
+            <SectorPopUpVacate showPopUpVacate={showPopUpVacate} setShowPopUpVacate={setShowPopUpVacate} dataLeito={dataLeito} setDataLeito={setDataLeito} listLeitos={listLeitos} setShowPopUpSuccessfullyAvaible={setShowPopUpSuccessfullyAvaible} patientList={patientList} setPatientList = {setPatientList}/>
             <SectorPopUpSucessfullyCreated showPopUpSucessfullyCreated={showPopUpSucessfullyCreated} setShowPopUpSucessfullyCreated={setShowPopUpSucessfullyCreated} />
             <SectorPopUpSuccessfullyDeleted showPopUpSuccesfullyDeleted={showPopUpSuccesfullyDeleted} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} setShowPopUpDeletar={setShowPopUpDeletar}/>
-            <SectorPopUpOccupied showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied} dataLeito={dataLeito} showPopUpVacate={showPopUpVacate} setShowPopUpVacate={setShowPopUpVacate} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} listLeitos={listLeitos} setListLeitos={setListLeitos}/>
+            <SectorPopUpOccupied showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied} dataLeito={dataLeito} showPopUpVacate={showPopUpVacate} setShowPopUpVacate={setShowPopUpVacate} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} listLeitos={listLeitos} setListLeitos={setListLeitos} setShowPopUpInfoPatient={setShowPopUpInfoPatient} showPopUpViewInfoPatient={showPopUpViewInfoPatient} setShowPopUpViewInfoPatient={setShowPopUpViewInfoPatient} patientList={patientList} setPatientList = {setPatientList}/>
             <SectorPopUpSuccessfullyAvaible showPopUpSuccessfullyAvaible={showPopUpSuccessfullyAvaible} setShowPopUpSuccessfullyAvaible={setShowPopUpSuccessfullyAvaible}/>
+            <SectorPopUpViewInfoPatient patientList={patientList} setPatientList={setPatientList} listLeitos={listLeitos} dataLeito={dataLeito} showPopUpViewInfoPatient={showPopUpViewInfoPatient} setShowPopUpViewInfoPatient={setShowPopUpViewInfoPatient} setShowPopUpOccupied={setShowPopUpOccupied}/>
 
             <GlobalStyles/>
-            <HomeContainer active={showPopUpAdd} active2={showPopUpStatus} active4={showPopUpDeletar} active5={showPopUpSuccessfully} active6={showPopUpVacate} active7={showPopUpSucessfullyCreated} active8={showPopUpOccupied} active9={showPopUpSuccesfullyDeleted} active10={showPopUpSuccessfullyAvaible}>
+            <HomeContainer active={showPopUpAdd} active2={showPopUpStatus} active4={showPopUpDeletar} active5={showPopUpSuccessfully} active6={showPopUpVacate} active7={showPopUpSucessfullyCreated} active8={showPopUpOccupied} active9={showPopUpSuccesfullyDeleted} active10={showPopUpSuccessfullyAvaible} active11={showPopUpViewInfoPatient}>
                 <HomeGrid active={active}>
                     <NavBarSide>
                         <NavBar/>

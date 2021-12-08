@@ -2,7 +2,7 @@ import React from 'react'
 import { useCount } from '../../contexts/countContext'
 import { PopUpOccupied, PopUpWrappOccupied, PopUpFieldOccupied, PopUpTitleOccupied, PopUpStatusOccupied, PopUpButton, PopUpLabel, PopUpButtonsOccupied, PopUpFieldOccupiedStatus } from './Sector.styles'
 
-const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito, setShowPopUpVacate, setShowPopUpSuccesfullyDeleted, listLeitos, setListLeitos}) => {
+const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito, setShowPopUpVacate, setShowPopUpSuccesfullyDeleted, listLeitos, setListLeitos, setShowPopUpViewInfoPatient, setPatientList, patientList}) => {
     const {
         setCountDispo,
         countDispo,
@@ -34,7 +34,11 @@ const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito
         for (const [index] of listLeitos.entries()) {
             if (dataLeito.id === listLeitos[index].id) {
                 const newList = listLeitos.filter((leito) => leito.id !== dataLeito.id);
+                const newListInfoPatient = patientList.filter((patient) => patient.id !== dataLeito.id);
+                setPatientList(newListInfoPatient);
                 setListLeitos(newList);
+                console.log(patientList)
+                
                 if(dataLeito.status === 'Disponível'){
                     setCountDispo(countDispo - 1);
                 }
@@ -59,6 +63,11 @@ const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito
         }  
     }
 
+    const handleOpenPatientInfo = () => {
+        setShowPopUpOccupied(false);
+        setShowPopUpViewInfoPatient(true);
+    }
+
     return (
         <PopUpOccupied active={showPopUpOccupied}>
             <PopUpWrappOccupied>
@@ -68,7 +77,7 @@ const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito
                 </PopUpFieldOccupiedStatus>
 
                 <PopUpFieldOccupied>
-                    <PopUpButton>Alterar informações do paciente</PopUpButton>
+                    <PopUpButton onClick={handleOpenPatientInfo}>Visualizar informações do paciente</PopUpButton>
                     <PopUpButton onClick={handleDesocupar}>Desocupar leito</PopUpButton>
                 </PopUpFieldOccupied>
 

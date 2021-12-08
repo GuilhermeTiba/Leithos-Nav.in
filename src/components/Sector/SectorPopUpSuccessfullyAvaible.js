@@ -8,7 +8,7 @@ const SectorPopUpSuccessfullyAvaible = ({showPopUpSuccessfullyAvaible, setShowPo
             setShowPopUpSuccessfullyAvaible(false);
         }, 1200)
         return() => clearTimeout(timer)
-    },[showPopUpSuccessfullyAvaible])
+    },[showPopUpSuccessfullyAvaible, setShowPopUpSuccessfullyAvaible])
     return (
         <PopUpSuccessfullyAvaible active={showPopUpSuccessfullyAvaible} >
             <PopUpWrappSCreated>

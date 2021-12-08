@@ -707,7 +707,7 @@ export const PopUpIconSCreated = styled.div`
 //POPUP PATIENT INFO
 
 export const PopUpPatientInfo = styled.div`
-    display: ${({active}) => (active ? 'block' : 'none')};
+    display: ${({active, active2}) => (active || active2 ? 'block' : 'none')};
     z-index: 1;
     position: absolute;
     background-color: white;
@@ -913,4 +913,112 @@ export const PopUpSuccessfullyAvaible = styled.div`
     width: 400px;
     text-align: center;
     padding: 1.2rem 0;
+`;
+
+//POPUP VIEW AND CHANGE INFO
+
+export const PopUpLabelInfo = styled.label`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 34px;
+    outline: none;
+    padding-left: 15px;
+    display: ${({toggle}) => (toggle ? 'none' : 'flex')};
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #707070;
+    text-align: left;
+    font-size: 14px;
+`;  
+
+export const PopUpLabelInfoAddInfo = styled.label`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 34px;
+    outline: none;
+    padding-left: 15px;
+    display: ${({toggle}) => (toggle ? 'none' : 'flex')};
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #707070;
+    text-align: left;
+    font-size: 14px;
+    height: 120px;
+`;
+
+export const PopUpInputInfo = styled.input`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 34px;
+    outline: none;
+    padding-left: 15px;
+    display: ${({toggle}) => (toggle ? 'flex' : 'none')};
+`;
+
+export const PopUpInputSelectInfo = styled.select`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 36px;
+    padding-left: 15px;
+    display: ${({toggle}) => (toggle ? 'flex' : 'none')};
+`;
+
+export const PopUpAddIndoPatientInfoInfo = styled.input`
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #C7BEBE;
+    border-radius: 10px;
+    opacity: 1;
+    height: 120px;
+    outline: none;
+    padding-left: 15px;
+    display: ${({toggle}) => (toggle ? 'flex' : 'none')};
+`;
+
+export const PopUpPatientInfoPencilWrapp = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const PopUpIconPencil = styled.div`
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding-top: 1.5rem;
+    padding-right: 1.8rem;
+    font-size: 22px;
+    color: #7B7272;
+    cursor: pointer;
+
+    &:hover{
+        transform: scale(105%);
+    }
+`;
+
+export const PopUpButtonsPatientInfoView = styled.div`
+    display: ${({toggle}) => (toggle ? 'none' : 'flex')};
+    padding: 1rem 0rem;
+    justify-content: center;
+    width: 70%;
+    height: 31px;
+`;
+
+export const PopUpButtonsPatientInfoView2 = styled.div`
+    display: ${({toggle}) => (toggle ? 'flex' : 'none')};
+    padding: 1rem 0rem;
+    justify-content: space-between;
+    width: 70%;
 `;

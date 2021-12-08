@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpInput, PopUpInputSelect, SelectOption} from './Sector.styles'
-import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
+import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao } from './SectorStatus';
 
 const SectorPopUpAdd = ({
     showPopUpAdd, 
@@ -11,12 +11,10 @@ const SectorPopUpAdd = ({
     setShowPopUpSucessfullyCreated
 }) => {
     const [nameLeito, setNameLeito] = useState('');
-    const [statusLeito, setStatusLeito] = useState('')
+    const [statusLeito, setStatusLeito] = useState('StatusDiponivel')
     const {
         countDispo, 
-        setCountDispo, 
-        countOcup, 
-        setCountOcup, 
+        setCountDispo,  
         countEmLimp, 
         setCountEmLimp, 
         countEmManu, 
@@ -80,23 +78,6 @@ const SectorPopUpAdd = ({
             setShowPopUpAdd(false);
             setShowPopUpSucessfullyCreated(true);
         }
-        if (statusLeito === 'StatusOcupado') {
-            const newLeitosList = [...listLeitos, {
-                id: Math.floor(Math.random()* 100),
-                name: nameLeito,
-                style : {
-                    colorRight: StatusOcupado.colorRight,
-                    colorLeft: StatusOcupado.colorLeft,
-                    icon: StatusOcupado.icon
-                },
-                status: 'Ocupado'
-            }];
-            setCountOcup(countOcup + 1);
-            setListLeitos(newLeitosList);
-            setNameLeito('');
-            setShowPopUpAdd(false)
-            setShowPopUpSucessfullyCreated(true);
-        }
         if (statusLeito === 'StatusEmLimpeza') {
             const newLeitosList = [...listLeitos, {
                 id: Math.floor(Math.random()* 100),
@@ -153,11 +134,10 @@ const SectorPopUpAdd = ({
 
                     <PopUpField>
                         <PopUpLabel>Status inicial</PopUpLabel>
-                        <PopUpInputSelect onChange={(e) => setStatusLeito(e.target.value)}>
-                            <SelectOption value='StatusDiponivel'>Disponível</SelectOption>
+                        <PopUpInputSelect value ={statusLeito} onChange={(e) => setStatusLeito(e.target.value)}>
+                            <SelectOption selected value='StatusDiponivel'>Disponível</SelectOption>
                             <SelectOption value = 'StatusAguardandoManutencao'>Aguardando manutenção</SelectOption>
                             <SelectOption value ='StatusAguardandoLimpeza'>Aguardando Limpeza</SelectOption>
-                            <SelectOption value ='StatusOcupado'>Ocupado</SelectOption>
                             <SelectOption value ='StatusEmLimpeza'>Em limpeza</SelectOption>
                             <SelectOption value ='StatusEmManutencao'>Em manutenção</SelectOption>
                         </PopUpInputSelect>

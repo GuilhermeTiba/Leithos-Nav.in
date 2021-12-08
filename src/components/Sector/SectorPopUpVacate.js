@@ -1,10 +1,9 @@
-import e from 'cors';
 import React from 'react'
 import { useCount } from '../../contexts/countContext'
 import { PopUpVacate, PopUpButton, PopUpButtonsVacate, PopUpFieldVacate, PopUpLabelVacate, PopUpWrappVacate, PopUpCancelVacate, PopUpCreateVacate, PopUpButtonsVacateApply  } from './Sector.styles'
 import { StatusAguardandoLimpeza } from './SectorStatus';
 
-const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setDataLeito, listLeitos, setShowPopUpSuccessfullyAvaible}) => {
+const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setDataLeito, listLeitos, setShowPopUpSuccessfullyAvaible, patientList, setPatientList}) => {
     const {setCountDispo, countDispo} = useCount();
     const handleClick = (e) => {
         e.preventDefault();
@@ -21,25 +20,30 @@ const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setD
     }
     const handleSave = () => {
         for (const [index] of listLeitos.entries()) {
-        if (dataLeito.id === listLeitos[index].id) {
-        if(listLeitos[index].status === 'Disponível'){
-            setCountDispo(countDispo - 1);
+            if (dataLeito.id === listLeitos[index].id) {
+            if(listLeitos[index].status === 'Disponível'){
+                setCountDispo(countDispo - 1);
+            }
+            listLeitos[index] = 
+            {
+                id: listLeitos[index].id,
+                name: listLeitos[index].name,
+                style : {
+                    colorRight: dataLeito.bgIcon,
+                    colorLeft: dataLeito.bgText,
+                    icon: dataLeito.icon
+                },
+                status: dataLeito.status
+            }
+            
+            const newListInfoPatient = patientList.filter((patient) => patient.id !== dataLeito.id);
+            setPatientList(newListInfoPatient);
+
+            setCountDispo(countDispo + 1);
+            setShowPopUpVacate(false);
+            setShowPopUpSuccessfullyAvaible(true);
+            }
         }
-        listLeitos[index] = 
-        {
-            id: listLeitos[index].id,
-            name: listLeitos[index].name,
-            style : {
-                colorRight: dataLeito.bgIcon,
-                colorLeft: dataLeito.bgText,
-                icon: dataLeito.icon
-            },
-            status: dataLeito.status
-        }
-        setCountDispo(countDispo + 1);
-        setShowPopUpVacate(false);
-        setShowPopUpSuccessfullyAvaible(true);
-        }}
     }
 
     const handleCancel = (e) => {
