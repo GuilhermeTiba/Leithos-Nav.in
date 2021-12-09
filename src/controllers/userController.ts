@@ -19,12 +19,14 @@ export async function createUser (req, res){
       type
     }
   })
-  res.json(createUser)
+  res.send({
+    createUser
+  })
 }
 
 export async function getUserProfile(req, res) {
   const {id} = req.body
-  const userProfile = prisma.user.findUnique({
+  const userProfile = await prisma.user.findUnique({
     where: {
       id: id
     }

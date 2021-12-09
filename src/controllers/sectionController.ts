@@ -13,52 +13,77 @@ export async function createSection(req, res) {
 }
 
 export async function getAllSections(req, res) {
-  const allSections = await allSectionsFunc()
-  
-  res.send({
-    allSections
-  })
+  try {
+    const allSections = await allSectionsFunc()
+    res.status(200).send({
+      allSections
+    })
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getBedsFromASection(req, res){
-  const { sectionId } = req.params
-  const bedsPerSection = await prisma.beds.findMany({
-  where:{
-    sectionId: sectionId
+  const { id } = req.params
+  try {
+    const bedsPerSection = await prisma.beds.findMany({
+      where:{
+        sectionId: id
+    }
+    })
+
+    res.status(200).send({
+      bedsPerSection
+    })
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
   }
-  })
-  res.send({
-    bedsPerSection
-  })
 }
 
 export async function getAvailableBedsfromAllSections(req, res){
-  const availableBedsFromAllSections = await availableBedsFromAllSectionsFunc()
-  const allBedsFromAllSections = await allBedsFromAllSectionsFunc()
-  
-  res.send({
-    availableBedsFromAllSections,
-    allBedsFromAllSections
-  })
+  try {
+    const availableBedsFromAllSections = await availableBedsFromAllSectionsFunc()
+    const allBedsFromAllSections = await allBedsFromAllSectionsFunc()
+    
+    res.status(200).send({
+      availableBedsFromAllSections,
+      allBedsFromAllSections
+    })
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
 }
 
 export async function getAllBedStatsQuantityFromASection(req, res){
-  const { sectionId } = req.params
-  const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(sectionId)
-  const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(sectionId)
-  const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(sectionId)
-  const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(sectionId)
-  const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(sectionId)
-  const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(sectionId)
+  const { id } = req.params
 
-  res.send({
-    availableBedsPerSection,
-    occupiedBedsPerSection,
-    cleaningBedsPerSection,
-    maintanenceBedsPerSection,
-    needCleaningBedsPerSection,
-    needMaintanenceBedsPerSection
-  })
+  try {
+    const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(id)
+    const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(id)
+    const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(id)
+    const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(id)
+    const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(id)
+    const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(id)
+  
+    res.status(200).send({
+      availableBedsPerSection,
+      occupiedBedsPerSection,
+      cleaningBedsPerSection,
+      maintanenceBedsPerSection,
+      needCleaningBedsPerSection,
+      needMaintanenceBedsPerSection
+    }) 
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 async function getBedsPerSectionQuantity(section){

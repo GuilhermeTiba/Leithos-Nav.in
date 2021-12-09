@@ -97,51 +97,86 @@ async function getAllHistoric(req, res) {
 }
 exports.getAllHistoric = getAllHistoric;
 async function getDailyInAndOuts(req, res) {
-    const dailyIn = await getPatientIn(0);
-    const dailyOut = await getPatientOut(0);
-    res.send({
-        dailyIn,
-        dailyOut,
-    });
+    try {
+        const dailyIn = await getPatientIn(0);
+        const dailyOut = await getPatientOut(0);
+        res.status(200).send({
+            dailyIn,
+            dailyOut,
+        });
+    }
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
+    }
 }
 exports.getDailyInAndOuts = getDailyInAndOuts;
 async function getWeeklyInAndOuts(req, res) {
-    const weeklyIn = await getPatientIn(7);
-    const weeklyOut = await getPatientOut(7);
-    res.send({
-        weeklyIn,
-        weeklyOut
-    });
+    try {
+        const weeklyIn = await getPatientIn(7);
+        const weeklyOut = await getPatientOut(7);
+        res.status(200).send({
+            weeklyIn,
+            weeklyOut
+        });
+    }
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
+    }
 }
 exports.getWeeklyInAndOuts = getWeeklyInAndOuts;
 async function getMonthlyInAndOuts(req, res) {
-    const monthlyIn = await getPatientIn(30);
-    const monthlyOut = await getPatientOut(30);
-    res.send({
-        monthlyIn,
-        monthlyOut
-    });
+    try {
+        const monthlyIn = await getPatientIn(30);
+        const monthlyOut = await getPatientOut(30);
+        res.status(200).send({
+            monthlyIn,
+            monthlyOut
+        });
+    }
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
+    }
 }
 exports.getMonthlyInAndOuts = getMonthlyInAndOuts;
 async function getYearlyInAndOuts(req, res) {
-    const yearlyIn = await getPatientIn(365);
-    const yearlyOut = await getPatientOut(365);
-    res.send({
-        yearlyIn,
-        yearlyOut
-    });
+    try {
+        const yearlyIn = await getPatientIn(365);
+        const yearlyOut = await getPatientOut(365);
+        res.status(200).send({
+            yearlyIn,
+            yearlyOut
+        });
+    }
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
+    }
 }
 exports.getYearlyInAndOuts = getYearlyInAndOuts;
 const getAverageTimes = async (req, res) => {
-    const averageCleaningTime = await minuteAverageCleaningTimefunc();
-    const averageResponseTime = await minuteAverageResponseTimefunc();
-    const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
-    const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc();
-    res.send({
-        averageCleaningTime,
-        averageResponseTime,
-        averageOccupiedTime,
-        averageMaintanenceTime
-    });
+    try {
+        const averageCleaningTime = await minuteAverageCleaningTimefunc();
+        const averageResponseTime = await minuteAverageResponseTimefunc();
+        const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
+        const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc();
+        res.status(200).send({
+            averageCleaningTime,
+            averageResponseTime,
+            averageOccupiedTime,
+            averageMaintanenceTime
+        });
+    }
+    catch (error) {
+        res.status(500).send({
+            error: "Server error"
+        });
+    }
 };
 exports.getAverageTimes = getAverageTimes;

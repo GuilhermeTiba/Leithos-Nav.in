@@ -5,9 +5,9 @@ import { authenticateToken } from "../middleware/authenticateToken";
 
 const router = Router();
 
-router.get('/getAllSections', authenticateToken, getAllSections)
+router.get('/getallsections', authenticateToken, getAllSections)
 
-router.post('/createSection', authenticateToken, createSection)
+router.post('/createsection', authenticateToken, createSection)
 router.post('/search', authenticateToken, searchPatientOrBed)
 
 module.exports = router

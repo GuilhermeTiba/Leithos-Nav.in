@@ -6,17 +6,17 @@ import { authenticateToken } from "../middleware/authenticateToken";
 
 const router = Router();
 
-router.get('/bedsPerSection/:sectionId', authenticateToken, getBedsFromASection)
-router.get('/bedsStatusQuantityPerSection/:sectionId', authenticateToken, getAllBedStatsQuantityFromASection)
-router.get('/patientData/:patientId', authenticateToken, getPatientData)
+router.get('/bedspersection/:id', authenticateToken, getBedsFromASection)
+router.get('/bedsstatusquantitypersection/:id', authenticateToken, getAllBedStatsQuantityFromASection)
+router.get('/patient/:id', authenticateToken, getPatientData)
 
-router.post('/createBeds', authenticateToken, createBeds)
-router.post('/createPatient', authenticateToken, createPatient)
+router.post('/bed', authenticateToken, createBeds)
+router.post('/patient', authenticateToken, createPatient)
 
-router.put('/updateBed', authenticateToken, updateBed)
-router.put('/updatePatientData', authenticateToken, updatePatientData)
+router.put('/bed', authenticateToken, updateBed)
+router.put('/patient', authenticateToken, updatePatientData)
 
-router.delete('/deleteBed', authenticateToken, deleteBed)
-router.delete('/deletePatient', authenticateToken, deletePatient)
+router.delete('/bed', authenticateToken, deleteBed)
+router.delete('/patient', authenticateToken, deletePatient)
 
 module.exports = router

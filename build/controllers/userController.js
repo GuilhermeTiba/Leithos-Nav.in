@@ -18,12 +18,14 @@ async function createUser(req, res) {
             type
         }
     });
-    res.json(createUser);
+    res.send({
+        createUser
+    });
 }
 exports.createUser = createUser;
 async function getUserProfile(req, res) {
     const { id } = req.body;
-    const userProfile = prisma.user.findUnique({
+    const userProfile = await prisma.user.findUnique({
         where: {
             id: id
         }

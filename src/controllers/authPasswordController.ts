@@ -22,8 +22,10 @@ export async function checkUserCredencials (req, res, next){
       res.send('Not Allowed')
     }
   }
-  catch{
-    res.status(500).send()
+  catch(error){
+    res.status(500).send({
+      error: 'Server error'
+    })
   }
 }
 

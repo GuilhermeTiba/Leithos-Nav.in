@@ -106,57 +106,87 @@ export async function getAllHistoric(req, res){
 }
 
 export async function getDailyInAndOuts(req, res){
-  const dailyIn = await getPatientIn(0);
-  const dailyOut = await getPatientOut(0);
+  try {
+    const dailyIn = await getPatientIn(0);
+    const dailyOut = await getPatientOut(0);
 
-  res.send({
-    dailyIn,
-    dailyOut,
-  });
+    res.status(200).send({
+      dailyIn,
+      dailyOut,
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
 }
 
 export async function getWeeklyInAndOuts(req, res){
-  const weeklyIn = await getPatientIn(7)
-  const weeklyOut = await getPatientOut(7)
-
-  res.send({
-    weeklyIn,
-    weeklyOut
-  })
+  try {
+    const weeklyIn = await getPatientIn(7)
+    const weeklyOut = await getPatientOut(7)
+  
+    res.status(200).send({
+      weeklyIn,
+      weeklyOut
+    })
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
 }
 
 export async function getMonthlyInAndOuts(req, res){
-  const monthlyIn = await getPatientIn(30)
-  const monthlyOut = await getPatientOut(30)
+  try {
+    const monthlyIn = await getPatientIn(30)
+    const monthlyOut = await getPatientOut(30)
 
-  res.send({
-    monthlyIn,
-    monthlyOut
-  })
+    res.status(200).send({
+      monthlyIn,
+      monthlyOut
+    })
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getYearlyInAndOuts(req, res){
-  const yearlyIn = await getPatientIn(365)
-  const yearlyOut = await getPatientOut(365)
-
-  res.send({
-    yearlyIn,
-    yearlyOut
-  })
+  try {
+    const yearlyIn = await getPatientIn(365)
+    const yearlyOut = await getPatientOut(365)
+  
+    res.status(200).send({
+      yearlyIn,
+      yearlyOut
+    })
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
 }
 
 export const getAverageTimes = async (req, res) => {
-  const averageCleaningTime = await minuteAverageCleaningTimefunc();
-  const averageResponseTime = await minuteAverageResponseTimefunc();
-  const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
-  const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc()
-
-  res.send({
-    averageCleaningTime,
-    averageResponseTime,
-    averageOccupiedTime,
-    averageMaintanenceTime
-  })
+  try {
+    const averageCleaningTime = await minuteAverageCleaningTimefunc();
+    const averageResponseTime = await minuteAverageResponseTimefunc();
+    const averageOccupiedTime = await minuteAverageOccupiedTimefunc();
+    const averageMaintanenceTime = await minuteAverageMaintanenceTimefunc()
+  
+    res.status(200).send({
+      averageCleaningTime,
+      averageResponseTime,
+      averageOccupiedTime,
+      averageMaintanenceTime
+    })
+  } catch (error) {
+    res.status(500).send({
+      error : "Server error"
+    })
+  }
 }
 
 

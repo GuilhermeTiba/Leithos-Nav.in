@@ -300,15 +300,15 @@ export async function deletePatient(req, res) {
 
 export async function getPatientData(req, res) {
   
-  const {patientId} = req.params
+  const { id } = req.params
 
   const patientData = await prisma.patient.findUnique({
     where:{
-      id: patientId
+      id: id
     },
   })
 
-  res.send({
+  res.status(200).send({
     patientData
   })
 }
@@ -336,64 +336,83 @@ export async function updatePatientData(req, res) {
 }
 
 export async function getQuantityPerDiagnosis(req, res){
-  const neurologyQtd = await getNeurologyDiagnosisQuantity()
-  const cardiologyQtd = await getCardiologyDiagnosisQuantity()
-  const pneumologyQtd = await getPneumologyDiagnosisQuantity()
-  const oncologyQtd = await getOncologyDiagnosisQuantity()
-  const orthopedicsQtd = await getOrthopedicsDiagnosisQuantity()
-  const nephrologyQtd = await getNephrologyDiagnosisQuantity()
-  const endocrinologyQtd = await getEndocrinologyDiagnosisQuantity()
-  const palliativeCareQtd = await getPalliativeCareDiagnosisQuantity()
-  const infectologyQtd = await getInfectologyDiagnosisQuantity()
-  const genicologyQtd = await getGenicologyDiagnosisQuantity()
-  const covidQtd = await getCovidDiagnosisQuantity()
-  const otherQtd = await getOtherDiagnosisQuantity()
+  try {
+    const neurologyQtd = await getNeurologyDiagnosisQuantity()
+    const cardiologyQtd = await getCardiologyDiagnosisQuantity()
+    const pneumologyQtd = await getPneumologyDiagnosisQuantity()
+    const oncologyQtd = await getOncologyDiagnosisQuantity()
+    const orthopedicsQtd = await getOrthopedicsDiagnosisQuantity()
+    const nephrologyQtd = await getNephrologyDiagnosisQuantity()
+    const endocrinologyQtd = await getEndocrinologyDiagnosisQuantity()
+    const palliativeCareQtd = await getPalliativeCareDiagnosisQuantity()
+    const infectologyQtd = await getInfectologyDiagnosisQuantity()
+    const genicologyQtd = await getGenicologyDiagnosisQuantity()
+    const covidQtd = await getCovidDiagnosisQuantity()
+    const otherQtd = await getOtherDiagnosisQuantity()
+    
+    res.status(200).send({
+      neurologyQtd,
+      cardiologyQtd,
+      pneumologyQtd,
+      oncologyQtd,
+      orthopedicsQtd,
+      nephrologyQtd,
+      endocrinologyQtd,
+      palliativeCareQtd,
+      infectologyQtd,
+      genicologyQtd,
+      covidQtd,
+      otherQtd
+    })
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
   
-  res.send({
-    neurologyQtd,
-    cardiologyQtd,
-    pneumologyQtd,
-    oncologyQtd,
-    orthopedicsQtd,
-    nephrologyQtd,
-    endocrinologyQtd,
-    palliativeCareQtd,
-    infectologyQtd,
-    genicologyQtd,
-    covidQtd,
-    otherQtd
-  })
 }
 
 export async function getQuantityPerSex(req, res){
+  try {
+    const maleQtd = await getMaleSexQuantity()
+    const femaleQtd = await getFemaleSexQuantity()
+    const otherQtd = await getOtherSexQuantity()
+    
+    res.status(200).send({
+      maleQtd,
+      femaleQtd,
+      otherQtd
+    })
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
   
-  const maleQtd = await getMaleSexQuantity()
-  const femaleQtd = await getFemaleSexQuantity()
-  const otherQtd = await getOtherSexQuantity()
-  
-  res.send({
-    maleQtd,
-    femaleQtd,
-    otherQtd
-  })
 }
 
 export async function getQuantityPerAge(req, res){
-  const ageRange0_2 = await getQuantityPerAge0_2()
-  const ageRange3_11 = await getQuantityPerAge3_11()
-  const ageRange12_19 = await getQuantityPerAge12_19()
-  const ageRange20_49 = await getQuantityPerAge20_49()
-  const ageRange50_69 = await getQuantityPerAge50_69()
-  const ageRange70_89 = await getQuantityPerAge70_89()
-  const ageRange90plus = await getQuantityPerAge90plus()
+  try {
+    const ageRange0_2 = await getQuantityPerAge0_2()
+    const ageRange3_11 = await getQuantityPerAge3_11()
+    const ageRange12_19 = await getQuantityPerAge12_19()
+    const ageRange20_49 = await getQuantityPerAge20_49()
+    const ageRange50_69 = await getQuantityPerAge50_69()
+    const ageRange70_89 = await getQuantityPerAge70_89()
+    const ageRange90plus = await getQuantityPerAge90plus()
 
-  res.send({
-    ageRange0_2,
-    ageRange3_11,
-    ageRange12_19,
-    ageRange20_49,
-    ageRange50_69,
-    ageRange70_89,
-    ageRange90plus
-  })
+    res.status(200).send({
+      ageRange0_2,
+      ageRange3_11,
+      ageRange12_19,
+      ageRange20_49,
+      ageRange50_69,
+      ageRange70_89,
+      ageRange90plus
+    })
+  } catch (error) {
+    res.status(500).send({
+      error: 'Server error'
+    })
+  }
 }
