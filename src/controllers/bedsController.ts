@@ -1,15 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { bedNameValidator, bedSectionValidator } from "../error/bedsErrorHandler";
+import { bedNameValidator, checkIfSectionIdExist, checkIfBedNotExists } from "../error/bedsErrorHandler";
+import { checkValidName } from "../error/patientErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createBeds(req, res) {
   const { name, type, section } = req.body
-  
+
   try {
     const uuid = await uuidv4()
-    if(await bedSectionValidator(section) && !bedNameValidator(name)){
+
+    if(checkValidName(name)){
+      res.status(400).send({
+        error : 'Invalid name'
+      })
+      return
+    }
+
+    if(await checkIfSectionIdExist(section) && !bedNameValidator(name)){
       const createBed = await prisma.beds.create({
         data:{
           id: uuid,
@@ -43,7 +52,7 @@ export async function createBeds(req, res) {
       })
     } else {
       res.status(400).send({
-        error : 'Section or name invalid'
+        error : 'Section does not exist or name already exists'
       })
     }
   } catch (error) {
@@ -58,7 +67,7 @@ async function getAvailableBedsQuantity(){
   const availableBedsQuantity = await prisma.beds.count({
   where:{
     status: 'AVAILABLE'
-  }
+    }
   })
   return availableBedsQuantity
 }
@@ -67,7 +76,7 @@ async function getOccupiedBedsQuantity(){
   const occupiedBedsQuantity = await prisma.beds.count({
   where:{
     status: 'OCCUPIED'
-  }
+    }
   })
 
   return occupiedBedsQuantity
@@ -78,7 +87,7 @@ async function getCleaningBedsQuantity(){
   const cleaningBeds = await prisma.beds.count({
   where:{
     status: 'CLEANING'
-  }
+    }
   })
   return cleaningBeds
 }
@@ -127,9 +136,7 @@ export async function getBedStatus(req, res){
   })
 }
 
-export async function updateBed(req, res){
-  const { id, status, section, name, type} = req.body
-
+export const updateBedFunc = async (id, status?, section? , name?, type?) => {
   const findBed = await prisma.beds.findUnique({
     where: {
       id : id
@@ -137,7 +144,7 @@ export async function updateBed(req, res){
   })
 
   if (findBed.status != "AVAILABLE" && status == "OCCUPIED") {
-    res.send({Error:"Bed needs to be available to make this change."})
+    return {Error:"Bed needs to be available to make this change."}
   } else {
     const now = new Date().getTime()
     const lastTime = findBed.status_changed_date.getTime()
@@ -165,11 +172,42 @@ export async function updateBed(req, res){
       }
     })
 
-    res.send({
-      updateBedStatus,
-      createHistoric
-    })
+    return {
+      updateBedStatus : updateBedStatus,
+      createHistoric : createHistoric
+    }
   }
+}
+
+export async function updateBed(req, res){
+  const { id, status, section, name, type} = req.body
+
+  if(await checkIfBedNotExists(id)){
+    res.status(400).send({
+      error : 'Bed ID does not exist'
+    })
+    return
+  }
+
+  if(await bedNameValidator(name)){
+    res.status(400).send({
+      error : 'Bed name already exists'
+    })
+    return
+  }
+
+  if(!checkIfSectionIdExist(section)){
+    res.status(400).send({
+      error : 'Section ID does not exist'
+    })
+    return
+  }
+
+  const updateBed = await updateBedFunc(id, status, section, name, type)
+
+  res.send({
+    updateBed
+  })
 }
 
 export async function deleteBed(req, res){

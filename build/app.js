@@ -17,7 +17,7 @@ const swagger_1 = require("./swagger");
 const app = (0, express_1.default)();
 app.use(cors());
 app.use(express_1.default.json());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swagger_1.swaggerDocument));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger_1.swaggerDocument));
 app.use('/register', registerRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/login', loginRouter);

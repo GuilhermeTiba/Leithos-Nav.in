@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllBedStatsQuantityFromASection = exports.getAvailableBedsfromAllSections = exports.getBedsFromASection = exports.getAllSections = exports.createSection = void 0;
 const client_1 = require("@prisma/client");
+const bedsErrorHandler_1 = require("../error/bedsErrorHandler");
 const prisma = new client_1.PrismaClient();
 async function createSection(req, res) {
     const { id } = req.body;
@@ -30,14 +31,21 @@ exports.getAllSections = getAllSections;
 async function getBedsFromASection(req, res) {
     const { id } = req.params;
     try {
-        const bedsPerSection = await prisma.beds.findMany({
-            where: {
-                sectionId: id
-            }
-        });
-        res.status(200).send({
-            bedsPerSection
-        });
+        if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(id)) {
+            const bedsPerSection = await prisma.beds.findMany({
+                where: {
+                    sectionId: id
+                }
+            });
+            res.status(200).send({
+                bedsPerSection
+            });
+        }
+        else {
+            res.status(400).send({
+                error: 'Could not find SectionIP'
+            });
+        }
     }
     catch (error) {
         res.status(500).send({
@@ -65,20 +73,27 @@ exports.getAvailableBedsfromAllSections = getAvailableBedsfromAllSections;
 async function getAllBedStatsQuantityFromASection(req, res) {
     const { id } = req.params;
     try {
-        const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(id);
-        const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(id);
-        const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(id);
-        const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(id);
-        const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(id);
-        const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(id);
-        res.status(200).send({
-            availableBedsPerSection,
-            occupiedBedsPerSection,
-            cleaningBedsPerSection,
-            maintanenceBedsPerSection,
-            needCleaningBedsPerSection,
-            needMaintanenceBedsPerSection
-        });
+        if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(id)) {
+            const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(id);
+            const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(id);
+            const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(id);
+            const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(id);
+            const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(id);
+            const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(id);
+            res.status(200).send({
+                availableBedsPerSection,
+                occupiedBedsPerSection,
+                cleaningBedsPerSection,
+                maintanenceBedsPerSection,
+                needCleaningBedsPerSection,
+                needMaintanenceBedsPerSection
+            });
+        }
+        else {
+            res.status(400).send({
+                error: 'Could not find section IP'
+            });
+        }
     }
     catch (error) {
         res.status(500).send({

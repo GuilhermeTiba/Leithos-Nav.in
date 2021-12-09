@@ -1,5 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import {v4 as uuidv4} from "uuid";
+import { checkIfBedIsNotAvailable } from "../error/bedsErrorHandler";
+import { checkIfSsnExists, checkValidName, patientIdValidator, patientSsnValidator } from "../error/patientErrorHandler";
+import { updateBed, updateBedFunc } from "./bedsController";
 
 const prisma = new PrismaClient();
 
@@ -248,91 +251,178 @@ async function getQuantityPerAge90plus(){
 export async function createPatient(req, res) {
   const {age, sex, first_name, last_name, ssn, additional_informations, bedId, diagnosis} = req.body
   const uuid = await uuidv4()
-  const createPatient = await prisma.patient.create({
-    data:{
-      id: uuid,
-      age,
-      sex,
-      first_name,
-      last_name,
-      ssn,
-      diagnosis,
-      additional_informations,
-      bedId : bedId
-    },
-  })
 
-  res.send({createPatient})
+  try {
+    if(checkValidName(first_name) || checkValidName(last_name)){
+      res.status(400).send({
+        error: 'Name cannot contain special characters or numbers'
+      })
+      return
+    }
+  
+    if(!patientSsnValidator(ssn)){
+      res.status(400).send({
+        error: 'Invalid CPF'
+      })
+      return
+    }
+  
+    if(await checkIfSsnExists(ssn)){
+      res.status(400).send({
+        error : 'CPF already exists'
+      })
+      return
+    }
+  
+    if(isNaN(age)){
+      res.status(400).send({
+        error : 'Age needs to be a number'
+      })
+      return
+    }
+    
+    if(await checkIfBedIsNotAvailable(bedId)){
+      res.status(400).send({
+        error : 'Bed needs to be Available to insert a patient'
+      })
+      return
+    }
+    const createPatient = await prisma.patient.create({
+      data:{
+        id: uuid,
+        age,
+        sex,
+        first_name,
+        last_name,
+        ssn,
+        diagnosis,
+        additional_informations,
+        bedId : bedId
+      },
+    })
+  const updateBedStatus = await updateBedFunc(bedId, 'OCCUPIED')
+
+    res.send({
+      createPatient,
+      updateBedStatus
+    })      
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function deletePatient(req, res) {
   const {patientId, liberationClause} = req.body
   
-  const findPatient = await prisma.patient.findUnique({
-    where:{
-      id: patientId
+    if(patientIdValidator(patientId)){
+      res.status(400).send({
+        error : 'Patient Id does not exist'
+      })
+      return
     }
-  })
   
-  const createPatientHistoric = await prisma.patientHistoric.create({
-    data:{
-      first_name: findPatient.first_name,
-      last_name: findPatient.last_name,
-      entry_date: findPatient.entry_date,
-      ssn : findPatient.ssn,
-      diagnosis : findPatient.diagnosis,
-      additional_informations: findPatient.additional_informations,
-      liberationClause: liberationClause
-    }
-  })
-
-  const deletePatient = await prisma.patient.delete({
-    where:{
-      id: patientId
-    }
-  })
-
-  res.send({
-    createPatientHistoric,
-    deletePatient
-  })
+    const findPatient = await prisma.patient.findUnique({
+      where:{
+        id: patientId
+      }
+    })
+    
+    const createPatientHistoric = await prisma.patientHistoric.create({
+      data:{
+        first_name: findPatient.first_name,
+        last_name: findPatient.last_name,
+        entry_date: findPatient.entry_date,
+        ssn : findPatient.ssn,
+        diagnosis : findPatient.diagnosis,
+        additional_informations: findPatient.additional_informations,
+        liberationClause: liberationClause
+      }
+    })
+  
+    const deletePatient = await prisma.patient.delete({
+      where:{
+        id: patientId
+      }
+    })
+  
+    res.status(200).send({
+      createPatientHistoric,
+      deletePatient
+    })   
 }
 
 export async function getPatientData(req, res) {
-  
   const { id } = req.params
-
-  const patientData = await prisma.patient.findUnique({
-    where:{
-      id: id
-    },
-  })
-
-  res.status(200).send({
-    patientData
-  })
+  try {
+    if(await patientIdValidator(id)){
+      const patientData = await prisma.patient.findUnique({
+        where:{
+          id: id
+        },
+      })
+    
+      res.status(200).send({
+        patientData
+      })  
+    } else {
+      res.status(400).send({
+        error : 'Could not find patient ID'
+      })
+    }      
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function updatePatientData(req, res) {
   const {first_name, last_name, sex, age, diagnosis, additional_informations, patientId} = req.body
-
-  const updatePatientData = await prisma.patient.update({
-    where:{
-      id : patientId
-    },
-    data:{
-      first_name,
-      last_name,
-      sex,
-      age,
-      diagnosis,
-      additional_informations
+  try {
+    if(!patientIdValidator(patientId)){
+      res.status(400).send({
+        error : 'Patient Id does not exist'
+      })
+      return
     }
-  })
-
-  res.send({
-    updatePatientData
-  })
+    
+    if(checkValidName(first_name) || checkValidName(last_name)){
+      res.status(400).send({
+        error : 'Name cannot contain special characters or numbers'
+      })
+      return
+    }
+  
+    if(isNaN(age)){
+      res.status(400).send({
+        error : 'Age needs to be a number'
+      })
+      return
+    }
+    
+    const updatePatientData = await prisma.patient.update({
+      where:{
+        id : patientId
+      },
+      data:{
+        first_name,
+        last_name,
+        sex,
+        age,
+        diagnosis,
+        additional_informations
+      }
+    })
+    res.status(500).send({
+      updatePatientData
+    })      
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getQuantityPerDiagnosis(req, res){
