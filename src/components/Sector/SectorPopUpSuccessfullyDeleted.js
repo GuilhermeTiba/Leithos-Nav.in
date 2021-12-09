@@ -9,7 +9,7 @@ const SectorPopUpSuccessfullyDeleted = ({setShowPopUpSuccesfullyDeleted, showPop
             setShowPopUpDeletar(false)
         }, 1200)
         return() => clearTimeout(timer)
-    }, [showPopUpSuccesfullyDeleted])
+    }, [setShowPopUpSuccesfullyDeleted, setShowPopUpDeletar, showPopUpSuccesfullyDeleted])
     return (
         <PopUpConfirm active2={showPopUpSuccesfullyDeleted}>
             <PopUpWrappDeleted>

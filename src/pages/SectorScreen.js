@@ -2,7 +2,7 @@ import { HomeContainer, HomeGrid, NavBarSide } from '../styles/HomeAndSectorGrid
 import NavBar from '../components/NavBar';
 import Sector from '../components/Sector';
 import { GlobalStyles } from '../styles/GlobalStyles';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import SectorPopUpAdd from '../components/Sector/SectorPopUpAdd';
 import { StatusDisponivel} from '../components/Sector/SectorStatus';
 import SectorPopUpStatus from '../components/Sector/SectorPopUpStatus';

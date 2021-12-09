@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
 import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpStatus, PopUpButton} from './Sector.styles'
-import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado} from './SectorStatus';
+import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao} from './SectorStatus';
 
 const SectorPopUpStatus = ({
     showPopUpStatus, 
@@ -87,7 +86,7 @@ const SectorPopUpStatus = ({
             icon: StatusDisponivel.icon,
             status: 'Disponível'
         }
-        setDataLeito(changedLeitoObj)
+        setDataLeito(changedLeitoObj);
     }
 
     const handleUpdateEmLimp = (e) => {

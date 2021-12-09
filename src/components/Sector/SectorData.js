@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { Data, DataNumber, DataAndIconWrapp, NumberStats, IconData, DataTxt } from './Sector.styles';
 import {MdEventAvailable} from 'react-icons/md';
 import {FaBroom} from 'react-icons/fa';
