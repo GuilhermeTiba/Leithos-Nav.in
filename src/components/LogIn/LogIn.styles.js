@@ -32,17 +32,54 @@ export const LogInWrapp = styled.div`
     background-color: white;
 `;
 
+//RIGHT SIDE
 
-export const LoginLeft = styled.div`
+export const LoginRight = styled.div`
     background-image: url(${({backgroundDesign}) => (backgroundDesign)});
     background-position: center;
-    //background-size: cover;
-    background-size: fill;
+    background-size: 128vh;
     background-color: black;
     grid-area: 'images';
 `;
 
-export const LoginRight  = styled.div`
+export const RightSideText = styled.h1`
+    position: relative;
+    color: white;
+    top: 70px;
+    margin-left: 120px;
+    width: 400px;
+`;
+
+export const RightSideComputerImage = styled.img`
+    position: relative;
+    width: 500px;
+    height: 500px;
+    top: 80px;
+    left: 280px;
+`;
+
+export const RightSideDashboardImage = styled.img`
+    position: relative;
+    width: 260px;
+    height: 260px;
+    right: 560px;
+    top: 80px;
+`;
+
+export const RightSideDataImage = styled.img`
+    position: relative;
+    width: 160px;
+    height: 160px;
+    top: 330px;
+    right: 380px;
+`;
+
+
+
+
+//LEFT SIDE
+
+export const LoginLeft  = styled.div`
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -55,8 +92,6 @@ export const LogInForm = styled.form`
     background: rgba(255, 255, 255, 1) 0% 0% no-repeat padding-box;
     padding: 42px;
     border: none;
-    border-radius: 20px;
-    box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.1);
     opacity: 0.85;
 
     display: block;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useCount } from '../../contexts/countContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpInput, PopUpInputSelect, SelectOption} from './Sector.styles'
-import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao } from './SectorStatus';
+import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao, StatusOcupado } from './SectorStatus';
 
 const SectorPopUpAdd = ({
     showPopUpAdd, 
@@ -12,17 +12,6 @@ const SectorPopUpAdd = ({
 }) => {
     const [nameLeito, setNameLeito] = useState('');
     const [statusLeito, setStatusLeito] = useState('StatusDiponivel')
-    const {
-        countDispo, 
-        setCountDispo,  
-        countEmLimp, 
-        setCountEmLimp, 
-        countEmManu, 
-        setCountEmManu, 
-        countAguardLimp, 
-        setCountAguardLimp, 
-        countAguardManu, 
-        setCountAguardManu} = useCount()
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -38,7 +27,6 @@ const SectorPopUpAdd = ({
                 },
                 status: 'Disponível',
             }];
-            setCountDispo(countDispo + 1);
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false);
@@ -55,7 +43,6 @@ const SectorPopUpAdd = ({
                 },
                 status: 'Aguardando manutenção'
             }];
-            setCountAguardManu(countAguardManu + 1);
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false);
@@ -72,7 +59,6 @@ const SectorPopUpAdd = ({
                 },
                 status: 'Aguardando limpeza'
             }];
-            setCountAguardLimp(countAguardLimp + 1);
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false);
@@ -89,7 +75,6 @@ const SectorPopUpAdd = ({
                 },
                 status: 'Em limpeza'
             }];
-            setCountEmLimp(countEmLimp + 1);
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false)
@@ -106,7 +91,6 @@ const SectorPopUpAdd = ({
                 },
                 status: 'Em manutenção'
             }];
-            setCountEmManu(countEmManu + 1);
             setListLeitos(newLeitosList);
             setNameLeito('');
             setShowPopUpAdd(false)

@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 
 import {
-    LoginRight, 
+    LoginLeft, 
     LogInForm, 
     LogInFormWrapp,
-    FormLogoWrap,
-    FormLogo,
     FormFields,
     FieldsWrapp,
     InputLogin,
@@ -16,7 +14,6 @@ import {
     ButtonWrapp,
     ButtonSignIn
 } from './LogIn.styles';
-import logoForm from '../../assets/logo.png'
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { useAuth } from '../../contexts/autenticateContext';
@@ -52,31 +49,27 @@ const LeftSide = () => {
     }
 
     return (
-        <LoginRight>
-                    <LogInForm>
-                        <LogInFormWrapp>
-                            <FormLogoWrap>
-                                <FormLogo src = {logoForm} alt="Leitos"/>
-                            </FormLogoWrap>
-                            <FormFields >
-                                
-                                <FieldsWrapp>
-                                    <InputLogin type="email" placeholder="Login" name="uname" required value={email} onChange={(e) => setName(e.target.value)}/>
-                                    <IconView>
-                                        <InputPassword type={activeIcon ? 'text': 'password'} placeholder={"Senha"} name="psw" required value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                                        <IconButton1 display={activeIcon} onClick={handleIconPassword}><AiOutlineEye/></IconButton1>
-                                        <IconButton2 display={activeIcon} onClick={handleIconPassword}><AiOutlineEyeInvisible/></IconButton2>
-                                    </IconView>
-                                </FieldsWrapp>
+        <LoginLeft>
+            <LogInForm>
+                <LogInFormWrapp>
+                    <FormFields >
+                        <FieldsWrapp>
+                            <InputLogin type="email" placeholder="Login" name="uname" required value={email} onChange={(e) => setName(e.target.value)}/>
+                            <IconView>
+                                <InputPassword type={activeIcon ? 'text': 'password'} placeholder={"Senha"} name="psw" required value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                                <IconButton1 display={activeIcon} onClick={handleIconPassword}><AiOutlineEye/></IconButton1>
+                                <IconButton2 display={activeIcon} onClick={handleIconPassword}><AiOutlineEyeInvisible/></IconButton2>
+                            </IconView>
+                        </FieldsWrapp>
 
-                                <ButtonWrapp>
-                                    <ButtonSignIn type="submit" onClick={handleSignIn}>Entrar</ButtonSignIn>
-                                </ButtonWrapp>
+                        <ButtonWrapp>
+                            <ButtonSignIn type="submit" onClick={handleSignIn}>Entrar</ButtonSignIn>
+                        </ButtonWrapp>
 
-                            </FormFields>
-                        </LogInFormWrapp>
-                    </LogInForm>
-                </LoginRight>
+                    </FormFields>
+                </LogInFormWrapp>
+            </LogInForm>
+        </LoginLeft>
     )
 }
 

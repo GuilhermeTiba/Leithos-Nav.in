@@ -3,7 +3,7 @@ import { PopUpLabelInfoAddInfo, PopUpIconPencil, PopUpLabelInfo, PopUpInputInfo,
 import {FiEdit} from 'react-icons/fi'
 import { usePatientInfo } from '../../contexts/patientInfoContext';
 
-const SectorPopUpViewInfoPatient = ({setPatientList, patientList, dataLeito, showPopUpViewInfoPatient, setShowPopUpViewInfoPatient, setShowPopUpOccupied}) => {
+const SectorPopUpViewInfoPatient = ({setPatientList, patientList, dataLeito, showPopUpViewInfoPatient, setShowPopUpViewInfoPatient, setShowPopUpOccupied, setShowPopUpSuccessfullyUpdatedInfo}) => {
     const [toggle, setToggle] = useState(false);
     const {
     namePatient,
@@ -53,6 +53,7 @@ const SectorPopUpViewInfoPatient = ({setPatientList, patientList, dataLeito, sho
         console.log(patientList);
         setShowPopUpViewInfoPatient(false);
         setToggle(false);
+        setShowPopUpSuccessfullyUpdatedInfo(true)
     }
 
     return (

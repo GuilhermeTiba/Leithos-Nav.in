@@ -4,7 +4,7 @@ const CounterContext = React.createContext()
 
 const CountContext = ({children}) => {
 
-    const [countDispo, setCountDispo] = useState(1);
+    const [countDispo, setCountDispo] = useState(0);
     const [countOcup, setCountOcup] = useState(0);
     const [countEmLimp, setCountEmLimp] = useState(0);
     const [countEmManu, setCountEmManu] = useState(0);

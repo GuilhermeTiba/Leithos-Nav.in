@@ -3,7 +3,7 @@ import { usePatientInfo } from '../../contexts/patientInfoContext';
 import { PopUpInput, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtonsPatientInfo, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfo  } from './Sector.styles'
 import { StatusOcupado } from './SectorStatus';
 
-const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos, setShowPopUpSuccessfully}) => {
+const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, setDataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos, setListLeitos, setShowPopUpSuccessfully}) => {
     const {
     namePatient,
     setNamePatient,
@@ -48,7 +48,7 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
                 },
                 status: 'Ocupado'
             }}}
-
+        
         setNamePatient('');
         setAgePatient('');
         setSexPatient('');

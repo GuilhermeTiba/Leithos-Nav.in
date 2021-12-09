@@ -2,7 +2,7 @@ import { HomeContainer, HomeGrid, NavBarSide } from '../styles/HomeAndSectorGrid
 import NavBar from '../components/NavBar';
 import Sector from '../components/Sector';
 import { GlobalStyles } from '../styles/GlobalStyles';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SectorPopUpAdd from '../components/Sector/SectorPopUpAdd';
 import { StatusDisponivel} from '../components/Sector/SectorStatus';
 import SectorPopUpStatus from '../components/Sector/SectorPopUpStatus';
@@ -15,6 +15,7 @@ import SectorPopUpSuccessfullyDeleted from '../components/Sector/SectorPopUpSucc
 import SectorPopUpOccupied from '../components/Sector/SectorPopUpOccupied.js';
 import SectorPopUpSuccessfullyAvaible from '../components/Sector/SectorPopUpSuccessfullyAvaible.js';
 import SectorPopUpViewInfoPatient from '../components/Sector/SectorPopUpViewInfoPatient.js';
+import SectorPopUpSuccessfullyUpdatedInfo from '../components/Sector/SectorPopUpSuccessfullyUpdatedInfo.js';
 
 const SectorPage = ({active, toggle}) => {
     const [showPopUpAdd, setShowPopUpAdd] = useState(false);
@@ -28,6 +29,7 @@ const SectorPage = ({active, toggle}) => {
     const [showPopUpOccupied, setShowPopUpOccupied] = useState(false);
     const [showPopUpSuccessfullyAvaible, setShowPopUpSuccessfullyAvaible] = useState(false);
     const [showPopUpViewInfoPatient, setShowPopUpViewInfoPatient] = useState(false);
+    const [showPopUpSuccessfullyUpdatedInfo, setShowPopUpSuccessfullyUpdatedInfo] = useState(false);
 
     const [dataLeito, setDataLeito] = useState('');
     const [patientList, setPatientList] = useState([])
@@ -65,10 +67,11 @@ const SectorPage = ({active, toggle}) => {
             <SectorPopUpSuccessfullyDeleted showPopUpSuccesfullyDeleted={showPopUpSuccesfullyDeleted} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} setShowPopUpDeletar={setShowPopUpDeletar}/>
             <SectorPopUpOccupied showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied} dataLeito={dataLeito} showPopUpVacate={showPopUpVacate} setShowPopUpVacate={setShowPopUpVacate} setShowPopUpSuccesfullyDeleted={setShowPopUpSuccesfullyDeleted} listLeitos={listLeitos} setListLeitos={setListLeitos} setShowPopUpInfoPatient={setShowPopUpInfoPatient} showPopUpViewInfoPatient={showPopUpViewInfoPatient} setShowPopUpViewInfoPatient={setShowPopUpViewInfoPatient} patientList={patientList} setPatientList = {setPatientList}/>
             <SectorPopUpSuccessfullyAvaible showPopUpSuccessfullyAvaible={showPopUpSuccessfullyAvaible} setShowPopUpSuccessfullyAvaible={setShowPopUpSuccessfullyAvaible}/>
-            <SectorPopUpViewInfoPatient patientList={patientList} setPatientList={setPatientList} listLeitos={listLeitos} dataLeito={dataLeito} showPopUpViewInfoPatient={showPopUpViewInfoPatient} setShowPopUpViewInfoPatient={setShowPopUpViewInfoPatient} setShowPopUpOccupied={setShowPopUpOccupied}/>
+            <SectorPopUpViewInfoPatient patientList={patientList} setPatientList={setPatientList} listLeitos={listLeitos} dataLeito={dataLeito} showPopUpViewInfoPatient={showPopUpViewInfoPatient} setShowPopUpViewInfoPatient={setShowPopUpViewInfoPatient} setShowPopUpOccupied={setShowPopUpOccupied} setShowPopUpSuccessfullyUpdatedInfo={setShowPopUpSuccessfullyUpdatedInfo}/>
+            <SectorPopUpSuccessfullyUpdatedInfo showPopUpSuccessfullyUpdatedInfo = {showPopUpSuccessfullyUpdatedInfo} setShowPopUpSuccessfullyUpdatedInfo={setShowPopUpSuccessfullyUpdatedInfo}/>
 
             <GlobalStyles/>
-            <HomeContainer active={showPopUpAdd} active2={showPopUpStatus} active4={showPopUpDeletar} active5={showPopUpSuccessfully} active6={showPopUpVacate} active7={showPopUpSucessfullyCreated} active8={showPopUpOccupied} active9={showPopUpSuccesfullyDeleted} active10={showPopUpSuccessfullyAvaible} active11={showPopUpViewInfoPatient}>
+            <HomeContainer active={showPopUpAdd} active2={showPopUpStatus} active4={showPopUpDeletar} active5={showPopUpSuccessfully} active6={showPopUpVacate} active7={showPopUpSucessfullyCreated} active8={showPopUpOccupied} active9={showPopUpSuccesfullyDeleted} active10={showPopUpSuccessfullyAvaible} active11={showPopUpViewInfoPatient} active12={showPopUpSuccessfullyUpdatedInfo}>
                 <HomeGrid active={active}>
                     <NavBarSide>
                         <NavBar/>
