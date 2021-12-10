@@ -176,31 +176,42 @@ export async function deleteBed(req, res){
   const { bedId } = req.body
 
   if (await checkPatient(bedId)){
-    res.status = 400
+    res.status = 403
     res.send({
       Error: "Leito Ocuppaded"
     })
     return
   }
-
+ try{
   const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
     where:{
       bedsId: bedId
     }
   })
-  
 
+  
   const deleteBed = await prisma.beds.delete({
     where:{
       id: bedId
     }
+   
   })
+
+ }catch (error){
+   res.status(404).send({
+     error: "Bed Not found"
+   })
+
+ }
   
-  res.send({
-    deleteBedHistoric,
-    deleteBed
-  })
+ 
+
+ 
+     
 }
+  
+  
+  
 
 export async function getBedsPercentage(req, res){
   try{

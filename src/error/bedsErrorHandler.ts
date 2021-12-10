@@ -45,3 +45,5 @@ export async function checkPatient(bedId){
   }
   return false
 }
+
+
