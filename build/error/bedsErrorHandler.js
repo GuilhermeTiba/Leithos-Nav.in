@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bedNameValidator = exports.bedSectionValidator = void 0;
+exports.checkPatient = exports.bedNameValidator = exports.bedSectionValidator = void 0;
 const client_1 = require(".prisma/client");
 const prisma = new client_1.PrismaClient;
 const bedSectionValidator = async (sectionId) => {
@@ -31,3 +31,15 @@ const bedNameValidator = async (name) => {
     }
 };
 exports.bedNameValidator = bedNameValidator;
+async function checkPatient(bedId) {
+    const patient = await prisma.patient.count({
+        where: {
+            bedId: bedId
+        }
+    });
+    if (patient > 0) {
+        return true;
+    }
+    return false;
+}
+exports.checkPatient = checkPatient;

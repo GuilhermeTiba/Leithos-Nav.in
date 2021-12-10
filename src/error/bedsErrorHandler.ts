@@ -27,3 +27,21 @@ export const bedNameValidator = async ( name ) => {
     return false
   }
 }
+
+export async function checkPatient(bedId){
+
+
+  const patient = await prisma.patient.count({
+    where: {
+      bedId: bedId
+    }
+
+  })
+
+  if (patient > 0) {
+    return true
+    
+   
+  }
+  return false
+}
