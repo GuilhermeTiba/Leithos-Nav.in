@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { bedNameValidator, checkIfSectionIdExist, checkIfBedNotExists } from "../error/bedsErrorHandler";
+import { checkPatient, bedNameValidator, checkIfSectionIdExist, checkIfBedNotExists } from "../error/bedsErrorHandler";
 import { checkValidName } from "../error/patientErrorHandler";
 
 const prisma = new PrismaClient();
@@ -213,11 +213,20 @@ export async function updateBed(req, res){
 export async function deleteBed(req, res){
   const { bedId } = req.body
 
+  if (await checkPatient(bedId)){
+    res.status = 400
+    res.send({
+      Error: "Leito Ocuppaded"
+    })
+    return
+  }
+
   const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
     where:{
       bedsId: bedId
     }
   })
+  
 
   const deleteBed = await prisma.beds.delete({
     where:{

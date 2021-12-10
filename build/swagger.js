@@ -59,7 +59,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/navbar/getallsections": {
+        "/navbar/get-all-sections": {
             "get": {
                 "description": "Return JSON with all the sections",
                 "responses": {
@@ -84,7 +84,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/navbar/createsection": {
+        "/navbar/create-section": {
             "post": {
                 "description": "Create a section (need a JSON)",
                 "requestBody": {
@@ -172,7 +172,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/section/bedspersection/{id}": {
+        "/section/beds-per-section/{id}": {
             "get": {
                 "description": "Return a JSON with beds in a section",
                 "responses": {
@@ -197,7 +197,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/section/bedsstatusquantitypersection/{id}": {
+        "/section/beds-status-quantity-per-section/{id}": {
             "get": {
                 "description": "Given a section ID, return the beds status quantity",
                 "responses": {
@@ -489,7 +489,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/bedspercentageperstatus": {
+        "/dashboard/beds-percentage-per-status": {
             "get": {
                 "description": "Return a count of beds per status",
                 "responses": {
@@ -514,7 +514,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/bedsquantityperstatus": {
+        "/dashboard/beds-quantity-per-status": {
             "get": {
                 "description": "Auto generated using Swagger Inspector",
                 "responses": {
@@ -539,7 +539,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/patientquantityperdiagnosis": {
+        "/dashboard/patient-quantity-per-diagnosis": {
             "get": {
                 "description": "Return JSON with count of patient per diagnosis",
                 "responses": {
@@ -564,7 +564,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/patientquantitypersex": {
+        "/dashboard/patient-quantity-per-sex": {
             "get": {
                 "description": "Return JSON with count of patient per sex",
                 "responses": {
@@ -589,7 +589,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/patientquantityperage": {
+        "/dashboard/patient-quantity-per-age": {
             "get": {
                 "description": "Return JSON with count of patient per Age (range)",
                 "responses": {
@@ -614,7 +614,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/dailyinandouts": {
+        "/dashboard/daily-in-and-outs": {
             "get": {
                 "description": "Return In and Outs for a Day",
                 "responses": {
@@ -639,7 +639,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/weeklyinandouts": {
+        "/dashboard/weekly-in-and-outs": {
             "get": {
                 "description": "Return In and Outs for a Week",
                 "responses": {
@@ -664,7 +664,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/monthlyinandouts": {
+        "/dashboard/monthly-in-and-outs": {
             "get": {
                 "description": "Return In and Outs for a Month",
                 "responses": {
@@ -689,7 +689,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/yearlyinandouts": {
+        "/dashboard/yearly-in-and-outs": {
             "get": {
                 "description": "Return In and Outs for a Year",
                 "responses": {
@@ -714,7 +714,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/bedsquantityperstatusandsection": {
+        "/dashboard/beds-quantity-per-status-and-section": {
             "get": {
                 "description": "Return JSON with beds count per status in a section",
                 "responses": {
@@ -739,7 +739,7 @@ exports.swaggerDocument = {
                     "url": "https://leithos-navin.herokuapp.com"
                 }]
         },
-        "/dashboard/averagetimeperfuncionality": {
+        "/dashboard/average-time-per-funcionality": {
             "get": {
                 "description": "Return JSON with average time per status",
                 "responses": {

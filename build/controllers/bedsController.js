@@ -192,6 +192,13 @@ async function updateBed(req, res) {
 exports.updateBed = updateBed;
 async function deleteBed(req, res) {
     const { bedId } = req.body;
+    if (await (0, bedsErrorHandler_1.checkPatient)(bedId)) {
+        res.status = 400;
+        res.send({
+            Error: "Leito Ocuppaded"
+        });
+        return;
+    }
     const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
         where: {
             bedsId: bedId

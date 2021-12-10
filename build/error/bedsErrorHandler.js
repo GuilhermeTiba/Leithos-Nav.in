@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkIfBedNotExists = exports.checkIfBedIsNotAvailable = exports.bedNameValidator = exports.checkIfSectionIdExist = void 0;
+exports.checkPatient = exports.checkIfBedNotExists = exports.checkIfBedIsNotAvailable = exports.bedNameValidator = exports.checkIfSectionIdExist = void 0;
 const client_1 = require(".prisma/client");
 const prisma = new client_1.PrismaClient;
 const checkIfSectionIdExist = async (sectionId) => {
@@ -59,3 +59,15 @@ const checkIfBedNotExists = async (id) => {
     }
 };
 exports.checkIfBedNotExists = checkIfBedNotExists;
+async function checkPatient(bedId) {
+    const patient = await prisma.patient.count({
+        where: {
+            bedId: bedId
+        }
+    });
+    if (patient > 0) {
+        return true;
+    }
+    return false;
+}
+exports.checkPatient = checkPatient;
