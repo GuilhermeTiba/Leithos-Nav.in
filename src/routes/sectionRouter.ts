@@ -6,8 +6,8 @@ import { authenticateToken } from "../middleware/authenticateToken";
 
 const router = Router();
 
-router.get('/bedspersection/:id', authenticateToken, getBedsFromASection)
-router.get('/bedsstatusquantitypersection/:id', authenticateToken, getAllBedStatsQuantityFromASection)
+router.get('/beds-per-section/:id', authenticateToken, getBedsFromASection)
+router.get('/beds-status-quantity-per-section/:id', authenticateToken, getAllBedStatsQuantityFromASection)
 router.get('/patient/:id', authenticateToken, getPatientData)
 
 router.post('/bed', authenticateToken, createBeds)
