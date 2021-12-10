@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkPatient = exports.bedNameValidator = exports.bedSectionValidator = void 0;
+exports.checkPatient = exports.checkIfBedNotExists = exports.checkIfBedIsNotAvailable = exports.bedNameValidator = exports.checkIfSectionIdExist = void 0;
 const client_1 = require(".prisma/client");
 const prisma = new client_1.PrismaClient;
-const bedSectionValidator = async (sectionId) => {
+const checkIfSectionIdExist = async (sectionId) => {
     const findSection = await prisma.section.count({
         where: {
             id: sectionId
@@ -16,7 +16,7 @@ const bedSectionValidator = async (sectionId) => {
         return false;
     }
 };
-exports.bedSectionValidator = bedSectionValidator;
+exports.checkIfSectionIdExist = checkIfSectionIdExist;
 const bedNameValidator = async (name) => {
     const findName = await prisma.beds.count({
         where: {
@@ -31,6 +31,34 @@ const bedNameValidator = async (name) => {
     }
 };
 exports.bedNameValidator = bedNameValidator;
+const checkIfBedIsNotAvailable = async (id) => {
+    const findBed = await prisma.beds.findUnique({
+        where: {
+            id: id
+        }
+    });
+    if (findBed.status == 'AVAILABLE') {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+exports.checkIfBedIsNotAvailable = checkIfBedIsNotAvailable;
+const checkIfBedNotExists = async (id) => {
+    const findBed = await prisma.beds.count({
+        where: {
+            id: id
+        }
+    });
+    if (findBed > 0) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+exports.checkIfBedNotExists = checkIfBedNotExists;
 async function checkPatient(bedId) {
     const patient = await prisma.patient.count({
         where: {

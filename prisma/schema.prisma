@@ -28,8 +28,8 @@ model Patient {
   additional_informations String
   entry_date              DateTime    @default(now())
   age                     Int
-  bed                     Beds        @relation(fields: [bedId], references: [id])
-  bedId                   String
+  bed                     Beds?      @relation(fields: [bedId], references: [id], onDelete: SetNull)
+  bedId                   String?
   diagnosis               String[]
 
   @@map("patients")
