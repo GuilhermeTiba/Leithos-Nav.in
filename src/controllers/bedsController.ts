@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import { checkPatient, bedNameValidator, checkIfSectionIdExist, checkIfBedNotExists } from "../error/bedsErrorHandler";
-import { checkValidName } from "../error/patientErrorHandler";
 
 const prisma = new PrismaClient();
 
@@ -11,15 +10,21 @@ export async function createBeds(req, res) {
   try {
     const uuid = await uuidv4()
 
-    if(checkValidName(name)){
+    if(await bedNameValidator(name)){
       res.status(400).send({
-        error : 'Invalid name'
+        error : 'Bed name already exists'
       })
       return
     }
-
-    if(await checkIfSectionIdExist(section) && !bedNameValidator(name)){
-      const createBed = await prisma.beds.create({
+    
+    if(await checkIfSectionIdExist(section)){
+      res.status(400).send({
+        error : 'Section does not exist'
+      })
+      return
+    }
+     
+    const createBed = await prisma.beds.create({
         data:{
           id: uuid,
           name: name,
@@ -50,11 +55,6 @@ export async function createBeds(req, res) {
         createBed,
         createHistoric
       })
-    } else {
-      res.status(400).send({
-        error : 'Section does not exist or name already exists'
-      })
-    }
   } catch (error) {
     res.status(500).send({
       error : 'Server error'
@@ -196,7 +196,7 @@ export async function updateBed(req, res){
     return
   }
 
-  if(!checkIfSectionIdExist(section)){
+  if(await checkIfSectionIdExist(section)){
     res.status(400).send({
       error : 'Section ID does not exist'
     })
@@ -216,7 +216,7 @@ export async function deleteBed(req, res){
   if (await checkPatient(bedId)){
     res.status = 400
     res.send({
-      Error: "Leito Ocuppaded"
+      error: "Leito Ocuppaded"
     })
     return
   }
@@ -244,7 +244,7 @@ export async function getBedsPercentage(req, res){
   try{
     const availableBedsQuantity = await getAvailableBedsQuantity()
     const occupiedBedsQuantity = await getOccupiedBedsQuantity()
-    const getAllBedsQuantity = await (await getAllBeds()).length
+    const getAllBedsQuantity = (await getAllBeds()).length
     res.status(200).send({
       availableBedsQuantity,
       occupiedBedsQuantity,
@@ -259,11 +259,18 @@ export async function getBedsPercentage(req, res){
 }
 
 export async function occupiedBedsQuantity(req, res){
-  const occupiedBedsQtd = await getOccupiedBedsQuantity()
+  
+  try {
+    const occupiedBedsQtd = await getOccupiedBedsQuantity()
 
-  res.send({
-    occupiedBedsQtd
-  })
+    res.status(200).send({
+      occupiedBedsQtd
+    })  
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getBedsQuantityPerStatus(req, res){
@@ -292,8 +299,14 @@ export async function getBedsQuantityPerStatus(req, res){
   }
   
 export async function allBeds(req, res){
-  const showAllBeds = await getAllBeds()
-  res.send({
-    showAllBeds
-  })
+  try {
+    const showAllBeds = await getAllBeds()
+    res.status(200).send({
+      showAllBeds
+    })  
+  } catch (error) {
+   res.status(500).send({
+     error : 'Server error'
+   }) 
+  }
 }

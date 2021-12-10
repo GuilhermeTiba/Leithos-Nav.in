@@ -17,7 +17,7 @@ const checkIfSectionIdExist = async (sectionId) => {
     }
 };
 exports.checkIfSectionIdExist = checkIfSectionIdExist;
-const bedNameValidator = async (name) => {
+const Validator = async (name) => {
     const findName = await prisma.beds.count({
         where: {
             name: name
