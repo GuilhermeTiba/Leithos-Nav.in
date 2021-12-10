@@ -10,10 +10,10 @@ const patientIdValidator = async (id) => {
         }
     });
     if (findPatientIp > 0) {
-        return true;
+        return false;
     }
     else {
-        return false;
+        return true;
     }
 };
 exports.patientIdValidator = patientIdValidator;

@@ -316,7 +316,8 @@ export async function createPatient(req, res) {
 export async function deletePatient(req, res) {
   const {patientId, liberationClause} = req.body
   
-    if(patientIdValidator(patientId)){
+  try {
+    if(await patientIdValidator(patientId)){
       res.status(400).send({
         error : 'Patient Id does not exist'
       })
@@ -350,27 +351,33 @@ export async function deletePatient(req, res) {
     res.status(200).send({
       createPatientHistoric,
       deletePatient
-    })   
+    })       
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getPatientData(req, res) {
   const { id } = req.params
   try {
     if(await patientIdValidator(id)){
-      const patientData = await prisma.patient.findUnique({
-        where:{
-          id: id
-        },
-      })
-    
-      res.status(200).send({
-        patientData
-      })  
-    } else {
       res.status(400).send({
         error : 'Could not find patient ID'
       })
+      return
     }      
+    const patientData = await prisma.patient.findUnique({
+      where:{
+        id: id
+      },
+    })
+
+    res.status(200).send({
+      patientData
+    })   
+
   } catch (error) {
     res.status(500).send({
       error : 'Server error'
@@ -381,7 +388,7 @@ export async function getPatientData(req, res) {
 export async function updatePatientData(req, res) {
   const {first_name, last_name, sex, age, diagnosis, additional_informations, patientId} = req.body
   try {
-    if(!patientIdValidator(patientId)){
+    if(await patientIdValidator(patientId)){
       res.status(400).send({
         error : 'Patient Id does not exist'
       })

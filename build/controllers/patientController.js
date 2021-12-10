@@ -289,57 +289,63 @@ async function createPatient(req, res) {
 exports.createPatient = createPatient;
 async function deletePatient(req, res) {
     const { patientId, liberationClause } = req.body;
-    if ((0, patientErrorHandler_1.patientIdValidator)(patientId)) {
-        res.status(400).send({
-            error: 'Patient Id does not exist'
+    try {
+        if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
+            res.status(400).send({
+                error: 'Patient Id does not exist'
+            });
+            return;
+        }
+        const findPatient = await prisma.patient.findUnique({
+            where: {
+                id: patientId
+            }
         });
-        return;
+        const createPatientHistoric = await prisma.patientHistoric.create({
+            data: {
+                first_name: findPatient.first_name,
+                last_name: findPatient.last_name,
+                entry_date: findPatient.entry_date,
+                ssn: findPatient.ssn,
+                diagnosis: findPatient.diagnosis,
+                additional_informations: findPatient.additional_informations,
+                liberationClause: liberationClause
+            }
+        });
+        const deletePatient = await prisma.patient.delete({
+            where: {
+                id: patientId
+            }
+        });
+        res.status(200).send({
+            createPatientHistoric,
+            deletePatient
+        });
     }
-    const findPatient = await prisma.patient.findUnique({
-        where: {
-            id: patientId
-        }
-    });
-    const createPatientHistoric = await prisma.patientHistoric.create({
-        data: {
-            first_name: findPatient.first_name,
-            last_name: findPatient.last_name,
-            entry_date: findPatient.entry_date,
-            ssn: findPatient.ssn,
-            diagnosis: findPatient.diagnosis,
-            additional_informations: findPatient.additional_informations,
-            liberationClause: liberationClause
-        }
-    });
-    const deletePatient = await prisma.patient.delete({
-        where: {
-            id: patientId
-        }
-    });
-    res.status(200).send({
-        createPatientHistoric,
-        deletePatient
-    });
+    catch (error) {
+        res.status(500).send({
+            error: 'Server error'
+        });
+    }
 }
 exports.deletePatient = deletePatient;
 async function getPatientData(req, res) {
     const { id } = req.params;
     try {
         if (await (0, patientErrorHandler_1.patientIdValidator)(id)) {
-            const patientData = await prisma.patient.findUnique({
-                where: {
-                    id: id
-                },
-            });
-            res.status(200).send({
-                patientData
-            });
-        }
-        else {
             res.status(400).send({
                 error: 'Could not find patient ID'
             });
+            return;
         }
+        const patientData = await prisma.patient.findUnique({
+            where: {
+                id: id
+            },
+        });
+        res.status(200).send({
+            patientData
+        });
     }
     catch (error) {
         res.status(500).send({
@@ -351,7 +357,7 @@ exports.getPatientData = getPatientData;
 async function updatePatientData(req, res) {
     const { first_name, last_name, sex, age, diagnosis, additional_informations, patientId } = req.body;
     try {
-        if (!(0, patientErrorHandler_1.patientIdValidator)(patientId)) {
+        if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
             res.status(400).send({
                 error: 'Patient Id does not exist'
             });
