@@ -185,6 +185,7 @@ export async function updateBed(req, res){
   if(await checkIfBedNotExists(id)){
     res.status(400).send({
       error : 'Bed ID does not exist'
+
     })
     return
   }
@@ -192,9 +193,13 @@ export async function updateBed(req, res){
   if(await bedNameValidator(name)){
     res.status(400).send({
       error : 'Bed name already exists'
+
     })
     return
   }
+
+
+
 
   if(!checkIfSectionIdExist(section)){
     res.status(400).send({
