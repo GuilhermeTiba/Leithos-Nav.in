@@ -185,6 +185,7 @@ export async function updateBed(req, res){
   if(await checkIfBedNotExists(id)){
     res.status(400).send({
       error : 'Bed ID does not exist'
+
     })
     return
   }
@@ -192,11 +193,19 @@ export async function updateBed(req, res){
   if(await bedNameValidator(name)){
     res.status(400).send({
       error : 'Bed name already exists'
+
     })
     return
   }
 
+<<<<<<< HEAD
   if(await checkIfSectionIdExist(section)){
+=======
+
+
+
+  if(!checkIfSectionIdExist(section)){
+>>>>>>> 6baa345277e73409c6dc7dd12ee072aafd58c71d
     res.status(400).send({
       error : 'Section ID does not exist'
     })
@@ -214,31 +223,42 @@ export async function deleteBed(req, res){
   const { bedId } = req.body
 
   if (await checkPatient(bedId)){
-    res.status = 400
+    res.status = 403
     res.send({
       error: "Leito Ocuppaded"
     })
     return
   }
-
+ try{
   const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
     where:{
       bedsId: bedId
     }
   })
-  
 
+  
   const deleteBed = await prisma.beds.delete({
     where:{
       id: bedId
     }
+   
   })
+
+ }catch (error){
+   res.status(404).send({
+     error: "Bed Not found"
+   })
+
+ }
   
-  res.send({
-    deleteBedHistoric,
-    deleteBed
-  })
+ 
+
+ 
+     
 }
+  
+  
+  
 
 export async function getBedsPercentage(req, res){
   try{
