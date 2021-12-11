@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react'
 import { PopUpConfirm, PopUpWrappDeleted, PopUpLabelDeleted, PopUpIconTrash } from './Sector.styles'
 import {FaTrash} from 'react-icons/fa'
+import { useNecessary } from '../../contexts/necessaryInfoContext'
 
-const SectorPopUpSuccessfullyDeleted = ({setShowPopUpSuccesfullyDeleted, showPopUpSuccesfullyDeleted, setShowPopUpDeletar}) => {
+const SectorPopUpSuccessfullyDeleted = () => {
+    const {setShowPopUpSuccesfullyDeleted, showPopUpSuccesfullyDeleted, setShowPopUpDeletar} = useNecessary();
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowPopUpSuccesfullyDeleted(false);

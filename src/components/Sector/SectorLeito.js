@@ -1,6 +1,14 @@
+import { useNecessary } from '../../contexts/necessaryInfoContext'
 import { Leitos, Nome, StatusIcon} from './Sector.styles'
 
-const Leito = ({style, name, setShowPopUpStatus, setDataLeito, status, id, listLeitos, setShowPopUpOccupied}) => {
+const Leito = ({style, name, status, id}) => {
+    const {
+        setShowPopUpStatus,
+        listLeitos,
+        setShowPopUpOccupied,
+        setDataLeito,
+    } = useNecessary();
+
     const LeitoOject = {
         name: name,
         id: id,

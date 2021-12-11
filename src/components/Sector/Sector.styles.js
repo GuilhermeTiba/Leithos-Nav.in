@@ -781,13 +781,17 @@ export const PopUpButtonsPatientInfo = styled.div`
 `;
 
 export const PopUpAddIndoPatientInfo = styled.input`
+`;
+
+export const PopUpTextArea = styled.textarea`
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #C7BEBE;
     border-radius: 10px;
     opacity: 1;
-    height: 120px;
     outline: none;
-    padding-left: 15px;
+    padding: 15px 15px;
+    max-height: 120px;
+    resize: none;
 `;
 
 //POPUP SUCCESFULLY DELETED
@@ -937,25 +941,28 @@ export const PopUpLabelInfo = styled.label`
     font-size: 14px;
 `;  
 
-export const PopUpLabelInfoAddInfo = styled.label`
+export const PopUpLabelInfoAddInfo = styled.div`
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #C7BEBE;
     border-radius: 10px;
     opacity: 1;
-    height: 34px;
     outline: none;
     padding-left: 15px;
     display: ${({toggle}) => (toggle ? 'none' : 'flex')};
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    font-weight: 500;
-    letter-spacing: 0px;
+    height: 152px;
+`;
+
+export const PopUpLabelAddInfoText = styled.label`
     color: #707070;
     text-align: left;
     font-size: 14px;
-    height: 120px;
+    font-weight: 500;
+    letter-spacing: 0px;
 `;
+
 
 export const PopUpInputInfo = styled.input`
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -979,14 +986,15 @@ export const PopUpInputSelectInfo = styled.select`
     outline: none;
 `;
 
-export const PopUpAddIndoPatientInfoInfo = styled.input`
+export const PopUpAddIndoPatientInfoInfo = styled.textarea`
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #C7BEBE;
     border-radius: 10px;
     opacity: 1;
-    height: 120px;
+    max-height: 120px;
     outline: none;
-    padding-left: 15px;
+    padding: 15px 15px;
+    resize: none;
     display: ${({toggle}) => (toggle ? 'flex' : 'none')};
 `;
 

@@ -5,8 +5,9 @@ import {FaBroom} from 'react-icons/fa';
 import {BsFillGearFill} from 'react-icons/bs';
 import {ImBlocked} from 'react-icons/im';
 import { useCount } from '../../contexts/countContext';
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 
-const SectorData = ({listLeitos, dataLeito}) => {
+const SectorData = () => {
     const {
         countDispo, 
         countOcup,  
@@ -22,6 +23,8 @@ const SectorData = ({listLeitos, dataLeito}) => {
         setCountAguardManu
         } = useCount()
 
+    const {listLeitos, dataLeito, showPopUpInfoPatient} = useNecessary();
+    
     useEffect(() => {
         setCountDispo(listLeitos.filter(item => item.status === 'Disponível').length);
         setCountOcup(listLeitos.filter(item => item.status === 'Ocupado').length);
@@ -29,8 +32,7 @@ const SectorData = ({listLeitos, dataLeito}) => {
         setCountEmManu(listLeitos.filter(item => item.status === 'Em manutenção').length);
         setCountAguardLimp(listLeitos.filter(item => item.status === 'Aguardando limpeza').length);
         setCountAguardManu(listLeitos.filter(item => item.status === 'Aguardando manutenção').length);
-        console.log(listLeitos)
-}, [listLeitos, countDispo, countOcup,  countEmLimp, countEmManu, countAguardLimp, countAguardManu, setCountAguardLimp, setCountDispo, setCountOcup, setCountEmLimp, setCountEmManu, setCountAguardManu]);
+}, [showPopUpInfoPatient,dataLeito ,listLeitos, countDispo, countOcup,  countEmLimp, countEmManu, countAguardLimp, countAguardManu, setCountAguardLimp, setCountDispo, setCountOcup, setCountEmLimp, setCountEmManu, setCountAguardManu]);
 
     return (
         <Data>

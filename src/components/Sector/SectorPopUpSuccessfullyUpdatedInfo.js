@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import {RiFileEditFill} from 'react-icons/ri';
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 import { PopUpSuccessfullyUpdatedInfo, PopUpWrappSUpdatedInfo, PopUpLabelSUpdatedInfo, PopUpIconSUpdatedInfo } from './Sector.styles'
 
-const SectorPopUpSuccessfullyUpdatedInfo = ({showPopUpSuccessfullyUpdatedInfo, setShowPopUpSuccessfullyUpdatedInfo}) => {
+const SectorPopUpSuccessfullyUpdatedInfo = () => {
+    const {showPopUpSuccessfullyUpdatedInfo, setShowPopUpSuccessfullyUpdatedInfo} = useNecessary();
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowPopUpSuccessfullyUpdatedInfo(false);

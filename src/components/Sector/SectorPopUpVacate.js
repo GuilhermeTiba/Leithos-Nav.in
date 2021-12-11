@@ -1,9 +1,20 @@
 import React from 'react'
 import { useCount } from '../../contexts/countContext'
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 import { PopUpVacate, PopUpButton, PopUpButtonsVacate, PopUpFieldVacate, PopUpLabelVacate, PopUpWrappVacate, PopUpCancelVacate, PopUpCreateVacate, PopUpButtonsVacateApply  } from './Sector.styles'
 import { StatusAguardandoLimpeza } from './SectorStatus';
 
-const SectorPopUpVacate = ({showPopUpVacate, setShowPopUpVacate, dataLeito, setDataLeito, listLeitos, setShowPopUpSuccessfullyAvaible, patientList, setPatientList}) => {
+const SectorPopUpVacate = () => {
+    const {
+        showPopUpVacate, 
+        setShowPopUpVacate, 
+        dataLeito, 
+        setDataLeito, 
+        listLeitos, 
+        setShowPopUpSuccessfullyAvaible, 
+        patientList, 
+        setPatientList
+    } = useNecessary();
     const {setCountDispo, countDispo} = useCount();
     const handleClick = (e) => {
         e.preventDefault();

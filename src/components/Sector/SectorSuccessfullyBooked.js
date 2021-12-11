@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { PopUpSuccessfully, PopUpWrappSuccessfully,PopUpIconSuccessfully, PopUpLabelSuccessfully } from './Sector.styles';
 import {BsFillPersonFill} from 'react-icons/bs'
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 
-const SectorSuccessfullyBooked = ({showPopUpSuccessfully, setShowPopUpSuccessfully}) => {
+const SectorSuccessfullyBooked = () => {
+    const {showPopUpSuccessfully, setShowPopUpSuccessfully} = useNecessary();
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowPopUpSuccessfully(false);

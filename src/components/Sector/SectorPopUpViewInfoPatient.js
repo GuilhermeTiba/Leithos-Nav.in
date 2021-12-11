@@ -1,10 +1,21 @@
 import React, {useState} from 'react'
-import { PopUpLabelInfoAddInfo, PopUpIconPencil, PopUpLabelInfo, PopUpInputInfo, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelectInfo, SelectOption, AgeWrapp, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfoInfo, PopUpButtonsPatientInfoView, PopUpButtonsPatientInfoView2 } from './Sector.styles'
+import { PopUpLabelAddInfoText, PopUpLabelInfoAddInfo, PopUpIconPencil, PopUpLabelInfo, PopUpInputInfo, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelectInfo, SelectOption, AgeWrapp, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfoInfo, PopUpButtonsPatientInfoView, PopUpButtonsPatientInfoView2 } from './Sector.styles'
 import {FiEdit} from 'react-icons/fi'
 import { usePatientInfo } from '../../contexts/patientInfoContext';
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 
-const SectorPopUpViewInfoPatient = ({setPatientList, patientList, dataLeito, showPopUpViewInfoPatient, setShowPopUpViewInfoPatient, setShowPopUpOccupied, setShowPopUpSuccessfullyUpdatedInfo}) => {
+const SectorPopUpViewInfoPatient = () => {
     const [toggle, setToggle] = useState(false);
+    const {
+        setPatientList, 
+        patientList,
+        dataLeito, 
+        showPopUpViewInfoPatient, 
+        setShowPopUpViewInfoPatient, 
+        setShowPopUpOccupied, 
+        setShowPopUpSuccessfullyUpdatedInfo
+    } = useNecessary();
+
     const {
     namePatient,
     setNamePatient,
@@ -117,8 +128,10 @@ const SectorPopUpViewInfoPatient = ({setPatientList, patientList, dataLeito, sho
 
                                     <PopUpFieldPatientInfo>
                                         <PopUpLabel>Informações adicionais</PopUpLabel>
-                                        <PopUpLabelInfoAddInfo toggle={toggle}>{patient.additionalInfo}</PopUpLabelInfoAddInfo>
-                                        <PopUpAddIndoPatientInfoInfo toggle={toggle} type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
+                                        <PopUpLabelInfoAddInfo toggle={toggle}>
+                                            <PopUpLabelAddInfoText>{patient.additionalInfo}</PopUpLabelAddInfoText>
+                                        </PopUpLabelInfoAddInfo>
+                                        <PopUpAddIndoPatientInfoInfo rows="8" cols="50" toggle={toggle} type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
                                     </PopUpFieldPatientInfo>
 
                                 </PopUpFormPatientInfo >

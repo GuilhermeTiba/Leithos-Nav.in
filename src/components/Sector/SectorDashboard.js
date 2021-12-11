@@ -6,8 +6,13 @@ import {FaBroom} from 'react-icons/fa';
 import {BsFillGearFill} from 'react-icons/bs';
 import {ImBlocked} from 'react-icons/im'
 import Leito from './SectorLeito';
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 
-const SectorDashboard = ({setShowPopUpAdd, listLeitos, showPopUpStatus, setShowPopUpStatus, dataLeito, setDataLeito, showPopUpOccupied, setShowPopUpOccupied }) => {
+const SectorDashboard = () => {
+    const {
+        setShowPopUpAdd, 
+        listLeitos
+    } = useNecessary();
 
     useEffect( () => {
         //ReactDOM.render(listLeitos, document.getElementById('dashboardleitos'));
@@ -25,12 +30,7 @@ const SectorDashboard = ({setShowPopUpAdd, listLeitos, showPopUpStatus, setShowP
                 <DashboardLeitos id='dashboardleitos'>
                     {listLeitos.map(leito => {
                         return (
-                            <Leito key ={leito.id} {...leito}
-                            setShowPopUpAdd={setShowPopUpAdd} 
-                            setShowPopUpStatus={setShowPopUpStatus} 
-                            showPopUpStatus={showPopUpStatus} 
-                            dataLeito={dataLeito} setDataLeito={setDataLeito} listLeitos={listLeitos}
-                            showPopUpOccupied={showPopUpOccupied} setShowPopUpOccupied={setShowPopUpOccupied}/>
+                            <Leito key ={leito.id} {...leito}/>
                         )
                     })}
                     <AddLeito onClick={handlePopUp}>+</AddLeito>

@@ -2,8 +2,18 @@ import React from 'react'
 import { PopUpConfirm, PopUpLabelDelete, PopUpIcon, PopUpButtonsDelete, PopUpWrappDelete, PopUpCancel, PopUpCreate } from './Sector.styles';
 import {FaTrash} from 'react-icons/fa'
 import { useCount } from '../../contexts/countContext';
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 
-const SectorPopUpDeletar = ({listLeitos, setListLeitos, dataLeito, setShowPopUpDeletar, showPopUpDeletar, setShowPopUpSuccesfullyDeleted}) => {
+const SectorPopUpDeletar = () => {
+    const {
+        listLeitos, 
+        setListLeitos, 
+        dataLeito, 
+        setShowPopUpDeletar, 
+        showPopUpDeletar, 
+        setShowPopUpSuccesfullyDeleted
+    } = useNecessary();
+    
     const {
         countDispo, 
         setCountDispo, 

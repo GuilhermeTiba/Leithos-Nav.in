@@ -1,21 +1,26 @@
 import React, { useState } from 'react'
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 import {PopUp, PopUpWrapp, PopUpTitle, PopUpForm, PopUpField, PopUpButtons, PopUpCancel, PopUpCreate, PopUpLabel, PopUpInput, PopUpInputSelect, SelectOption} from './Sector.styles'
 import { StatusAguardandoLimpeza, StatusAguardandoManutencao, StatusDisponivel, StatusEmLimpeza, StatusEmManutencao} from './SectorStatus';
 
-const SectorPopUpAdd = ({
+const SectorPopUpAdd = () => {
+    const {
     showPopUpAdd, 
     setShowPopUpAdd, 
     listLeitos, 
     setListLeitos,
     setShowPopUpSucessfullyCreated
-}) => {
+    } = useNecessary();
     const [nameLeito, setNameLeito] = useState('');
     const [statusLeito, setStatusLeito] = useState('StatusDiponivel')
 
     const handleCreate = (e) => {
         e.preventDefault();
         //POST para o backend
-        if (statusLeito === 'StatusDiponivel') {
+        if (nameLeito === '') {
+            alert('type something!')
+        }else{
+            if (statusLeito === 'StatusDiponivel') {
             const newLeitosList = [...listLeitos, {
                 id: Math.floor(Math.random()* 10000),
                 name: nameLeito,
@@ -96,6 +101,8 @@ const SectorPopUpAdd = ({
             setShowPopUpSucessfullyCreated(true);
         }
     }
+        }
+        
 
     const handleCancel = (e) => {
         e.preventDefault();

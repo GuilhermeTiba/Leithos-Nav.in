@@ -1,8 +1,22 @@
 import React from 'react'
 import { useCount } from '../../contexts/countContext'
+import { useNecessary } from '../../contexts/necessaryInfoContext'
 import { PopUpOccupied, PopUpWrappOccupied, PopUpFieldOccupied, PopUpTitleOccupied, PopUpStatusOccupied, PopUpButton, PopUpLabel, PopUpButtonsOccupied, PopUpFieldOccupiedStatus } from './Sector.styles'
 
-const SectorPopUpOccupied = ({showPopUpOccupied, setShowPopUpOccupied, dataLeito, setShowPopUpVacate, setShowPopUpSuccesfullyDeleted, listLeitos, setListLeitos, setShowPopUpViewInfoPatient, setPatientList, patientList}) => {
+const SectorPopUpOccupied = () => {
+    const {
+        showPopUpOccupied, 
+        setShowPopUpOccupied, 
+        dataLeito, 
+        setShowPopUpVacate, 
+        setShowPopUpSuccesfullyDeleted, 
+        listLeitos, 
+        setListLeitos, 
+        setShowPopUpViewInfoPatient, 
+        setPatientList, 
+        patientList
+    } = useNecessary();
+
     const {
         setCountDispo,
         countDispo,

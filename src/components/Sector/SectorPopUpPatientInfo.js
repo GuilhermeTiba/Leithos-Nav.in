@@ -1,9 +1,20 @@
-import React from 'react'
+import { useNecessary } from '../../contexts/necessaryInfoContext';
 import { usePatientInfo } from '../../contexts/patientInfoContext';
-import { PopUpInput, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtonsPatientInfo, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfo  } from './Sector.styles'
+import { PopUpTextArea, PopUpInput, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelect, SelectOption, AgeWrapp, PopUpButtonsPatientInfo, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo} from './Sector.styles'
 import { StatusOcupado } from './SectorStatus';
 
-const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, dataLeito, setDataLeito, patientList, setPatientList, setShowPopUpStatus, listLeitos, setListLeitos, setShowPopUpSuccessfully}) => {
+const SectorPopUpPatientInfo = () => {
+    const {
+        showPopUpInfoPatient, 
+        setShowPopUpInfoPatient, 
+        dataLeito, 
+        patientList, 
+        setPatientList, 
+        setShowPopUpStatus, 
+        listLeitos,
+        setShowPopUpSuccessfully
+    } = useNecessary();
+
     const {
     namePatient,
     setNamePatient,
@@ -19,6 +30,11 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
 
     const handleCancel = (e) => {
         e.preventDefault();
+        setNamePatient('');
+        setAgePatient('');
+        setSexPatient('');
+        setDiagnosisPatient('');
+        setAdditionalInfoPatient('');
         setShowPopUpInfoPatient(false)
     }
 
@@ -57,6 +73,7 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
         setShowPopUpInfoPatient(false);
         setShowPopUpStatus(false);
         setShowPopUpSuccessfully(true);
+        console.log(listLeitos)
         console.log(patientList)
     }
 
@@ -112,7 +129,7 @@ const SectorPopUpPatientInfo = ({showPopUpInfoPatient, setShowPopUpInfoPatient, 
 
                     <PopUpFieldPatientInfo>
                         <PopUpLabel>Informações adicionais</PopUpLabel>
-                        <PopUpAddIndoPatientInfo type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
+                            <PopUpTextArea rows="8" cols="50" type="text" value={addtionalInfoPatient} onChange={(e) => setAdditionalInfoPatient(e.target.value)}/>
                     </PopUpFieldPatientInfo>
 
                 </PopUpFormPatientInfo >
