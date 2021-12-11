@@ -1,15 +1,24 @@
 import { PrismaClient } from "@prisma/client";
+import { checkIfSectionIdExist } from "../error/bedsErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createSection(req, res) {
   const {id} = req.body
-  const section = await prisma.section.create({
-    data:{
-      id: id
-    }
-  })
-  res.json(section)
+  try {
+    const section = await prisma.section.create({
+      data:{
+        id: id
+      }
+    })
+    res.status(200).send({
+      section
+    }) 
+  } catch (error) {
+    res.status(500).send({
+      error : 'Server error'
+    })
+  }
 }
 
 export async function getAllSections(req, res) {
@@ -28,15 +37,21 @@ export async function getAllSections(req, res) {
 export async function getBedsFromASection(req, res){
   const { id } = req.params
   try {
+    if(await checkIfSectionIdExist(id)){
+      res.status(400).send({
+        error : 'Cannot find Section ID'
+      })
+      return
+    }
+
     const bedsPerSection = await prisma.beds.findMany({
       where:{
         sectionId: id
-    }
-    })
-
-    res.status(200).send({
-      bedsPerSection
-    })
+      }
+      })
+      res.status(200).send({
+        bedsPerSection
+      })  
   } catch (error) {
     res.status(500).send({
       error : 'Server error'
@@ -64,21 +79,27 @@ export async function getAllBedStatsQuantityFromASection(req, res){
   const { id } = req.params
 
   try {
-    const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(id)
-    const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(id)
-    const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(id)
-    const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(id)
-    const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(id)
-    const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(id)
-  
-    res.status(200).send({
-      availableBedsPerSection,
-      occupiedBedsPerSection,
-      cleaningBedsPerSection,
-      maintanenceBedsPerSection,
-      needCleaningBedsPerSection,
-      needMaintanenceBedsPerSection
-    }) 
+    if(await checkIfSectionIdExist(id)){
+      res.status(400).send({
+        error : 'Cannot find section ID'
+      })
+      return
+    }
+      const availableBedsPerSection = await getAvaiableBedsPerSectionQuantityParams(id)
+      const occupiedBedsPerSection = await getOccupiedBedsPerSectionQuantityParams(id)
+      const cleaningBedsPerSection = await getCleaningBedsPerSectionQuantityParams(id)
+      const maintanenceBedsPerSection = await getMaintenenceBedsPerSectionQuantityParams(id)
+      const needCleaningBedsPerSection = await getNeedCleaningBedsPerSectionQuantityParams(id)
+      const needMaintanenceBedsPerSection = await getNeedMaintanenceBedsPerSectionQuantityParams(id)
+    
+      res.status(200).send({
+        availableBedsPerSection,
+        occupiedBedsPerSection,
+        cleaningBedsPerSection,
+        maintanenceBedsPerSection,
+        needCleaningBedsPerSection,
+        needMaintanenceBedsPerSection
+      })   
   } catch (error) {
     res.status(500).send({
       error : 'Server error'
