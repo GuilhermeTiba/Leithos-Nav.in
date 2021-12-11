@@ -198,14 +198,7 @@ export async function updateBed(req, res){
     return
   }
 
-<<<<<<< HEAD
   if(await checkIfSectionIdExist(section)){
-=======
-
-
-
-  if(!checkIfSectionIdExist(section)){
->>>>>>> 6baa345277e73409c6dc7dd12ee072aafd58c71d
     res.status(400).send({
       error : 'Section ID does not exist'
     })
