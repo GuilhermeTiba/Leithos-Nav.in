@@ -1,22 +1,22 @@
-import React from 'react';
-import {SectorWrapp, TitleWrapp, Title, SectorGrid } from './Sector.styles';
-import SectorData from './SectorData';
-import SectorDashboard from './SectorDashboard';
+import React from "react";
+import { SectorWrapp, TitleWrapp, Title, SectorGrid } from "./Sector.styles";
+import SectorData from "./SectorData";
+import SectorDashboard from "./SectorDashboard";
 
-const Sector = () => {
-    return (
-        <>
-        <SectorWrapp>
-            <TitleWrapp>
-                <Title>Setor 1</Title>
-            </TitleWrapp>
-            <SectorGrid >
-                <SectorData/>
-                <SectorDashboard/>
-            </SectorGrid>
-        </SectorWrapp> 
-        </>
-    )
-}
+const Sector = ({ title }) => {
+  return (
+    <>
+      <SectorWrapp>
+        <TitleWrapp>
+          <Title>{title}</Title>
+        </TitleWrapp>
+        <SectorGrid>
+          <SectorData />
+          <SectorDashboard />
+        </SectorGrid>
+      </SectorWrapp>
+    </>
+  );
+};
 
-export default Sector
+export default Sector;

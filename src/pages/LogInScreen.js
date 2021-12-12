@@ -1,10 +1,8 @@
-import React from 'react'
-import LogIn from '../components/LogIn'
+import React from "react";
+import LogIn from "../components/LogIn";
 
-const LogInPage = () => {
-    return (
-        <LogIn/>
-    )
-}
+const LogInScreen = () => {
+  return <LogIn />;
+};
 
-export default LogInPage
+export default LogInScreen;

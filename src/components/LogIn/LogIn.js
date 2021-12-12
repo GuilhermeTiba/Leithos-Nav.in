@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-    LogInContainer, 
-    Logo, 
-    LogInWrapp
-} from './LogIn.styles';
+import {LogInContainer, Logo, LogInWrapp} from './LogIn.styles';
 import leitosMap from '../../assets/leitosmap.png'
 import LeftSide from './LogInLeftSideGrid';
 import RigthSide from './LogInRightSideGrid';

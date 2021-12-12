@@ -1,5 +1,27 @@
 import React, {useState} from 'react'
-import { PopUpLabelAddInfoText, PopUpLabelInfoAddInfo, PopUpIconPencil, PopUpLabelInfo, PopUpInputInfo, PopUpLabel, PopUpWrappPatientInfo, PopUpStatusPatientInfo, PopUpFormPatientInfo, PopUpFieldPatientInfo, SexWrapp, PopUpInputSelectInfo, SelectOption, AgeWrapp, PopUpCancel, PopUpCreate, SexAgeWrapp, PopUpPatientInfo, PopUpTitlePatientInfo, PopUpAddIndoPatientInfoInfo, PopUpButtonsPatientInfoView, PopUpButtonsPatientInfoView2 } from './Sector.styles'
+import { 
+    PopUpLabelAddInfoText, 
+    PopUpLabelInfoAddInfo, 
+    PopUpIconPencil, 
+    PopUpLabelInfo, 
+    PopUpInputInfo, 
+    PopUpLabel, 
+    PopUpWrappPatientInfo, 
+    PopUpStatusPatientInfo, 
+    PopUpFormPatientInfo, 
+    PopUpFieldPatientInfo, 
+    SexWrapp, 
+    PopUpInputSelectInfo, 
+    SelectOption, 
+    AgeWrapp, 
+    PopUpCancel, 
+    PopUpCreate, 
+    SexAgeWrapp, 
+    PopUpPatientInfo, 
+    PopUpTitlePatientInfo, 
+    PopUpAddIndoPatientInfoInfo, 
+    PopUpButtonsPatientInfoView, 
+    PopUpButtonsPatientInfoView2 } from './Sector.styles'
 import {FiEdit} from 'react-icons/fi'
 import { usePatientInfo } from '../../contexts/patientInfoContext';
 import { useNecessary } from '../../contexts/necessaryInfoContext';

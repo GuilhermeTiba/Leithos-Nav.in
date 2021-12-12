@@ -21,7 +21,7 @@ import SectorPopUpViewInfoPatient from "../components/Sector/SectorPopUpViewInfo
 import SectorPopUpSuccessfullyUpdatedInfo from "../components/Sector/SectorPopUpSuccessfullyUpdatedInfo.js";
 import { useNecessary } from "../contexts/necessaryInfoContext.js";
 
-const SectorScreenEmergence = ({ active }) => {
+const SectorScreenPediatry = ({ active }) => {
   const {
     showPopUpAdd,
     showPopUpStatus,
@@ -70,7 +70,7 @@ const SectorScreenEmergence = ({ active }) => {
             <NavBar />
           </NavBarSide>
           <SectorSide>
-            <Sector title={"Emergência"} />
+            <Sector title={"Pediatria"} />
           </SectorSide>
         </HomeGrid>
       </HomeContainer>
@@ -78,4 +78,4 @@ const SectorScreenEmergence = ({ active }) => {
   );
 };
 
-export default SectorScreenEmergence;
+export default SectorScreenPediatry;
