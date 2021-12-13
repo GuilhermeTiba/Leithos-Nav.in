@@ -23,7 +23,7 @@ export async function checkUserCredencials (req, res, next){
     }
   }
   catch(error){
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }

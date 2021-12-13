@@ -25,7 +25,7 @@ const searchSection = async (req, res) => {
         }
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -75,7 +75,7 @@ const searchPatientOrBed = async (req, res) => {
         }
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }

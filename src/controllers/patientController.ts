@@ -307,7 +307,7 @@ export async function createPatient(req, res) {
       updateBedStatus
     })      
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -353,7 +353,7 @@ export async function deletePatient(req, res) {
       deletePatient
     })       
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -379,7 +379,7 @@ export async function getPatientData(req, res) {
     })   
 
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -426,7 +426,7 @@ export async function updatePatientData(req, res) {
       updatePatientData
     })      
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -462,7 +462,7 @@ export async function getQuantityPerDiagnosis(req, res){
       otherQtd
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -481,7 +481,7 @@ export async function getQuantityPerSex(req, res){
       otherQtd
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }
@@ -508,7 +508,7 @@ export async function getQuantityPerAge(req, res){
       ageRange90plus
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }

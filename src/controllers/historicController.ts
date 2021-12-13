@@ -115,7 +115,7 @@ export async function getDailyInAndOuts(req, res){
       dailyOut,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }
@@ -131,7 +131,7 @@ export async function getWeeklyInAndOuts(req, res){
       weeklyOut
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }
@@ -147,7 +147,7 @@ export async function getMonthlyInAndOuts(req, res){
       monthlyOut
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -163,7 +163,7 @@ export async function getYearlyInAndOuts(req, res){
       yearlyOut
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }
@@ -183,7 +183,7 @@ export const getAverageTimes = async (req, res) => {
       averageMaintanenceTime
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : "Server error"
     })
   }

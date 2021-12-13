@@ -24,7 +24,7 @@ async function createSection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -38,7 +38,7 @@ async function getAllSections(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -63,7 +63,7 @@ async function getBedsFromASection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -79,7 +79,7 @@ async function getAvailableBedsfromAllSections(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -110,7 +110,7 @@ async function getAllBedStatsQuantityFromASection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }

@@ -10,7 +10,7 @@ async function createBeds(req, res) {
     try {
         const uuid = await (0, uuid_1.v4)();
         if (await (0, bedsErrorHandler_1.bedNameValidator)(name)) {
-            res.status(403).send({
+            res.status(409).send({
                 error: 'Bed name already exists'
             });
             return;
@@ -231,7 +231,7 @@ async function getBedsPercentage(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Database connection error'
         });
     }
@@ -245,7 +245,7 @@ async function occupiedBedsQuantity(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -269,7 +269,7 @@ async function getBedsQuantityPerStatus(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Database connection error'
         });
     }
@@ -283,7 +283,7 @@ async function allBeds(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
