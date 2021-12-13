@@ -485,15 +485,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -511,15 +506,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -537,15 +527,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -563,15 +548,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -589,15 +569,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -615,15 +590,10 @@ export const swaggerDocument = {
       "description" : "",
       "responses" : {
         "200" : {
-          "description" : "Auto generated using Swagger Inspector",
-          "content" : {
-            "application/json; charset=utf-8" : {
-              "schema" : {
-                "type" : "string"
-              },
-              "examples" : { }
-            }
-          }
+          "$ref" : "#/components/responses/OK"
+        },
+        "503" : {
+          "$ref" : "#/components/responses/ServiceUnavailable"
         }
       },
       "tags" : [ "dashboard" ],
@@ -641,15 +611,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -667,15 +632,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -693,15 +653,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -719,15 +674,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -745,15 +695,10 @@ export const swaggerDocument = {
         "description" : "",
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
+            "$ref" : "#/components/responses/OK"
+          },
+          "503" : {
+            "$ref" : "#/components/responses/ServiceUnavailable"
           }
         },
         "tags" : [ "dashboard" ],
@@ -802,16 +747,8 @@ export const swaggerDocument = {
         },
         "responses" : {
           "200" : {
-            "description" : "Auto generated using Swagger Inspector",
-            "content" : {
-              "application/json; charset=utf-8" : {
-                "schema" : {
-                  "type" : "string"
-                },
-                "examples" : { }
-              }
-            }
-          }
+            "$ref" : "#/components/responses/OK"
+          },
         },
         "tags" : [ "register" ],
         "servers" : [ {
