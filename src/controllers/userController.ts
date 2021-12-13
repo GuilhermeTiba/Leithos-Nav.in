@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { genSalt, hash } from "bcrypt"
 
 const prisma = new PrismaClient()
@@ -19,7 +19,7 @@ export async function createUser (req, res){
       type
     }
   })
-  res.send({
+  res.status(200).send({
     createUser
   })
 }
@@ -31,5 +31,7 @@ export async function getUserProfile(req, res) {
       id: id
     }
   })
-  res.json(userProfile)
+  res.status(200).send({
+    userProfile
+  })
 }

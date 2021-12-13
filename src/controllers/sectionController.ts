@@ -1,11 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import { checkIfSectionIdExist } from "../error/bedsErrorHandler";
+import { checkIfSectionIdExist, checkPatient } from "../error/bedsErrorHandler";
+import { checkSection } from "../error/sectionErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createSection(req, res) {
   const {id} = req.body
   try {
+    if (await checkSection(id)){
+      res.status(403).send({
+        error: "Section alredy exist"
+      })
+      return
+    }
     const section = await prisma.section.create({
       data:{
         id: id
@@ -38,7 +45,7 @@ export async function getBedsFromASection(req, res){
   const { id } = req.params
   try {
     if(await checkIfSectionIdExist(id)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Cannot find Section ID'
       })
       return
@@ -75,12 +82,14 @@ export async function getAvailableBedsfromAllSections(req, res){
   }
 }
 
+// Hi i'm Eder Marques i CANNOT STAND THIS UGLY CODE KKKKKKKKK
+
 export async function getAllBedStatsQuantityFromASection(req, res){
   const { id } = req.params
 
   try {
     if(await checkIfSectionIdExist(id)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Cannot find section ID'
       })
       return

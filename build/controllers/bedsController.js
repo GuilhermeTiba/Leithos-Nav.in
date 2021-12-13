@@ -10,13 +10,13 @@ async function createBeds(req, res) {
     try {
         const uuid = await (0, uuid_1.v4)();
         if (await (0, bedsErrorHandler_1.bedNameValidator)(name)) {
-            res.status(400).send({
+            res.status(403).send({
                 error: 'Bed name already exists'
             });
             return;
         }
         if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(section)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Section does not exist'
             });
             return;
@@ -165,19 +165,19 @@ exports.updateBedFunc = updateBedFunc;
 async function updateBed(req, res) {
     const { id, status, section, name, type } = req.body;
     if (await (0, bedsErrorHandler_1.checkIfBedNotExists)(id)) {
-        res.status(400).send({
+        res.status(404).send({
             error: 'Bed ID does not exist'
         });
         return;
     }
     if (await (0, bedsErrorHandler_1.bedNameValidator)(name)) {
-        res.status(400).send({
+        res.status(403).send({
             error: 'Bed name already exists'
         });
         return;
     }
     if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(section)) {
-        res.status(400).send({
+        res.status(404).send({
             error: 'Section ID does not exist'
         });
         return;

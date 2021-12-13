@@ -11,14 +11,14 @@ export async function createBeds(req, res) {
     const uuid = await uuidv4()
 
     if(await bedNameValidator(name)){
-      res.status(400).send({
+      res.status(403).send({
         error : 'Bed name already exists'
       })
       return
     }
     
     if(await checkIfSectionIdExist(section)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Section does not exist'
       })
       return
@@ -183,7 +183,7 @@ export async function updateBed(req, res){
   const { id, status, section, name, type} = req.body
 
   if(await checkIfBedNotExists(id)){
-    res.status(400).send({
+    res.status(404).send({
       error : 'Bed ID does not exist'
 
     })
@@ -191,7 +191,7 @@ export async function updateBed(req, res){
   }
 
   if(await bedNameValidator(name)){
-    res.status(400).send({
+    res.status(403).send({
       error : 'Bed name already exists'
 
     })
@@ -199,7 +199,7 @@ export async function updateBed(req, res){
   }
 
   if(await checkIfSectionIdExist(section)){
-    res.status(400).send({
+    res.status(404).send({
       error : 'Section ID does not exist'
     })
     return
@@ -236,6 +236,9 @@ export async function deleteBed(req, res){
     }
    
   })
+  res.send({
+    deleteBed   
+  })
 
  }catch (error){
    res.status(404).send({
@@ -243,16 +246,10 @@ export async function deleteBed(req, res){
    })
 
  }
-  
- 
-
- 
-     
+      
 }
   
-  
-  
-
+   
 export async function getBedsPercentage(req, res){
   try{
     const availableBedsQuantity = await getAvailableBedsQuantity()

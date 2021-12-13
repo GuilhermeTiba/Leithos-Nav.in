@@ -41,7 +41,7 @@ async function getBedsFromASection(req, res) {
     const { id } = req.params;
     try {
         if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(id)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Cannot find Section ID'
             });
             return;
@@ -82,7 +82,7 @@ async function getAllBedStatsQuantityFromASection(req, res) {
     const { id } = req.params;
     try {
         if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(id)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Cannot find section ID'
             });
             return;
