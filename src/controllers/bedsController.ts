@@ -56,7 +56,7 @@ export async function createBeds(req, res) {
         createHistoric
       })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -207,7 +207,7 @@ export async function updateBed(req, res){
 
   const updateBed = await updateBedFunc(id, status, section, name, type)
 
-  res.send({
+  res.status(200).send({
     updateBed
   })
 }

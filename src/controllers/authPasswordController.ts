@@ -17,7 +17,10 @@ export async function checkUserCredencials (req, res, next){
     if(await compare(password, findUserPassword.password)){
       const accessToken = generateAccessToken({ email })
       const refreshToken = generateRefreshToken({ email })
-      res.json({ accessToken: accessToken, refreshToken: refreshToken })
+      res.status(200).send({ 
+        accessToken: accessToken,
+         refreshToken: refreshToken 
+        })
     } else {
       res.status(405).send('Not Allowed')
     }
