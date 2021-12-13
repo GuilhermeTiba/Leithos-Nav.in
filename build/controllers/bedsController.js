@@ -208,6 +208,9 @@ async function deleteBed(req, res) {
                 id: bedId
             }
         });
+        res.send({
+            deleteBed
+        });
     }
     catch (error) {
         res.status(404).send({

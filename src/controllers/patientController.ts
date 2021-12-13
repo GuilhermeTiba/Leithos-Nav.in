@@ -268,7 +268,7 @@ export async function createPatient(req, res) {
     }
   
     if(await checkIfSsnExists(ssn)){
-      res.status(403).send({
+      res.status(409).send({
         error : 'CPF already exists'
       })
       return
