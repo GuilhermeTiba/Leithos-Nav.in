@@ -20,7 +20,7 @@ async function checkUserCredencials(req, res, next) {
             res.json({ accessToken: accessToken, refreshToken: refreshToken });
         }
         else {
-            res.send('Not Allowed');
+            res.status(405).send('Not Allowed');
         }
     }
     catch (error) {

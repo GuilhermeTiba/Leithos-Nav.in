@@ -268,7 +268,7 @@ export async function createPatient(req, res) {
     }
   
     if(await checkIfSsnExists(ssn)){
-      res.status(400).send({
+      res.status(403).send({
         error : 'CPF already exists'
       })
       return
@@ -282,7 +282,7 @@ export async function createPatient(req, res) {
     }
     
     if(await checkIfBedIsNotAvailable(bedId)){
-      res.status(400).send({
+      res.status(409).send({
         error : 'Bed needs to be Available to insert a patient'
       })
       return
@@ -318,7 +318,7 @@ export async function deletePatient(req, res) {
   
   try {
     if(await patientIdValidator(patientId)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Patient Id does not exist'
       })
       return
@@ -363,7 +363,7 @@ export async function getPatientData(req, res) {
   const { id } = req.params
   try {
     if(await patientIdValidator(id)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Could not find patient ID'
       })
       return
@@ -389,7 +389,7 @@ export async function updatePatientData(req, res) {
   const {first_name, last_name, sex, age, diagnosis, additional_informations, patientId} = req.body
   try {
     if(await patientIdValidator(patientId)){
-      res.status(400).send({
+      res.status(404).send({
         error : 'Patient Id does not exist'
       })
       return
@@ -422,7 +422,7 @@ export async function updatePatientData(req, res) {
         additional_informations
       }
     })
-    res.status(500).send({
+    res.status(200).send({
       updatePatientData
     })      
   } catch (error) {
