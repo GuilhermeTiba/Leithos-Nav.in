@@ -75,6 +75,8 @@ export async function getAvailableBedsfromAllSections(req, res){
   }
 }
 
+// Hi i'm Eder Marques i CANNOT STAND THIS UGLY CODE KKKKKKKKK
+
 export async function getAllBedStatsQuantityFromASection(req, res){
   const { id } = req.params
 
