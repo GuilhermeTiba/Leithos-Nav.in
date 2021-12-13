@@ -1,11 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import { checkIfSectionIdExist } from "../error/bedsErrorHandler";
+import { checkIfSectionIdExist, checkPatient } from "../error/bedsErrorHandler";
+import { checkSection } from "../error/sectionErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createSection(req, res) {
   const {id} = req.body
   try {
+    if (await checkSection(id)){
+      res.status(403).send({
+        error: "Section alredy exist"
+      })
+      return
+    }
     const section = await prisma.section.create({
       data:{
         id: id

@@ -55,19 +55,14 @@ export const checkIfBedNotExists = async (id) => {
 }
 
 export async function checkPatient(bedId){
-
-
   const patient = await prisma.patient.count({
     where: {
       bedId: bedId
     }
-
   })
 
   if (patient > 0) {
-    return true
-    
-   
+    return true  
   }
   return false
 }
