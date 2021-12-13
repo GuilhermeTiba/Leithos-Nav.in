@@ -9,9 +9,9 @@ export const checkIfSectionIdExist = async ( sectionId ) => {
     }
   })
   if(findSection > 0){
-    return true
-  } else {
     return false
+  } else {
+    return true
   }
 }
 
