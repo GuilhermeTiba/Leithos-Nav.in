@@ -237,10 +237,7 @@ export async function deleteBed(req, res){
    
   })
   res.send({
-  
-    deleteBed
-    
-    
+    deleteBed   
   })
 
  }catch (error){
@@ -249,16 +246,10 @@ export async function deleteBed(req, res){
    })
 
  }
-  
- 
-
- 
-     
+      
 }
   
-  
-  
-
+   
 export async function getBedsPercentage(req, res){
   try{
     const availableBedsQuantity = await getAvailableBedsQuantity()
