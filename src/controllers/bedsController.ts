@@ -239,6 +239,12 @@ export async function deleteBed(req, res){
     }
    
   })
+  res.send({
+  
+    deleteBed
+    
+    
+  })
 
  }catch (error){
    res.status(404).send({
