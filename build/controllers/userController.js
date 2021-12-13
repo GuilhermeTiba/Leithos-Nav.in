@@ -18,7 +18,7 @@ async function createUser(req, res) {
             type
         }
     });
-    res.send({
+    res.status(200).send({
         createUser
     });
 }
@@ -30,6 +30,8 @@ async function getUserProfile(req, res) {
             id: id
         }
     });
-    res.json(userProfile);
+    res.status(200).send({
+        userProfile
+    });
 }
 exports.getUserProfile = getUserProfile;

@@ -244,7 +244,7 @@ async function createPatient(req, res) {
             return;
         }
         if (await (0, patientErrorHandler_1.checkIfSsnExists)(ssn)) {
-            res.status(400).send({
+            res.status(403).send({
                 error: 'CPF already exists'
             });
             return;
@@ -256,7 +256,7 @@ async function createPatient(req, res) {
             return;
         }
         if (await (0, bedsErrorHandler_1.checkIfBedIsNotAvailable)(bedId)) {
-            res.status(400).send({
+            res.status(409).send({
                 error: 'Bed needs to be Available to insert a patient'
             });
             return;
@@ -291,7 +291,7 @@ async function deletePatient(req, res) {
     const { patientId, liberationClause } = req.body;
     try {
         if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Patient Id does not exist'
             });
             return;
@@ -333,7 +333,7 @@ async function getPatientData(req, res) {
     const { id } = req.params;
     try {
         if (await (0, patientErrorHandler_1.patientIdValidator)(id)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Could not find patient ID'
             });
             return;
@@ -358,7 +358,7 @@ async function updatePatientData(req, res) {
     const { first_name, last_name, sex, age, diagnosis, additional_informations, patientId } = req.body;
     try {
         if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
-            res.status(400).send({
+            res.status(404).send({
                 error: 'Patient Id does not exist'
             });
             return;
@@ -388,7 +388,7 @@ async function updatePatientData(req, res) {
                 additional_informations
             }
         });
-        res.status(500).send({
+        res.status(200).send({
             updatePatientData
         });
     }

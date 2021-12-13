@@ -14,11 +14,11 @@ export const searchSection = async (req, res) => {
       }
     })
     if(searchSection.length == 0){
-      res.status(200).send({
+      res.status(404).send({
         message : "No section found"
       })
     } else {
-      res.send({
+      res.status(200).send({
         searchSection
       })
     }
@@ -64,7 +64,7 @@ export const searchPatientOrBed = async (req, res) => {
     });
     
     if(searchBed.length == 0 && searchPatient.length == 0){
-      res.status(200).send({
+      res.status(404).send({
         message : 'No bed or patient found'
       })
     }
