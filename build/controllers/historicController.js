@@ -106,7 +106,7 @@ async function getDailyInAndOuts(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -122,7 +122,7 @@ async function getWeeklyInAndOuts(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -138,7 +138,7 @@ async function getMonthlyInAndOuts(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -154,7 +154,7 @@ async function getYearlyInAndOuts(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -174,7 +174,7 @@ const getAverageTimes = async (req, res) => {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: "Server error"
         });
     }

@@ -3,10 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllBedStatsQuantityFromASection = exports.getAvailableBedsfromAllSections = exports.getBedsFromASection = exports.getAllSections = exports.createSection = void 0;
 const client_1 = require("@prisma/client");
 const bedsErrorHandler_1 = require("../error/bedsErrorHandler");
+const sectionErrorHandler_1 = require("../error/sectionErrorHandler");
 const prisma = new client_1.PrismaClient();
 async function createSection(req, res) {
     const { id } = req.body;
     try {
+        if (await (0, sectionErrorHandler_1.checkSection)(id)) {
+            res.status(403).send({
+                error: "Section alredy exist"
+            });
+            return;
+        }
         const section = await prisma.section.create({
             data: {
                 id: id
@@ -17,7 +24,7 @@ async function createSection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -31,7 +38,7 @@ async function getAllSections(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -56,7 +63,7 @@ async function getBedsFromASection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -72,7 +79,7 @@ async function getAvailableBedsfromAllSections(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -103,7 +110,7 @@ async function getAllBedStatsQuantityFromASection(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }

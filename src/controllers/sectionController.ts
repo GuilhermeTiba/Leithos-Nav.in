@@ -1,11 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import { checkIfSectionIdExist } from "../error/bedsErrorHandler";
+import { checkIfSectionIdExist, checkPatient } from "../error/bedsErrorHandler";
+import { checkSection } from "../error/sectionErrorHandler";
 
 const prisma = new PrismaClient();
 
 export async function createSection(req, res) {
   const {id} = req.body
   try {
+    if (await checkSection(id)){
+      res.status(403).send({
+        error: "Section alredy exist"
+      })
+      return
+    }
     const section = await prisma.section.create({
       data:{
         id: id
@@ -15,7 +22,7 @@ export async function createSection(req, res) {
       section
     }) 
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -28,7 +35,7 @@ export async function getAllSections(req, res) {
       allSections
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -53,7 +60,7 @@ export async function getBedsFromASection(req, res){
         bedsPerSection
       })  
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -69,7 +76,7 @@ export async function getAvailableBedsfromAllSections(req, res){
       allBedsFromAllSections
     })
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Server error'
     })
   }
@@ -101,7 +108,7 @@ export async function getAllBedStatsQuantityFromASection(req, res){
         needMaintanenceBedsPerSection
       })   
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }

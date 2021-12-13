@@ -11,7 +11,7 @@ export async function createBeds(req, res) {
     const uuid = await uuidv4()
 
     if(await bedNameValidator(name)){
-      res.status(403).send({
+      res.status(409).send({
         error : 'Bed name already exists'
       })
       return
@@ -262,7 +262,7 @@ export async function getBedsPercentage(req, res){
     })
     }
   catch(error){
-    res.status(500).send({
+    res.status(503).send({
       error : 'Database connection error'
     })
   }
@@ -277,7 +277,7 @@ export async function occupiedBedsQuantity(req, res){
       occupiedBedsQtd
     })  
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error : 'Server error'
     })
   }
@@ -302,7 +302,7 @@ export async function getBedsQuantityPerStatus(req, res){
     })
     
   } catch (error) {
-    res.status(500).send({
+    res.status(503).send({
       error: 'Database connection error'
     })
   }
@@ -315,7 +315,7 @@ export async function allBeds(req, res){
       showAllBeds
     })  
   } catch (error) {
-   res.status(500).send({
+   res.status(503).send({
      error : 'Server error'
    }) 
   }

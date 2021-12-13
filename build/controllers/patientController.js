@@ -244,7 +244,7 @@ async function createPatient(req, res) {
             return;
         }
         if (await (0, patientErrorHandler_1.checkIfSsnExists)(ssn)) {
-            res.status(403).send({
+            res.status(409).send({
                 error: 'CPF already exists'
             });
             return;
@@ -281,7 +281,7 @@ async function createPatient(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -323,7 +323,7 @@ async function deletePatient(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -348,7 +348,7 @@ async function getPatientData(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -393,7 +393,7 @@ async function updatePatientData(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -429,7 +429,7 @@ async function getQuantityPerDiagnosis(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -447,7 +447,7 @@ async function getQuantityPerSex(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -473,7 +473,7 @@ async function getQuantityPerAge(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
