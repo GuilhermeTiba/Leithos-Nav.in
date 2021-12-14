@@ -122,7 +122,7 @@ export const SearchMenuIcon = styled.div`
   font-size: 25px;
   color: #ffffff;
   top: 70px;
-  left: 20px;
+  left: 18px;
   opacity: 1;
   filter: drop-shadow(1px 2px 2px #00000066);
   cursor: pointer;
@@ -149,7 +149,7 @@ export const ButtonWrapp = styled.div`
   justify-content: flex-start;
   margin-bottom: 1.35rem;
   padding-right: 3rem;
-  padding-left: 0.5rem;
+  //padding-left: 0.5rem;
 
   &:hover {
     background: ${({ activeDrop }) =>
@@ -169,7 +169,7 @@ export const DashboardIcon = styled.div`
   width: 20px;
   font-size: 25px;
   top: 110px;
-  left: 20px;
+  left: 18px;
   filter: drop-shadow(1px 2px 2px #00000066);
   cursor: pointer;
   transition: transform 200ms ease-in-out;
@@ -191,7 +191,7 @@ export const SetoresMenuIcon = styled.div`
   width: 20px;
   font-size: 25px;
   top: 150px;
-  left: 20px;
+  left: 18px;
   filter: drop-shadow(1px 2px 2px #00000066);
   cursor: pointer;
   transition: transform 200ms ease-in-out;
@@ -210,7 +210,7 @@ export const PerfilMenuIcon = styled.div`
   padding: 0px;
   color: #ffffff;
   height: 20px;
-  width: 20px;
+  width: 18px;
   font-size: 25px;
   top: ${({ activeDrop }) => (activeDrop ? "309px" : "190px")};
   left: 20px;
@@ -234,7 +234,7 @@ export const LogoutMenuIcon = styled.div`
   width: 20px;
   font-size: 25px;
   top: 450px;
-  left: 20px;
+  left: 18px;
   filter: drop-shadow(1px 2px 2px #00000066);
   cursor: pointer;
   transition: transform 200ms ease-in-out;
@@ -290,4 +290,5 @@ export const DropTitleWrapp = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  padding-left: 0.5rem;
 `;

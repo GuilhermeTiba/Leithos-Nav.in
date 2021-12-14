@@ -12,7 +12,6 @@ import {
   SideBar,
   Logo,
   WrapMenu,
-  Background,
   SearchMenu,
   SearchMenuInput,
   DashboardMenu,

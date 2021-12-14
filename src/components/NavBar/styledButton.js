@@ -37,6 +37,12 @@ export const DashboardBtnDash = styled.div`
   text-align: left;
   font-size: 15px;
   text-decoration: none;
+  background: ${({ active }) =>
+    active
+      ? "transparent linear-gradient(90deg, #6045e291 0%, #ceb9ea45 100%) 0% 0% no-repeat padding-box; width: 132%;"
+      : "none"};
+
+  padding-left: 0.8rem;
 
   &:hover {
     color: #6045e2;
@@ -57,6 +63,7 @@ export const DashboardBtnSector = styled.div`
   transition: transform 200ms ease-in-out;
   text-align: left;
   font-size: 15px;
+  padding-left: 0.8rem;
 
   &:hover {
     color: #6045e2;
@@ -78,6 +85,7 @@ export const DashboardBtnProfile = styled.div`
   transition: transform 200ms ease-in-out;
   text-align: left;
   font-size: 15px;
+  padding-left: 0.8rem;
 
   &:hover {
     color: #6045e2;
