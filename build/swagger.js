@@ -14,7 +14,8 @@ exports.swaggerDocument = {
     "paths": {
         "/login": {
             "post": {
-                "description": "Given JSON, return a Autentication TOKEN",
+                "summary": "Given JSON, return a Autentication TOKEN",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -39,15 +40,13 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "405": {
+                        "description": "The request method is known on the server but is not supported by the target resource."
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["login"],
@@ -61,18 +60,14 @@ exports.swaggerDocument = {
         },
         "/navbar/get-all-sections": {
             "get": {
-                "description": "Return JSON with all the sections",
+                "summary": "Return JSON with all the sections",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["navbar"],
@@ -86,7 +81,8 @@ exports.swaggerDocument = {
         },
         "/navbar/create-section": {
             "post": {
-                "description": "Create a section (need a JSON)",
+                "summary": "Create a section (need a JSON)",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -108,15 +104,13 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["navbar"],
@@ -130,7 +124,8 @@ exports.swaggerDocument = {
         },
         "/navbar/search": {
             "post": {
-                "description": "Given a string, return a Patient or a Bed",
+                "summary": "Given a string, return a Patient or a Bed",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -152,15 +147,13 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["navbar"],
@@ -174,18 +167,17 @@ exports.swaggerDocument = {
         },
         "/section/beds-per-section/{id}": {
             "get": {
-                "description": "Return a JSON with beds in a section",
+                "summary": "Return a JSON with beds in a section",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["section"],
@@ -199,18 +191,17 @@ exports.swaggerDocument = {
         },
         "/section/beds-status-quantity-per-section/{id}": {
             "get": {
-                "description": "Given a section ID, return the beds status quantity",
+                "summary": "Given a section ID, return the beds status quantity",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["section"],
@@ -224,18 +215,17 @@ exports.swaggerDocument = {
         },
         "/section/patient/{id}": {
             "get": {
-                "description": "Return a patient JSON",
+                "summary": "Return a patient JSON",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["section"],
@@ -249,7 +239,8 @@ exports.swaggerDocument = {
         },
         "/section/bed": {
             "post": {
-                "description": "Create a new Bed",
+                "summary": "Create a new Bed",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -277,15 +268,16 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/Conflict"
                     }
                 },
                 "tags": ["section"],
@@ -294,7 +286,8 @@ exports.swaggerDocument = {
                     }]
             },
             "put": {
-                "description": "Update bed (Need JSON)",
+                "summary": "Update bed (Need JSON)",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -319,16 +312,14 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
                 },
                 "tags": ["section"],
                 "servers": [{
@@ -336,19 +327,18 @@ exports.swaggerDocument = {
                     }]
             },
             "delete": {
-                "description": "Delete bed (Need JSON)",
+                "summary": "Delete bed (Need JSON)",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
                 },
                 "tags": ["section"],
                 "servers": [{
@@ -361,7 +351,8 @@ exports.swaggerDocument = {
         },
         "/section/patient": {
             "post": {
-                "description": "Create a new patient (Need JSON)",
+                "summary": "Create a new patient (Need JSON)",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -407,15 +398,16 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequest"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/Conflict"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["section"],
@@ -424,7 +416,8 @@ exports.swaggerDocument = {
                     }]
             },
             "put": {
-                "description": "Update patient (Need JSON)",
+                "summary": "Update patient (Need JSON)",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -449,16 +442,17 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequest"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
+                    },
                 },
                 "tags": ["section"],
                 "servers": [{
@@ -466,19 +460,18 @@ exports.swaggerDocument = {
                     }]
             },
             "delete": {
-                "description": "Delete patient (Need JSON)",
+                "summary": "Delete patient (Need JSON)",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
+                    },
                 },
                 "tags": ["section"],
                 "servers": [{
@@ -491,18 +484,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/beds-percentage-per-status": {
             "get": {
-                "description": "Return a count of beds per status",
+                "summary": "Return a count of beds per status",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -516,18 +505,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/beds-quantity-per-status": {
             "get": {
-                "description": "Auto generated using Swagger Inspector",
+                "summary": "Auto generated using Swagger Inspector",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -541,18 +526,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/patient-quantity-per-diagnosis": {
             "get": {
-                "description": "Return JSON with count of patient per diagnosis",
+                "summary": "Return JSON with count of patient per diagnosis",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -566,18 +547,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/patient-quantity-per-sex": {
             "get": {
-                "description": "Return JSON with count of patient per sex",
+                "summary": "Return JSON with count of patient per sex",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -591,18 +568,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/patient-quantity-per-age": {
             "get": {
-                "description": "Return JSON with count of patient per Age (range)",
+                "summary": "Return JSON with count of patient per Age (range)",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -616,18 +589,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/daily-in-and-outs": {
             "get": {
-                "description": "Return In and Outs for a Day",
+                "summary": "Return In and Outs for a Day",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -641,18 +610,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/weekly-in-and-outs": {
             "get": {
-                "description": "Return In and Outs for a Week",
+                "summary": "Return In and Outs for a Week",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -666,18 +631,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/monthly-in-and-outs": {
             "get": {
-                "description": "Return In and Outs for a Month",
+                "summary": "Return In and Outs for a Month",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -691,18 +652,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/yearly-in-and-outs": {
             "get": {
-                "description": "Return In and Outs for a Year",
+                "summary": "Return In and Outs for a Year",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -716,18 +673,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/beds-quantity-per-status-and-section": {
             "get": {
-                "description": "Return JSON with beds count per status in a section",
+                "summary": "Return JSON with beds count per status in a section",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -741,18 +694,14 @@ exports.swaggerDocument = {
         },
         "/dashboard/average-time-per-funcionality": {
             "get": {
-                "description": "Return JSON with average time per status",
+                "summary": "Return JSON with average time per status",
+                "description": "",
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "503": {
+                        "$ref": "#/components/responses/ServiceUnavailable"
                     }
                 },
                 "tags": ["dashboard"],
@@ -766,7 +715,8 @@ exports.swaggerDocument = {
         },
         "/register": {
             "post": {
-                "description": "Register a new USER (need JSON)",
+                "summary": "Register a new USER (need JSON)",
+                "description": "",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -800,16 +750,8 @@ exports.swaggerDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Auto generated using Swagger Inspector",
-                        "content": {
-                            "application/json; charset=utf-8": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {}
-                            }
-                        }
-                    }
+                        "$ref": "#/components/responses/OK"
+                    },
                 },
                 "tags": ["register"],
                 "servers": [{
@@ -827,6 +769,53 @@ exports.swaggerDocument = {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "Error": {}
+        },
+        "responses": {
+            "OK": {
+                "description": "The request succeeded.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "BadRequest": {
+                "description": "The server couldn't understand the request due to invalid syntax.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "Unauthorized": {
+                "description": "The client must autenticate itself to get the requested response.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "Conflict": {
+                "description": "The request conflicts with the current state of the server.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "Forbidden": {
+                "description": "The client doesn't have acess rights to the content. But the client identity is known to the server.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "NotFound": {
+                "description": "Could not find Id/URL on the server.",
+                "content": {
+                    "application/json": {}
+                }
+            },
+            "ServiceUnavailable": {
+                "description": "Service Error.",
+                "content": {
+                    "application/json": {}
+                }
             }
         }
     },
