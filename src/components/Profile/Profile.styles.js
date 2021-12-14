@@ -54,7 +54,7 @@ export const ProfileDashboardWrapp = styled.div`
   flex-direction: column;
   justify-content: stretch;
   opacity: 0.85;
-  padding-bottom: 3.8rem;
+  padding-bottom: 4rem;
 `;
 
 //FORM PROFILE
@@ -75,11 +75,28 @@ export const ProfilePictureWrapp = styled.div`
 `;
 
 export const ProfilePicture = styled.div`
-  background-color: #dedede;
-  color: #0000004d;
+  color: #dedede;
+  font-size: 110px;
+  z-index: 1;
+`;
+
+export const ProfilePersonPicture = styled.div`
+  position: relative;
+  right: 94px;
+  top: 10px;
   font-size: 80px;
-  border-radius: 100px;
-  padding: 0.6rem 1.3rem;
+  z-index: 2;
+  color: #0000004d;
+`;
+
+export const ProfileCameraPicture = styled.div`
+  color: #6f58dc;
+  position: relative;
+  right: 148px;
+  top: 40px;
+  font-size: 28px;
+  z-index: 3;
+  cursor: pointer;
 `;
 
 export const ProfileFormArea = styled.div`

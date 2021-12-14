@@ -18,8 +18,12 @@ import {
   ProfilePasswordButton2,
   PasswordWrapp,
   ProfileInputPassword,
+  ProfilePersonPicture,
+  ProfileCameraPicture,
 } from "./Profile.styles";
 import { useProfile } from "../../contexts/profileContext";
+import { BsCircleFill } from "react-icons/bs";
+import { IoCamera } from "react-icons/io5";
 
 const ProfileForm = () => {
   const [activePassWord, setActivePassword] = useState(false);
@@ -36,11 +40,32 @@ const ProfileForm = () => {
     setLogin,
     password,
     setPassword,
+    userInfo,
+    setUserInfo,
   } = useProfile();
 
   const handleSave = (e) => {
     e.preventDefault();
-    alert("salvo");
+    if (name || secondName || charge || sector || login || password === "") {
+      alert("Preencha todos os campos!");
+    } else {
+      const user = {
+        name: name,
+        secondName: secondName,
+        charge: charge,
+        sector: sector,
+        login: login,
+        password: password,
+      };
+      setUserInfo([...userInfo, user]);
+      setName("");
+      setSecondName("");
+      setCharge("");
+      setSector("");
+      setLogin("");
+      setPassword("");
+      console.log(userInfo);
+    }
   };
 
   const handlePassword = (e) => {
@@ -51,8 +76,14 @@ const ProfileForm = () => {
     <ProfileFormWrapp>
       <ProfilePictureWrapp>
         <ProfilePicture>
-          <IoIosPerson />
+          <BsCircleFill />
         </ProfilePicture>
+        <ProfilePersonPicture>
+          <IoIosPerson />
+        </ProfilePersonPicture>
+        <ProfileCameraPicture>
+          <IoCamera />
+        </ProfileCameraPicture>
       </ProfilePictureWrapp>
       <ProfileFormArea>
         <ProfileInputField>

@@ -216,6 +216,7 @@ export const IconButton1 = styled.button`
   cursor: pointer;
   font-size: 20px;
   padding-top: 6px;
+  padding-right: 8px;
 `;
 
 export const IconButton2 = styled.button`
@@ -226,6 +227,7 @@ export const IconButton2 = styled.button`
   cursor: pointer;
   font-size: 20px;
   padding-top: 6px;
+  padding-right: 8px;
 `;
 
 export const ButtonSignIn = styled.button`

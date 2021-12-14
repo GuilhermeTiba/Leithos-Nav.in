@@ -11,8 +11,9 @@ const ProfileContext = ({ children }) => {
   const [sector, setSector] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [picture, setPicture] = useState("");
 
-  const [useInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   return (
     <ProfileComponentContext.Provider
       value={{
@@ -28,8 +29,10 @@ const ProfileContext = ({ children }) => {
         setLogin,
         password,
         setPassword,
-        useInfo,
+        userInfo,
         setUserInfo,
+        picture,
+        setPicture,
       }}
     >
       {children}
