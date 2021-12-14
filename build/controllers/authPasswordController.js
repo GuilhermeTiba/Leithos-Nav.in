@@ -17,7 +17,10 @@ async function checkUserCredencials(req, res, next) {
         if (await (0, bcrypt_1.compare)(password, findUserPassword.password)) {
             const accessToken = (0, generateAccessToken_1.generateAccessToken)({ email });
             const refreshToken = (0, generateRefreshToken_1.generateRefreshToken)({ email });
-            res.json({ accessToken: accessToken, refreshToken: refreshToken });
+            res.status(200).send({
+                accessToken: accessToken,
+                refreshToken: refreshToken
+            });
         }
         else {
             res.status(405).send('Not Allowed');

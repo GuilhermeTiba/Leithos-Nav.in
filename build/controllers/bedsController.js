@@ -52,7 +52,7 @@ async function createBeds(req, res) {
         });
     }
     catch (error) {
-        res.status(500).send({
+        res.status(503).send({
             error: 'Server error'
         });
     }
@@ -183,7 +183,7 @@ async function updateBed(req, res) {
         return;
     }
     const updateBed = await (0, exports.updateBedFunc)(id, status, section, name, type);
-    res.send({
+    res.status(200).send({
         updateBed
     });
 }

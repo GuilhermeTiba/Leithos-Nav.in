@@ -275,7 +275,7 @@ async function createPatient(req, res) {
             },
         });
         const updateBedStatus = await (0, bedsController_1.updateBedFunc)(bedId, 'OCCUPIED');
-        res.send({
+        res.status(200).send({
             createPatient,
             updateBedStatus
         });

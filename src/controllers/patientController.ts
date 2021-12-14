@@ -302,7 +302,7 @@ export async function createPatient(req, res) {
     })
   const updateBedStatus = await updateBedFunc(bedId, 'OCCUPIED')
 
-    res.send({
+    res.status(200).send({
       createPatient,
       updateBedStatus
     })      
