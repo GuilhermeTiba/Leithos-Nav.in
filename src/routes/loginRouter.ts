@@ -1,8 +1,10 @@
-import { Router } from "express";
-import { checkUserCredencials } from "../controllers/authPasswordController";
+/* eslint-disable import/no-import-module-exports */
+import { Router } from 'express';
+
+const { checkUserCredencials } = require('../controllers/authPasswordController.ts');
 
 const router = Router();
 
-router.post('/', checkUserCredencials)
+router.post('/', checkUserCredencials);
 
-module.exports = router
+module.exports = router;

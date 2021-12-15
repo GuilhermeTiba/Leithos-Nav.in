@@ -14,9 +14,9 @@ async function getPatientIn(timeRange) {
             newBedStatus: 'OCCUPIED',
             newDate: {
                 gte: initialTimestamp,
-                lte: endTimestamp
-            }
-        }
+                lte: endTimestamp,
+            },
+        },
     });
     return dailyIn;
 }
@@ -30,69 +30,69 @@ async function getPatientOut(timeRange) {
             lastBedStatus: 'OCCUPIED',
             newDate: {
                 gte: initialTimestamp,
-                lte: endTimestamp
-            }
-        }
+                lte: endTimestamp,
+            },
+        },
     });
     return dailyOut;
 }
 const minuteAverageCleaningTimefunc = async () => {
     const averageCleaningTime = await prisma.bedHistoric.aggregate({
         _avg: {
-            timeDifference: true
+            timeDifference: true,
         },
         where: {
-            lastBedStatus: 'CLEANING'
-        }
+            lastBedStatus: 'CLEANING',
+        },
     });
     return Math.round(averageCleaningTime._avg.timeDifference / 60000);
 };
 const minuteAverageMaintanenceTimefunc = async () => {
     const averageMaintanenceTime = await prisma.bedHistoric.aggregate({
         _avg: {
-            timeDifference: true
+            timeDifference: true,
         },
         where: {
-            lastBedStatus: 'MAINTANENCE'
-        }
+            lastBedStatus: 'MAINTANENCE',
+        },
     });
     return Math.round(averageMaintanenceTime._avg.timeDifference / 60000);
 };
 const minuteAverageResponseTimefunc = async () => {
     const averageResponseTime = await prisma.bedHistoric.aggregate({
         _avg: {
-            timeDifference: true
+            timeDifference: true,
         },
         where: {
             OR: [
                 {
                     lastBedStatus: 'CLEANING_NEEDED',
-                    newBedStatus: 'CLEANING'
+                    newBedStatus: 'CLEANING',
                 },
                 {
                     lastBedStatus: 'MAINTANENCE_NEEDED',
-                    newBedStatus: 'MAINTANENCE'
-                }
-            ]
-        }
+                    newBedStatus: 'MAINTANENCE',
+                },
+            ],
+        },
     });
     return Math.round(averageResponseTime._avg.timeDifference / 60000);
 };
 const minuteAverageOccupiedTimefunc = async () => {
     const averageOccupiedTime = await prisma.bedHistoric.aggregate({
         _avg: {
-            timeDifference: true
+            timeDifference: true,
         },
         where: {
-            lastBedStatus: 'OCCUPIED'
-        }
+            lastBedStatus: 'OCCUPIED',
+        },
     });
     return Math.round(averageOccupiedTime._avg.timeDifference / 60000);
 };
 async function getAllHistoric(req, res) {
     const allHistoric = await prisma.bedHistoric.findMany();
     res.send({
-        allHistoric
+        allHistoric,
     });
 }
 exports.getAllHistoric = getAllHistoric;
@@ -107,7 +107,7 @@ async function getDailyInAndOuts(req, res) {
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -118,12 +118,12 @@ async function getWeeklyInAndOuts(req, res) {
         const weeklyOut = await getPatientOut(7);
         res.status(200).send({
             weeklyIn,
-            weeklyOut
+            weeklyOut,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -134,12 +134,12 @@ async function getMonthlyInAndOuts(req, res) {
         const monthlyOut = await getPatientOut(30);
         res.status(200).send({
             monthlyIn,
-            monthlyOut
+            monthlyOut,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -150,12 +150,12 @@ async function getYearlyInAndOuts(req, res) {
         const yearlyOut = await getPatientOut(365);
         res.status(200).send({
             yearlyIn,
-            yearlyOut
+            yearlyOut,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -170,12 +170,12 @@ const getAverageTimes = async (req, res) => {
             averageCleaningTime,
             averageResponseTime,
             averageOccupiedTime,
-            averageMaintanenceTime
+            averageMaintanenceTime,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: "Server error"
+            error: 'Server error',
         });
     }
 };

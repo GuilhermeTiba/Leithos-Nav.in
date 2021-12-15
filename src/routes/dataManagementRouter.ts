@@ -1,11 +1,13 @@
-import { Router } from "express";
-import { allBeds, deleteBed } from "../controllers/bedsController";
-import { getAllHistoric } from "../controllers/historicController";
-import { authenticateToken } from "../middleware/authenticateToken";
+// eslint-disable-next-line import/no-import-module-exports
+import { Router } from 'express';
+
+const { allBeds } = require('../controllers/bedsController.ts');
+const { getAllHistoric } = require('../controllers/historicController.ts');
+const { authenticateToken } = require('../middleware/authenticateToken.ts');
 
 const router = Router();
 
-router.get('/allbeds', authenticateToken, allBeds)
-router.get('/allhistoric', authenticateToken, getAllHistoric)
+router.get('/allbeds', authenticateToken, allBeds);
+router.get('/allhistoric', authenticateToken, getAllHistoric);
 
-module.exports = router
+module.exports = router;

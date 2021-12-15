@@ -3,36 +3,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.allBeds = exports.getBedsQuantityPerStatus = exports.occupiedBedsQuantity = exports.getBedsPercentage = exports.deleteBed = exports.updateBed = exports.updateBedFunc = exports.getBedStatus = exports.createBeds = void 0;
 const client_1 = require("@prisma/client");
 const uuid_1 = require("uuid");
-const bedsErrorHandler_1 = require("../error/bedsErrorHandler");
+const { checkPatient, bedNameValidator, checkIfSectionIdExist, checkIfBedNotExists, } = require('../error/bedsErrorHandler.ts');
 const prisma = new client_1.PrismaClient();
 async function createBeds(req, res) {
     const { name, type, section } = req.body;
     try {
         const uuid = await (0, uuid_1.v4)();
-        if (await (0, bedsErrorHandler_1.bedNameValidator)(name)) {
+        if (await bedNameValidator(name)) {
             res.status(409).send({
-                error: 'Bed name already exists'
+                error: 'Bed name already exists',
             });
             return;
         }
-        if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(section)) {
+        if (await checkIfSectionIdExist(section)) {
             res.status(404).send({
-                error: 'Section does not exist'
+                error: 'Section does not exist',
             });
             return;
         }
         const createBed = await prisma.beds.create({
             data: {
                 id: uuid,
-                name: name,
-                type: type,
-                sectionId: section
-            }
+                name,
+                type,
+                sectionId: section,
+            },
         });
         const findBed = await prisma.beds.findUnique({
             where: {
-                id: uuid
-            }
+                id: uuid,
+            },
         });
         const now = new Date().getTime();
         const lastTime = findBed.status_changed_date.getTime();
@@ -43,17 +43,17 @@ async function createBeds(req, res) {
                 lastBedStatus: findBed.status,
                 newBedStatus: 'AVAILABLE',
                 lastModifiedDate: findBed.status_changed_date,
-                timeDifference: timeDifference
-            }
+                timeDifference,
+            },
         });
         res.status(200).send({
             createBed,
-            createHistoric
+            createHistoric,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -61,48 +61,48 @@ exports.createBeds = createBeds;
 async function getAvailableBedsQuantity() {
     const availableBedsQuantity = await prisma.beds.count({
         where: {
-            status: 'AVAILABLE'
-        }
+            status: 'AVAILABLE',
+        },
     });
     return availableBedsQuantity;
 }
 async function getOccupiedBedsQuantity() {
     const occupiedBedsQuantity = await prisma.beds.count({
         where: {
-            status: 'OCCUPIED'
-        }
+            status: 'OCCUPIED',
+        },
     });
     return occupiedBedsQuantity;
 }
 async function getCleaningBedsQuantity() {
     const cleaningBeds = await prisma.beds.count({
         where: {
-            status: 'CLEANING'
-        }
+            status: 'CLEANING',
+        },
     });
     return cleaningBeds;
 }
 async function getNeedCleaningBedsQuantity() {
     const needCleaningBeds = await prisma.beds.count({
         where: {
-            status: 'CLEANING_NEEDED'
-        }
+            status: 'CLEANING_NEEDED',
+        },
     });
     return needCleaningBeds;
 }
 async function getMaintanenceBedsQuantity() {
     const maintanenceBeds = await prisma.beds.count({
         where: {
-            status: 'MAINTANENCE'
-        }
+            status: 'MAINTANENCE',
+        },
     });
     return maintanenceBeds;
 }
 async function getNeedMaintanenceBedsQuantity() {
     const needMaintanenceBeds = await prisma.beds.count({
         where: {
-            status: 'MAINTANENCE_NEEDED'
-        }
+            status: 'MAINTANENCE_NEEDED',
+        },
     });
     return needMaintanenceBeds;
 }
@@ -114,107 +114,106 @@ async function getBedStatus(req, res) {
     const { id } = req.body;
     const getBedStatus = await prisma.beds.findUnique({
         where: {
-            id: id
+            id,
         },
     });
     res.send({
-        getBedStatus
+        getBedStatus,
     });
 }
 exports.getBedStatus = getBedStatus;
 const updateBedFunc = async (id, status, section, name, type) => {
     const findBed = await prisma.beds.findUnique({
         where: {
-            id: id
-        }
+            id,
+        },
     });
-    if (findBed.status != "AVAILABLE" && status == "OCCUPIED") {
-        return { Error: "Bed needs to be available to make this change." };
+    if (findBed.status !== 'AVAILABLE' && status === 'OCCUPIED') {
+        return { Error: 'Bed needs to be available to make this change.' };
     }
-    else {
-        const now = new Date().getTime();
-        const lastTime = findBed.status_changed_date.getTime();
-        const timeDifference = now - lastTime;
-        const createHistoric = await prisma.bedHistoric.create({
-            data: {
-                bedsId: id,
-                lastBedStatus: findBed.status,
-                newBedStatus: status,
-                lastModifiedDate: findBed.status_changed_date,
-                timeDifference: timeDifference
-            }
-        });
-        const updateBedStatus = await prisma.beds.update({
-            where: {
-                id: id
-            },
-            data: {
-                status: status,
-                sectionId: section,
-                name: name,
-                type: type
-            }
-        });
-        return {
-            updateBedStatus: updateBedStatus,
-            createHistoric: createHistoric
-        };
-    }
+    const now = new Date().getTime();
+    const lastTime = findBed.status_changed_date.getTime();
+    const timeDifference = now - lastTime;
+    const createHistoric = await prisma.bedHistoric.create({
+        data: {
+            bedsId: id,
+            lastBedStatus: findBed.status,
+            newBedStatus: status,
+            lastModifiedDate: findBed.status_changed_date,
+            timeDifference,
+        },
+    });
+    const updateBedStatus = await prisma.beds.update({
+        where: {
+            id,
+        },
+        data: {
+            status,
+            sectionId: section,
+            name,
+            type,
+        },
+    });
+    return {
+        updateBedStatus,
+        createHistoric,
+    };
 };
 exports.updateBedFunc = updateBedFunc;
 async function updateBed(req, res) {
-    const { id, status, section, name, type } = req.body;
-    if (await (0, bedsErrorHandler_1.checkIfBedNotExists)(id)) {
+    const { id, status, section, name, type, } = req.body;
+    if (await checkIfBedNotExists(id)) {
         res.status(404).send({
-            error: 'Bed ID does not exist'
+            error: 'Bed ID does not exist',
         });
         return;
     }
-    if (await (0, bedsErrorHandler_1.bedNameValidator)(name)) {
+    if (await bedNameValidator(name) && name !== undefined) {
         res.status(403).send({
-            error: 'Bed name already exists'
+            error: 'Bed name already exists',
         });
         return;
     }
-    if (await (0, bedsErrorHandler_1.checkIfSectionIdExist)(section)) {
+    if (await checkIfSectionIdExist(section)) {
         res.status(404).send({
-            error: 'Section ID does not exist'
+            error: 'Section ID does not exist',
         });
         return;
     }
     const updateBed = await (0, exports.updateBedFunc)(id, status, section, name, type);
     res.status(200).send({
-        updateBed
+        updateBed,
     });
 }
 exports.updateBed = updateBed;
 async function deleteBed(req, res) {
     const { bedId } = req.body;
-    if (await (0, bedsErrorHandler_1.checkPatient)(bedId)) {
+    if (await checkPatient(bedId)) {
         res.status = 403;
         res.send({
-            error: "Leito Ocuppaded"
+            error: 'Leito Ocuppaded',
         });
         return;
     }
     try {
         const deleteBedHistoric = await prisma.bedHistoric.deleteMany({
             where: {
-                bedsId: bedId
-            }
+                bedsId: bedId,
+            },
         });
         const deleteBed = await prisma.beds.delete({
             where: {
-                id: bedId
-            }
+                id: bedId,
+            },
         });
         res.send({
-            deleteBed
+            deleteBed,
+            deleteBedHistoric,
         });
     }
     catch (error) {
         res.status(404).send({
-            error: "Bed Not found"
+            error: 'Bed Not found',
         });
     }
 }
@@ -227,12 +226,12 @@ async function getBedsPercentage(req, res) {
         res.status(200).send({
             availableBedsQuantity,
             occupiedBedsQuantity,
-            getAllBedsQuantity
+            getAllBedsQuantity,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Database connection error'
+            error: 'Database connection error',
         });
     }
 }
@@ -241,12 +240,12 @@ async function occupiedBedsQuantity(req, res) {
     try {
         const occupiedBedsQtd = await getOccupiedBedsQuantity();
         res.status(200).send({
-            occupiedBedsQtd
+            occupiedBedsQtd,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -265,12 +264,12 @@ async function getBedsQuantityPerStatus(req, res) {
             cleaningBedsQtd,
             needCleaningBedsQtd,
             maintanenceBedsQtd,
-            needMaintanenceBedsQtd
+            needMaintanenceBedsQtd,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Database connection error'
+            error: 'Database connection error',
         });
     }
 }
@@ -279,12 +278,12 @@ async function allBeds(req, res) {
     try {
         const showAllBeds = await getAllBeds();
         res.status(200).send({
-            showAllBeds
+            showAllBeds,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }

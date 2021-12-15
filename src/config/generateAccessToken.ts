@@ -1,5 +1,6 @@
-import {sign} from "jsonwebtoken"
+/* eslint-disable import/prefer-default-export */
+import { sign } from 'jsonwebtoken';
 
-export function generateAccessToken (email){
-  return sign(email, process.env.ACCESS_TOKEN_SECRET, {expiresIn : '1800s'})
-}
+export const generateAccessToken = (email : string) => {
+  return sign(email, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' });
+};

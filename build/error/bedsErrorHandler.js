@@ -2,68 +2,60 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkPatient = exports.checkIfBedNotExists = exports.checkIfBedIsNotAvailable = exports.bedNameValidator = exports.checkIfSectionIdExist = void 0;
 const client_1 = require(".prisma/client");
-const prisma = new client_1.PrismaClient;
+const prisma = new client_1.PrismaClient();
 const checkIfSectionIdExist = async (sectionId) => {
     const findSection = await prisma.section.count({
         where: {
-            id: sectionId
-        }
+            id: sectionId,
+        },
     });
     if (findSection > 0) {
         return false;
     }
-    else {
-        return true;
-    }
+    return true;
 };
 exports.checkIfSectionIdExist = checkIfSectionIdExist;
 const bedNameValidator = async (name) => {
     const findName = await prisma.beds.count({
         where: {
-            name: name
-        }
+            name,
+        },
     });
     if (findName > 0) {
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 };
 exports.bedNameValidator = bedNameValidator;
 const checkIfBedIsNotAvailable = async (id) => {
     const findBed = await prisma.beds.findUnique({
         where: {
-            id: id
-        }
+            id,
+        },
     });
-    if (findBed.status == 'AVAILABLE') {
+    if (findBed.status === 'AVAILABLE') {
         return false;
     }
-    else {
-        return true;
-    }
+    return true;
 };
 exports.checkIfBedIsNotAvailable = checkIfBedIsNotAvailable;
 const checkIfBedNotExists = async (id) => {
     const findBed = await prisma.beds.count({
         where: {
-            id: id
-        }
+            id,
+        },
     });
     if (findBed > 0) {
         return false;
     }
-    else {
-        return true;
-    }
+    return true;
 };
 exports.checkIfBedNotExists = checkIfBedNotExists;
 async function checkPatient(bedId) {
     const patient = await prisma.patient.count({
         where: {
-            bedId: bedId
-        }
+            bedId,
+        },
     });
     if (patient > 0) {
         return true;

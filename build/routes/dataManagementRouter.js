@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// eslint-disable-next-line import/no-import-module-exports
 const express_1 = require("express");
-const bedsController_1 = require("../controllers/bedsController");
-const historicController_1 = require("../controllers/historicController");
-const authenticateToken_1 = require("../middleware/authenticateToken");
+const { allBeds } = require('../controllers/bedsController.ts');
+const { getAllHistoric } = require('../controllers/historicController.ts');
+const { authenticateToken } = require('../middleware/authenticateToken.ts');
 const router = (0, express_1.Router)();
-router.get('/allbeds', authenticateToken_1.authenticateToken, bedsController_1.allBeds);
-router.get('/allhistoric', authenticateToken_1.authenticateToken, historicController_1.getAllHistoric);
+router.get('/allbeds', authenticateToken, allBeds);
+router.get('/allhistoric', authenticateToken, getAllHistoric);
 module.exports = router;

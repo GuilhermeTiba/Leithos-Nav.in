@@ -1,82 +1,81 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export const searchSection = async (req, res) => {
-  const { id } = req.body
+  const { id } = req.body;
 
   try {
     const searchSection = await prisma.section.findMany({
-      where:{
-        id:{
-          startsWith: id
-        }
-      }
-    })
-    if(searchSection.length == 0){
+      where: {
+        id: {
+          startsWith: id,
+        },
+      },
+    });
+    if (searchSection.length === 0) {
       res.status(404).send({
-        message : "No section found"
-      })
+        message: 'No section found',
+      });
     } else {
       res.status(200).send({
-        searchSection
-      })
+        searchSection,
+      });
     }
   } catch (error) {
     res.status(503).send({
-      error : 'Server error'
-    })
+      error: 'Server error',
+    });
   }
-}
+};
 
 export const searchPatientOrBed = async (req, res) => {
-  const { searchString } = req.body
+  const { searchString } = req.body;
 
   try {
     const searchPatient = await prisma.patient.findMany({
-      where:{
-        OR:[
+      where: {
+        OR: [
           {
-            first_name:{
-              startsWith: searchString
+            first_name: {
+              startsWith: searchString,
             },
           },
           {
-            last_name:{
-              startsWith: searchString
-            }
+            last_name: {
+              startsWith: searchString,
+            },
           },
           {
-            ssn:{
-              startsWith: searchString
-            }
-          }
-        ]
-      },
-    });
-  
-    const searchBed = await prisma.beds.findMany({
-      where:{
-          name:{
-            startsWith: searchString
+            ssn: {
+              startsWith: searchString,
+            },
           },
+        ],
       },
     });
-    
-    if(searchBed.length == 0 && searchPatient.length == 0){
+
+    const searchBed = await prisma.beds.findMany({
+      where: {
+        name: {
+          startsWith: searchString,
+        },
+      },
+    });
+
+    if (searchBed.length === 0 && searchPatient.length === 0) {
       res.status(404).send({
-        message : 'No bed or patient found'
-      })
-    }
-    else{
+        message: 'No bed or patient found',
+      });
+    } else {
       res.status(200).send({
         searchPatient,
-        searchBed
-      })
+        searchBed,
+      });
     }
   } catch (error) {
     res.status(503).send({
-      error : 'Server error'
-    })
+      error: 'Server error',
+    });
   }
-}
+};

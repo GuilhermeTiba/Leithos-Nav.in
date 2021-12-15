@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// eslint-disable-next-line import/no-import-module-exports
 const express_1 = require("express");
-const userController_1 = require("../controllers/userController");
+const { createUser } = require('../controllers/userController.ts');
 const router = (0, express_1.Router)();
-router.post('/', userController_1.createUser);
+router.post('/', createUser);
 module.exports = router;

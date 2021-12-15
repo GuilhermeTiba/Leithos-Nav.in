@@ -9,24 +9,24 @@ const searchSection = async (req, res) => {
         const searchSection = await prisma.section.findMany({
             where: {
                 id: {
-                    startsWith: id
-                }
-            }
+                    startsWith: id,
+                },
+            },
         });
-        if (searchSection.length == 0) {
+        if (searchSection.length === 0) {
             res.status(404).send({
-                message: "No section found"
+                message: 'No section found',
             });
         }
         else {
             res.status(200).send({
-                searchSection
+                searchSection,
             });
         }
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 };
@@ -39,44 +39,44 @@ const searchPatientOrBed = async (req, res) => {
                 OR: [
                     {
                         first_name: {
-                            startsWith: searchString
+                            startsWith: searchString,
                         },
                     },
                     {
                         last_name: {
-                            startsWith: searchString
-                        }
+                            startsWith: searchString,
+                        },
                     },
                     {
                         ssn: {
-                            startsWith: searchString
-                        }
-                    }
-                ]
+                            startsWith: searchString,
+                        },
+                    },
+                ],
             },
         });
         const searchBed = await prisma.beds.findMany({
             where: {
                 name: {
-                    startsWith: searchString
+                    startsWith: searchString,
                 },
             },
         });
-        if (searchBed.length == 0 && searchPatient.length == 0) {
+        if (searchBed.length === 0 && searchPatient.length === 0) {
             res.status(404).send({
-                message: 'No bed or patient found'
+                message: 'No bed or patient found',
             });
         }
         else {
             res.status(200).send({
                 searchPatient,
-                searchBed
+                searchBed,
             });
         }
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 };

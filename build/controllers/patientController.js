@@ -1,19 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getQuantityPerAge = exports.getQuantityPerSex = exports.getQuantityPerDiagnosis = exports.updatePatientData = exports.getPatientData = exports.deletePatient = exports.createPatient = void 0;
+/* eslint-disable camelcase */
 const client_1 = require("@prisma/client");
 const uuid_1 = require("uuid");
-const bedsErrorHandler_1 = require("../error/bedsErrorHandler");
-const patientErrorHandler_1 = require("../error/patientErrorHandler");
-const bedsController_1 = require("./bedsController");
+const { checkIfBedIsNotAvailable } = require('../error/bedsErrorHandler.ts');
+const { updateBedFunc } = require('./bedsController.ts');
+const { checkIfSsnExists, checkValidName, patientIdValidator, patientSsnValidator, } = require('../error/patientErrorHandler.ts');
 const prisma = new client_1.PrismaClient();
 async function getNeurologyDiagnosisQuantity() {
     const neurologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'NEUROLOGY'
-            }
-        }
+                has: 'NEUROLOGY',
+            },
+        },
     });
     return neurologyDiagnosisQtd;
 }
@@ -21,9 +22,9 @@ async function getCardiologyDiagnosisQuantity() {
     const CardiologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'CARDIOLOGY'
-            }
-        }
+                has: 'CARDIOLOGY',
+            },
+        },
     });
     return CardiologyDiagnosisQtd;
 }
@@ -31,9 +32,9 @@ async function getPneumologyDiagnosisQuantity() {
     const pnemumologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'PNEUMOLOGY'
-            }
-        }
+                has: 'PNEUMOLOGY',
+            },
+        },
     });
     return pnemumologyDiagnosisQtd;
 }
@@ -41,9 +42,9 @@ async function getOncologyDiagnosisQuantity() {
     const oncologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'ONCOLOGY'
-            }
-        }
+                has: 'ONCOLOGY',
+            },
+        },
     });
     return oncologyDiagnosisQtd;
 }
@@ -51,9 +52,9 @@ async function getOrthopedicsDiagnosisQuantity() {
     const orthopedicsDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'ORTHOPEDICS'
-            }
-        }
+                has: 'ORTHOPEDICS',
+            },
+        },
     });
     return orthopedicsDiagnosisQtd;
 }
@@ -61,9 +62,9 @@ async function getNephrologyDiagnosisQuantity() {
     const nephrologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'NEPHROLOGY'
-            }
-        }
+                has: 'NEPHROLOGY',
+            },
+        },
     });
     return nephrologyDiagnosisQtd;
 }
@@ -71,9 +72,9 @@ async function getEndocrinologyDiagnosisQuantity() {
     const endocrinologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'ENDOCRINOLOGY'
-            }
-        }
+                has: 'ENDOCRINOLOGY',
+            },
+        },
     });
     return endocrinologyDiagnosisQtd;
 }
@@ -81,9 +82,9 @@ async function getPalliativeCareDiagnosisQuantity() {
     const palliativeCareDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'PALLIATIVE_CARE'
-            }
-        }
+                has: 'PALLIATIVE_CARE',
+            },
+        },
     });
     return palliativeCareDiagnosisQtd;
 }
@@ -91,9 +92,9 @@ async function getInfectologyDiagnosisQuantity() {
     const infectologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'INFECTOLOGY'
-            }
-        }
+                has: 'INFECTOLOGY',
+            },
+        },
     });
     return infectologyDiagnosisQtd;
 }
@@ -101,9 +102,9 @@ async function getGenicologyDiagnosisQuantity() {
     const genicologyDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'GENICOLOGY'
-            }
-        }
+                has: 'GENICOLOGY',
+            },
+        },
     });
     return genicologyDiagnosisQtd;
 }
@@ -111,9 +112,9 @@ async function getCovidDiagnosisQuantity() {
     const covidDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'COVID'
-            }
-        }
+                has: 'COVID',
+            },
+        },
     });
     return covidDiagnosisQtd;
 }
@@ -121,33 +122,33 @@ async function getOtherDiagnosisQuantity() {
     const otherDiagnosisQtd = await prisma.patient.count({
         where: {
             diagnosis: {
-                has: 'OTHER'
-            }
-        }
+                has: 'OTHER',
+            },
+        },
     });
     return otherDiagnosisQtd;
 }
 async function getMaleSexQuantity() {
     const maleQtd = await prisma.patient.count({
         where: {
-            sex: 'MALE'
-        }
+            sex: 'MALE',
+        },
     });
     return maleQtd;
 }
 async function getFemaleSexQuantity() {
     const femaleQtd = await prisma.patient.count({
         where: {
-            sex: 'FEMALE'
-        }
+            sex: 'FEMALE',
+        },
     });
     return femaleQtd;
 }
 async function getOtherSexQuantity() {
     const otherQtd = await prisma.patient.count({
         where: {
-            sex: 'OTHER'
-        }
+            sex: 'OTHER',
+        },
     });
     return otherQtd;
 }
@@ -156,9 +157,9 @@ async function getQuantityPerAge0_2() {
         where: {
             age: {
                 gte: 0,
-                lte: 2
-            }
-        }
+                lte: 2,
+            },
+        },
     });
     return ageRange0_2;
 }
@@ -167,9 +168,9 @@ async function getQuantityPerAge3_11() {
         where: {
             age: {
                 gte: 3,
-                lte: 11
-            }
-        }
+                lte: 11,
+            },
+        },
     });
     return ageRange3_11;
 }
@@ -178,9 +179,9 @@ async function getQuantityPerAge12_19() {
         where: {
             age: {
                 gte: 12,
-                lte: 19
-            }
-        }
+                lte: 19,
+            },
+        },
     });
     return ageRange12_19;
 }
@@ -189,9 +190,9 @@ async function getQuantityPerAge20_49() {
         where: {
             age: {
                 gte: 20,
-                lte: 49
-            }
-        }
+                lte: 49,
+            },
+        },
     });
     return ageRange20_49;
 }
@@ -200,9 +201,9 @@ async function getQuantityPerAge50_69() {
         where: {
             age: {
                 gte: 50,
-                lte: 69
-            }
-        }
+                lte: 69,
+            },
+        },
     });
     return ageRange50_69;
 }
@@ -211,9 +212,9 @@ async function getQuantityPerAge70_89() {
         where: {
             age: {
                 gte: 70,
-                lte: 89
-            }
-        }
+                lte: 89,
+            },
+        },
     });
     return ageRange70_89;
 }
@@ -222,42 +223,42 @@ async function getQuantityPerAge90plus() {
         where: {
             age: {
                 gte: 90,
-            }
-        }
+            },
+        },
     });
     return ageRange90plus;
 }
 async function createPatient(req, res) {
-    const { age, sex, first_name, last_name, ssn, additional_informations, bedId, diagnosis } = req.body;
+    const { age, sex, first_name, last_name, ssn, additional_informations, bedId, diagnosis, } = req.body;
     const uuid = await (0, uuid_1.v4)();
     try {
-        if ((0, patientErrorHandler_1.checkValidName)(first_name) || (0, patientErrorHandler_1.checkValidName)(last_name)) {
+        if (checkValidName(first_name) || checkValidName(last_name)) {
             res.status(400).send({
-                error: 'Name cannot contain special characters or numbers'
+                error: 'Name cannot contain special characters or numbers',
             });
             return;
         }
-        if (!(0, patientErrorHandler_1.patientSsnValidator)(ssn)) {
+        if (!patientSsnValidator(ssn)) {
             res.status(400).send({
-                error: 'Invalid CPF'
+                error: 'Invalid CPF',
             });
             return;
         }
-        if (await (0, patientErrorHandler_1.checkIfSsnExists)(ssn)) {
+        if (await checkIfSsnExists(ssn)) {
             res.status(409).send({
-                error: 'CPF already exists'
+                error: 'CPF already exists',
             });
             return;
         }
-        if (isNaN(age)) {
+        if (Number.isNaN(age)) {
             res.status(400).send({
-                error: 'Age needs to be a number'
+                error: 'Age needs to be a number',
             });
             return;
         }
-        if (await (0, bedsErrorHandler_1.checkIfBedIsNotAvailable)(bedId)) {
+        if (await checkIfBedIsNotAvailable(bedId)) {
             res.status(409).send({
-                error: 'Bed needs to be Available to insert a patient'
+                error: 'Bed needs to be Available to insert a patient',
             });
             return;
         }
@@ -271,18 +272,18 @@ async function createPatient(req, res) {
                 ssn,
                 diagnosis,
                 additional_informations,
-                bedId: bedId
+                bedId,
             },
         });
-        const updateBedStatus = await (0, bedsController_1.updateBedFunc)(bedId, 'OCCUPIED');
+        const updateBedStatus = await updateBedFunc(bedId, 'OCCUPIED');
         res.status(200).send({
             createPatient,
-            updateBedStatus
+            updateBedStatus,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -290,16 +291,16 @@ exports.createPatient = createPatient;
 async function deletePatient(req, res) {
     const { patientId, liberationClause } = req.body;
     try {
-        if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
+        if (await patientIdValidator(patientId)) {
             res.status(404).send({
-                error: 'Patient Id does not exist'
+                error: 'Patient Id does not exist',
             });
             return;
         }
         const findPatient = await prisma.patient.findUnique({
             where: {
-                id: patientId
-            }
+                id: patientId,
+            },
         });
         const createPatientHistoric = await prisma.patientHistoric.create({
             data: {
@@ -309,22 +310,22 @@ async function deletePatient(req, res) {
                 ssn: findPatient.ssn,
                 diagnosis: findPatient.diagnosis,
                 additional_informations: findPatient.additional_informations,
-                liberationClause: liberationClause
-            }
+                liberationClause,
+            },
         });
         const deletePatient = await prisma.patient.delete({
             where: {
-                id: patientId
-            }
+                id: patientId,
+            },
         });
         res.status(200).send({
             createPatientHistoric,
-            deletePatient
+            deletePatient,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -332,52 +333,52 @@ exports.deletePatient = deletePatient;
 async function getPatientData(req, res) {
     const { id } = req.params;
     try {
-        if (await (0, patientErrorHandler_1.patientIdValidator)(id)) {
+        if (await patientIdValidator(id)) {
             res.status(404).send({
-                error: 'Could not find patient ID'
+                error: 'Could not find patient ID',
             });
             return;
         }
         const patientData = await prisma.patient.findUnique({
             where: {
-                id: id
+                id,
             },
         });
         res.status(200).send({
-            patientData
+            patientData,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
 exports.getPatientData = getPatientData;
 async function updatePatientData(req, res) {
-    const { first_name, last_name, sex, age, diagnosis, additional_informations, patientId } = req.body;
+    const { first_name, last_name, sex, age, diagnosis, additional_informations, patientId, } = req.body;
     try {
-        if (await (0, patientErrorHandler_1.patientIdValidator)(patientId)) {
+        if (await patientIdValidator(patientId)) {
             res.status(404).send({
-                error: 'Patient Id does not exist'
+                error: 'Patient Id does not exist',
             });
             return;
         }
-        if ((0, patientErrorHandler_1.checkValidName)(first_name) || (0, patientErrorHandler_1.checkValidName)(last_name)) {
+        if (checkValidName(first_name) || checkValidName(last_name)) {
             res.status(400).send({
-                error: 'Name cannot contain special characters or numbers'
+                error: 'Name cannot contain special characters or numbers',
             });
             return;
         }
-        if (isNaN(age)) {
+        if (Number.isNaN(age)) {
             res.status(400).send({
-                error: 'Age needs to be a number'
+                error: 'Age needs to be a number',
             });
             return;
         }
         const updatePatientData = await prisma.patient.update({
             where: {
-                id: patientId
+                id: patientId,
             },
             data: {
                 first_name,
@@ -385,16 +386,16 @@ async function updatePatientData(req, res) {
                 sex,
                 age,
                 diagnosis,
-                additional_informations
-            }
+                additional_informations,
+            },
         });
         res.status(200).send({
-            updatePatientData
+            updatePatientData,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -425,12 +426,12 @@ async function getQuantityPerDiagnosis(req, res) {
             infectologyQtd,
             genicologyQtd,
             covidQtd,
-            otherQtd
+            otherQtd,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -443,12 +444,12 @@ async function getQuantityPerSex(req, res) {
         res.status(200).send({
             maleQtd,
             femaleQtd,
-            otherQtd
+            otherQtd,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }
@@ -469,12 +470,12 @@ async function getQuantityPerAge(req, res) {
             ageRange20_49,
             ageRange50_69,
             ageRange70_89,
-            ageRange90plus
+            ageRange90plus,
         });
     }
     catch (error) {
         res.status(503).send({
-            error: 'Server error'
+            error: 'Server error',
         });
     }
 }

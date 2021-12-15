@@ -1,8 +1,12 @@
-import { Router } from "express";
-import { createBeds, deleteBed, updateBed } from "../controllers/bedsController";
-import { createPatient, deletePatient, getPatientData, updatePatientData } from "../controllers/patientController";
-import { getAllBedStatsQuantityFromASection, getBedsFromASection } from "../controllers/sectionController";
-import { authenticateToken } from "../middleware/authenticateToken";
+// eslint-disable-next-line import/no-import-module-exports
+import { Router } from 'express';
+
+const { createBeds, deleteBed, updateBed } = require('../controllers/bedsController.ts');
+const {
+  createPatient, deletePatient, getPatientData, updatePatientData,
+} = require('../controllers/patientController.ts');
+const { getAllBedStatsQuantityFromASection, getBedsFromASection } = require('../controllers/sectionController.ts');
+const { authenticateToken } = require('../middleware/authenticateToken.ts');
 
 const router = Router();
 
@@ -16,7 +20,7 @@ router.post('/patient', authenticateToken, createPatient);
 router.put('/bed', authenticateToken, updateBed);
 router.put('/patient', authenticateToken, updatePatientData);
 
-router.delete('/bed', authenticateToken, deleteBed)
-router.delete('/patient', authenticateToken, deletePatient)
+router.delete('/bed', authenticateToken, deleteBed);
+router.delete('/patient', authenticateToken, deletePatient);
 
-module.exports = router
+module.exports = router;
