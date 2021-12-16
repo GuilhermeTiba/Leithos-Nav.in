@@ -13,6 +13,7 @@ import { BsFillGearFill } from "react-icons/bs";
 import { ImBlocked } from "react-icons/im";
 import { useCount } from "../../contexts/countContext";
 import { useNecessary } from "../../contexts/necessaryInfoContext";
+import { useSectorBackEnd } from "../../contexts/sectorBackendContext";
 
 const SectorData = () => {
   const {
@@ -31,8 +32,12 @@ const SectorData = () => {
   } = useCount();
 
   const { listLeitos, showPopUpInfoPatient } = useNecessary();
+  const { getBedsSection, data } = useSectorBackEnd();
 
   useEffect(() => {
+    // getBedsSection("PEDIATRY");
+    // console.log(data);
+
     setCountDispo(
       listLeitos.filter((item) => item.status === "Disponível").length
     );

@@ -325,6 +325,7 @@ export const PopUpInput = styled.input`
   height: 30px;
   outline: none;
   padding-left: 15px;
+  color: #707070;
 `;
 
 export const PopUpInputSelect = styled.select`
@@ -335,10 +336,12 @@ export const PopUpInputSelect = styled.select`
   height: 38px;
   padding-left: 15px;
   outline: none;
+  color: #707070;
 `;
 
 export const SelectOption = styled.option`
   height: 30px;
+  color: #707070;
 `;
 
 export const PopUpButtons = styled.div`
@@ -844,6 +847,7 @@ export const PopUpTextArea = styled.textarea`
   padding: 15px 15px;
   max-height: 120px;
   resize: none;
+  color: #707070;
 `;
 
 //POPUP SUCCESFULLY DELETED

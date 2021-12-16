@@ -134,6 +134,7 @@ export const ProfileInput = styled.input`
   outline: none;
   padding-left: 15px;
   font-size: 15px;
+  color: #707070;
 `;
 
 export const ProfileSelect = styled.select`
